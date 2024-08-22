@@ -1,0 +1,78 @@
+<div [ngClass]="mainThemeClass">
+  <div class="pageName-headerDiv">
+    <mat-card class="tagus-card p-0 pb-25 dark-theme-bg">
+      <mat-card-header>
+        <div>
+          <!-- <h5 class="mb-0" [ngClass]="mainThemeClass!='' ? 'theme-text-color': ''"> Approver Page</h5> -->
+        </div>
+        <div class="d-flex justify-content-space-between">
+          <!-- <button (click)="location.back()" mat-raised-button class="gray">Back</button> -->
+
+          <button (click)="location.back()" mat-flat-button class="gray white-color mt-10 me-15">
+            Cancel
+          </button>
+
+          <button *ngIf="IsApproverView" mat-stroked-button class="mt-10 me-15 text-white"
+            [ngClass]="[mainThemeClass!='' ? 'dialog-save-btn': 'text-bg-info']" (click)="approveRequest()">Approve
+          </button>
+
+          <button *ngIf="IsApproverView" (click)="rejectRequest()" mat-flat-button
+            class="mt-10 me-15 custom-gray-bg text-white">
+            Reject
+          </button>
+        </div>
+      </mat-card-header>
+    </mat-card>
+  </div>
+
+  <mat-card class="mb-25 tagus-card">
+    <mat-card-header class="overflow-auto" *ngIf="recordName">
+      <div>
+        <h5 class="mb-0" [ngClass]="mainThemeClass!='' ? 'theme-text-color': ''"> Name: {{recordName}}</h5>
+      </div>
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <div class="mat-elevation-z8   tagus-mat-table overflow-auto">
+        <table (matSortChange)="announceSortChange($event)" mat-table [dataSource]="dataList" matSort #versionTableList>
+
+          <!-- Column Name -->
+          <ng-container matColumnDef="Column Name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="ColumnName">Column Name</th>
+            <td mat-cell *matCellDef="let element">{{element.ColumnName}}</td>
+          </ng-container>
+
+          <!-- Old Value -->
+          <ng-container matColumnDef="Old Value">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="OldValue">Old Value</th>
+            <td mat-cell *matCellDef="let element">{{element.OldValue}}</td>
+          </ng-container>
+
+          <!-- New Value -->
+          <ng-container matColumnDef="New Value">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="NewValue">New Value</th>
+            <td mat-cell *matCellDef="let element">{{element.NewValue}}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="example-element-row"
+            (click)="selectedRowIndex = row.position"
+            [ngClass]="{'highlightTableColor': selectedRowIndex == row.position}"></tr>
+
+        </table>
+
+        <div class="fw-bold no-records text-center" *ngIf="dataList && dataList.length==0">
+          No Records Found
+        </div>
+
+      </div>
+      <div class="text-end bg-white border-top-radius"
+        *ngIf="totalRecords !== 0 && totalRecords !== null && totalRecords>10">
+
+        <mat-paginator (page)="handlePage($event)" [pageSize]="PageSize" [pageSizeOptions]="[10, 15, 20, 25, 100]"
+          [length]="totalRecords" [showFirstLastButtons]="true"></mat-paginator>
+      </div>
+
+    </mat-card-content>
+  </mat-card>

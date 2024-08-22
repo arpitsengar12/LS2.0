@@ -1,0 +1,104 @@
+.button-group {
+    display: flex;
+    align-items: center;
+    white-space: nowrap; /* Prevent wrapping of the buttons */
+  }
+  
+  .button {
+    margin-left: 15px; /* Adjust as needed for spacing */
+    background-color: cornflowerblue;
+    color: white;
+  }
+  .border{
+    border-color: #007bff;
+  }
+  /* Optional: Ensure the card has no border or shadow */
+  .tagus-card {
+ border: 2px solid red;
+ margin-top: 10px;
+  }
+  
+  .dark-theme-bg {
+    background-color: #333; /* Example background color */
+  }
+  
+  .theme-text-color {
+    color: #fff; /* Example text color */
+  }
+  
+  .headingcolor{
+    color: #06a3dc;
+  }
+
+
+  /* Container for the file input */
+.file-upload-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* Space between label and input */
+  
+}
+
+/* Style the label */
+.file-label {
+  font-weight: bold;
+  color: #333; /* Dark grey for label text */
+  cursor: pointer; /* Indicates clickable area */
+}
+
+/* Style the file input */
+.file-input {
+  border: 1px solid #ccc; /* Light border for input */
+  padding: 0.8rem; /* Padding inside the input */
+  border-radius: 4px; /* Rounded corners */
+  background-color: #f9f9f9; /* Light background color */
+  width: 100%; /* Full width of the container */
+}
+
+/* Optional: Style for when a file is selected */
+.file-input:focus {
+  border-color: #007bff; /* Highlight border color on focus */
+  outline: none; /* Remove default focus outline */
+}
+
+/* Style for the date picker input field */
+.mat-form-field .mat-input-element {
+  color: #333; /* Text color inside the input field */
+}
+
+/* Style for the date picker calendar popup */
+.mat-calendar {
+  border: 1px solid #007bff; /* Border color for the calendar */
+  border-radius: 4px; /* Rounded corners for the calendar */
+}
+
+/* Style for the date picker header */
+.mat-calendar-header {
+  background-color: #007bff; /* Background color for the header */
+  color: white; /* Text color in the header */
+}
+
+/* Style for selected date */
+.mat-calendar-body-selected {
+  background-color: #007bff; /* Background color for selected date */
+  color: white; /* Text color for selected date */
+}
+
+/* Style for date cell on hover */
+.mat-calendar-body-cell:hover {
+  background-color: #e3f2fd; /* Light blue background on hover */
+}
+
+/* Style for date cell */
+.mat-calendar-body-cell {
+  color: #333; /* Text color for the dates */
+}
+
+/* Style for the date picker toggle button */
+.mat-datepicker-toggle {
+  color: #007bff; /* Icon color for the date picker toggle button */
+}
+
+
+
+  

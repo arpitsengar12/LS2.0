@@ -1,0 +1,145 @@
+<div [ngClass]="mainThemeClass">
+  <div class="pageName-headerDiv">
+    <mat-card class="p-0 dark-theme-bg tagus-card">
+      <mat-card-header class="m-0 d-flex">
+        <div>
+          <h5 class="mb-0" [ngClass]="mainThemeClass!='' ? 'theme-text-color': 'blue'">Cities</h5>
+          <div class="d-flex">
+            <span class="material-symbols-outlined cursor-pointer">
+              west
+            </span><app-breadcrumb class="ms-10 mt-3"></app-breadcrumb>
+          </div>
+        </div>
+      </mat-card-header>
+    </mat-card>         
+  </div>      
+  <mat-card class="mb-25 tagus-card">
+    <mat-card-header class="">
+      <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-4 button-group">
+        <h5 class="mb-0">Expense Claim List</h5>
+        <button mat-button class="button custom-button">Add New Claim</button>
+      </div>
+      <div class="text-end d-flex justify-content-end">
+        <div class="d-flex border-radius searchBox-border">
+          <div class="d-flex background-white searchFilterDivNew">
+            <form class="search-box position-relative d-inline-flex m-15">
+              <input type="text" class="input-search d-block background-white" placeholder="Search here.." (input)="applyFilter($event)">
+              <button type="submit"><i class="ri-search-line"></i></button>
+              <button type="button" class="clear-button" (click)="applyFilter($event)">
+                <i class="ri-close-line"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </mat-card-header>
+    <div class="mat-elevation-z8 tagus-mat-table overflow-auto mt-20">
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    
+        <!-- Row ID Column -->
+        <ng-container matColumnDef="RowID">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Row ID </th>
+          <td mat-cell *matCellDef="let element"> {{element.RowID}} </td>
+        </ng-container>
+    
+        <!-- Act Column -->
+        <ng-container matColumnDef="Act">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Act </th>
+          <td mat-cell *matCellDef="let element"> {{element.Act}} </td>
+        </ng-container>
+    
+        <!-- Submtd On Column -->
+        <ng-container matColumnDef="SubmtdOn">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Submtd On </th>
+          <td mat-cell *matCellDef="let element"> {{element.SubmtdOn}} </td>
+        </ng-container>
+    
+        <!-- Invoice No Column -->
+        <ng-container matColumnDef="InvoiceNo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Invoice No </th>
+          <td mat-cell *matCellDef="let element"> {{element.InvoiceNo}} </td>
+        </ng-container>
+    
+        <!-- Type Column -->
+        <ng-container matColumnDef="Type">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
+          <td mat-cell *matCellDef="let element"> {{element.Type}} </td>
+        </ng-container>
+    
+        <!-- Inv Amt Column -->
+        <ng-container matColumnDef="InvAmt">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Inv Amt </th>
+          <td mat-cell *matCellDef="let element"> {{element.InvAmt}} </td>
+        </ng-container>
+    
+        <!-- Inv Date Column -->
+        <ng-container matColumnDef="InvDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Inv Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.InvDate}} </td>
+        </ng-container>
+    
+        <!-- Department Column -->
+        <ng-container matColumnDef="Department">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Department </th>
+          <td mat-cell *matCellDef="let element"> {{element.Department}} </td>
+        </ng-container>
+    
+        <!-- From Date Column -->
+        <ng-container matColumnDef="FromDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> From Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.FromDate}} </td>
+        </ng-container>
+    
+        <!-- To Date Column -->
+        <ng-container matColumnDef="ToDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> To Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.ToDate}} </td>
+        </ng-container>
+    
+        <!-- Pay To Column -->
+        <ng-container matColumnDef="PayTo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Pay To </th>
+          <td mat-cell *matCellDef="let element"> {{element.PayTo}} </td>
+        </ng-container>
+    
+        <!-- Remark Column -->
+        <ng-container matColumnDef="Remark">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Remark </th>
+          <td mat-cell *matCellDef="let element"> {{element.Remark}} </td>
+        </ng-container>
+    
+        <!-- Status Column -->
+        <ng-container matColumnDef="Status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+          <td mat-cell *matCellDef="let element"> {{element.Status}} </td>
+        </ng-container>
+    
+        <!-- Chq No Column -->
+        <ng-container matColumnDef="ChqNo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Chq No </th>
+          <td mat-cell *matCellDef="let element"> {{element.ChqNo}} </td>
+        </ng-container>
+    
+        <!-- Chq Date Column -->
+        <ng-container matColumnDef="ChqDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Chq Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.ChqDate}} </td>
+        </ng-container>
+    
+        <!-- Chq Amt Column -->
+        <ng-container matColumnDef="ChqAmt">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Chq Amt </th>
+          <td mat-cell *matCellDef="let element"> {{element.ChqAmt}} </td>
+        </ng-container>
+    
+        <!-- Table Row -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    
+      <!-- Paginator -->
+      <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+    </div>
+    
+  </mat-card>
+</div>

@@ -1,0 +1,713 @@
+<div [ngClass]="mainThemeClass">
+  <div class="pageName-headerDiv">
+    <mat-card class="tagus-card p-0 pb-25 dark-theme-bg">
+      <mat-card-header class="m-0">
+        <div>
+          <h5 class="mb-0" [ngClass]="mainThemeClass!='' ? 'theme-text-color': ''">Account Details</h5>
+          <div class="d-flex">
+            <span class="material-symbols-outlined cursor-pointer" (click)="location.back()">
+              west
+            </span><app-breadcrumb class="ms-10 mt-3"></app-breadcrumb>
+          </div>
+        </div>
+      </mat-card-header>
+    </mat-card>
+  </div>
+
+  <mat-card class="mb-25 tagus-card">
+    <div class="position-relative">
+      <div class="mb-15  h-100">
+        <mat-accordion class="example-headers-align" multi class="form-expansion-panel">
+          <mat-expansion-panel class="box-shadow-none expansion-bottom-border" [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{selectedClientData.ClientName}}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="position-relative">
+              <div class="row p-15 mt-10">
+                <div class="col-3 custom-right-gray-border">
+                  <div class="d-flex align-items-center mb-15">
+                    <h6 class="m-0">Phone :</h6>
+                    <p class="ms-15">{{selectedClientData.Mobile1}}</p>
+                  </div>
+
+                  <div class="d-flex align-items-center mb-15">
+                    <h6 class="m-0">Email :</h6>
+                    <p class="ms-15"> {{selectedClientData.EmailId1}}</p>
+                  </div>
+
+                  <div class="d-flex align-items-center mb-15">
+                    <h6 class="m-0">Address :</h6>
+                    <p class="ms-15"> {{selectedClientData.AccountAddress}}</p>
+                  </div>
+                </div>
+
+                <div class="col-3 custom-right-gray-border ps-30">
+                  <div class="d-flex align-items-center mb-15">
+                    <h6 class="m-0">Quotation Date :</h6>
+                    <p class="ms-15">{{selectedClientData.QuotnDate}} </p>
+                  </div>
+
+                  <div class="d-flex align-items-center mb-15">
+                    <h6 class="m-0">FMS :</h6>
+                    <p class="ms-15">{{ClientOtherData.FMS}} </p>
+                  </div>
+
+                  <div class="d-flex align-items-center mb-15">
+                    <h6 class="m-0">LR :</h6>
+                    <p class="ms-15">{{ClientOtherData.LR}} </p>
+                  </div>
+                </div>
+
+                <div class="col-3 custom-right-gray-border ps-30">
+                  <div class="d-flex align-items-center mb-15">
+                    <h6 class="m-0">Credit Score :</h6>
+                    <p class="ms-15">{{ClientOtherData.CreditScore}} </p>
+                  </div>
+
+                  <div class="d-flex align-items-center mb-15">
+                    <h6 class="m-0">Total Credit :</h6>
+                    <p class="ms-15">{{ClientOtherData.TotalCredit}} </p>
+                  </div>
+
+                  <div class="d-flex align-items-center mb-15">
+                    <h6 class="m-0">RV :</h6>
+                    <p class="ms-15"> {{selectedClientData.RV}}</p>
+                  </div>
+                </div>
+
+                <div class="col-3 ps-30">
+                  <div class="d-flex align-items-center mb-15">
+                    <h6 class="m-0">Status :</h6>
+                    <p class="ms-15"> {{selectedClientData.Status}}</p>
+                  </div>
+
+                  <div class="d-flex align-items-center mb-15">
+                    <h6 class="m-0">Profit :</h6>
+                    <p class="ms-15">{{selectedClientData.Profit}} </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
+    <mat-card-header class="overflow-auto">
+      <div class="col-xxl-3 colxl-3 col-lg-3 col-md-4">
+        <h5 class="mb-0">Client Modules</h5>
+      </div>
+      <div class="text-end d-flex justify-content-end">
+        <div *ngIf="clientOfficeTabSelected" class="tagus-form-group without-icon ms-20 col-5 me-20 mt-3">
+          <ng-select dropdownPosition="bottom" [placeholder]="!filterAllBtnClicked ? 'Filter' : ''" #NgfilterDropdown
+            (window:scroll)="NgfilterDropdown.close()" class="dropdown filterDropdown" bindLabel="filterName"
+            (change)="COfficeIsSearch=true;COfficeFilterApplied($event);filterAllBtnClicked=true;"
+            bindValue="filterName" [items]="OtherFilterList" [appendTo]="'body'"
+            (clear)="COfficeIsSearch=false;filterAllBtnClicked=false;GetAllClientsOffices()"
+            [ngClass]="NgfilterDropdown.hasValue || NgfilterDropdown.isOpen?'placeholder-padding':''">
+          </ng-select>
+        </div>
+
+        <div class="d-flex border-radius searchBox-border">
+
+          <!-- <div *ngIf="GOCTabSelected" class="d-flex background-white"
+            [ngClass]="!NgfilterDropdown.hasValue?'searchFilterDiv-withoutTextInput':'searchFilterDiv'">
+
+            <div class="tagus-form-group without-icon me-5 bottom-field"
+              [ngClass]="!NgfilterDropdown.hasValue?'col-12':'col-5'">
+              <ng-select dropdownPosition="bottom" [placeholder]="!GOCfilterBtnClicked ? 'Filter' : ''"
+                #NgfilterDropdown (window:scroll)="NgfilterDropdown.close()" class="dropdown filterDropdown"
+                bindLabel="filterName" (change)="IsSearch = true;filterApplied($event);GOCfilterBtnClicked=true;" bindValue="filterName"
+                [items]="GOCfilterList" [appendTo]="'body'"
+                (clear)="this.GOCsearchText='';GOCIsSearch=false;GOCfilterBtnClicked=false;GetAllGroupOfCompanies()"
+                [ngClass]="NgfilterDropdown.hasValue || NgfilterDropdown.isOpen?'placeholder-padding':''">
+              </ng-select>
+              <hr class="vertical-divider mt-15">
+              <form class="search-box position-relative d-inline-flex m-15">
+                <input type="text" class="input-search d-block background-white" placeholder="Search here.."
+                  [(ngModel)]="GOCsearchText" [ngModelOptions]="{standalone: true}"
+                  (keyup)="SearchFilterApplied()">
+                <button type="submit"><i class="ri-search-line"></i></button>
+                <button *ngIf="GOCsearchText.length>0" type="button" class="clear-button"
+                  (click)="GOCsearchText='';filterApplied(selectedFilter)">
+                  <i class="ri-close-line"></i>
+                </button>
+              </form>
+            </div>
+          </div> -->
+
+          <!-- <div *ngIf="clientOfficeTabSelected" class="d-flex background-white"
+            [ngClass]="!NgfilterDropdown.hasValue?'searchFilterDiv-withoutTextInput':'searchFilterDiv'">
+
+            <div class="tagus-form-group without-icon me-5 bottom-field"
+              [ngClass]="!NgfilterDropdown.hasValue?'col-12':'col-5'">
+              <ng-select dropdownPosition="bottom" [placeholder]="!COfficefilterBtnClicked ? 'Filter' : ''"
+                #NgfilterDropdown (window:scroll)="NgfilterDropdown.close()" class="dropdown filterDropdown"
+                bindLabel="filterName" (change)="COfficeFilterApplied($event);COfficefilterBtnClicked=true;"
+                bindValue="filterName" [items]="COfficefilterList" [appendTo]="'body'"
+                (clear)="this.COfficesearchText='';COfficeIsSearch=false;COfficefilterBtnClicked=false;GetAllClientsOffices()"
+                [ngClass]="NgfilterDropdown.hasValue || NgfilterDropdown.isOpen?'placeholder-padding':''">
+              </ng-select>
+            </div>
+            <hr class="vertical-divider mt-15" *ngIf="NgfilterDropdown.hasValue">
+            <form class="search-box position-relative d-inline-flex m-15" *ngIf="NgfilterDropdown.hasValue">
+              <input type="text" class="input-search d-block background-white" placeholder="Search here.."
+                [(ngModel)]="COfficesearchText" [ngModelOptions]="{standalone: true}"
+                (keyup)="COfficeSearchFilterApplied()">
+              <button type="submit"><i class="ri-search-line"></i></button>
+              <button *ngIf="COfficesearchText.length>0" type="button" class="clear-button"
+                (click)="COfficesearchText='';COfficeIsSearch=false;GetAllClientsOffices()">
+                <i class="ri-close-line"></i>
+              </button>
+            </form>
+
+          </div>
+
+          <div *ngIf="UserDriverTabSelected" class="d-flex background-white"
+            [ngClass]="!NgfilterDropdown.hasValue?'searchFilterDiv-withoutTextInput':'searchFilterDiv'">
+            <div class="tagus-form-group without-icon me-5 bottom-field"
+              [ngClass]="!NgfilterDropdown.hasValue?'col-12':'col-5'">
+              <ng-select dropdownPosition="bottom" [placeholder]="!DriverfilterBtnClicked ? 'Filter' : ''"
+                #NgfilterDropdown (window:scroll)="NgfilterDropdown.close()" class="dropdown filterDropdown"
+                bindLabel="filterName"
+                (change)="DriverIsSearch=true;UserDriverFilterApplied($event);DriverfilterBtnClicked=true;"
+                bindValue="filterName" [items]="DriverfilterList" [appendTo]="'body'"
+                (clear)="this.DriversearchText='';DriverIsSearch=false;DriverfilterBtnClicked=false;getAllUserAndDrivers()"
+                [ngClass]="NgfilterDropdown.hasValue || NgfilterDropdown.isOpen?'placeholder-padding':''">
+              </ng-select>
+            </div>
+            <hr class="vertical-divider mt-15" *ngIf="NgfilterDropdown.hasValue">
+
+            <form class="search-box position-relative d-inline-flex m-15" *ngIf="NgfilterDropdown.hasValue">
+              <input type="text" class="input-search d-block background-white" placeholder="Search here.."
+                [(ngModel)]="DriversearchText" [ngModelOptions]="{standalone: true}"
+                (keyup)="DriverSearchFilterApplied()">
+              <button type="submit"><i class="ri-search-line"></i></button>
+              <button *ngIf="DriversearchText.length>0" type="button" class="clear-button"
+                (click)="DriversearchText='';DriverIsSearch=false;getAllUserAndDrivers()">
+                <i class="ri-close-line"></i>
+              </button>
+            </form>
+          </div> -->
+
+          <div class="d-flex background-white searchFilterDivNew">
+
+            <form *ngIf="clientOfficeTabSelected" class="search-box position-relative d-inline-flex m-15">
+              <input type="text" class="input-search d-block background-white" placeholder="Search here.."
+                [(ngModel)]="COfficesearchText" [ngModelOptions]="{standalone: true}"
+                (keyup)="COfficeSearchFilterApplied()">
+              <button type="submit"><i class="ri-search-line"></i></button>
+              <button *ngIf="COfficesearchText.length>0" type="button" class="clear-button"
+                (click)="COfficesearchText='';COfficeIsSearch=false;GetAllClientsOffices()">
+                <i class="ri-close-line"></i>
+              </button>
+            </form>
+
+            <form *ngIf="UserDriverTabSelected" class="search-box position-relative d-inline-flex m-15">
+              <input type="text" class="input-search d-block background-white" placeholder="Search here.."
+                [(ngModel)]="DriversearchText" [ngModelOptions]="{standalone: true}"
+                (keyup)="DriverSearchFilterApplied()">
+              <button type="submit"><i class="ri-search-line"></i></button>
+              <button *ngIf="DriversearchText.length>0" type="button" class="clear-button"
+                (click)="DriversearchText='';DriverIsSearch=false;getAllUserAndDrivers()">
+                <i class="ri-close-line"></i>
+              </button>
+            </form>
+
+          </div>
+
+        </div>
+
+        <!-- <button *ngIf="GOCTabSelected" mat-flat-button color="primary" class="bg-theme-color ms-20"
+          (click)="GOCIsSearch=true;GOCPageNumber=0;GetAllGroupOfCompanies()">Search</button>
+
+        <button *ngIf="clientOfficeTabSelected" mat-flat-button color="primary" class="bg-theme-color ms-20"
+          (click)="COfficeIsSearch=true;COfficePageNumber=0;GetAllClientsOffices()">Search</button>
+
+        <button *ngIf="UserDriverTabSelected" mat-flat-button color="primary" class="bg-theme-color ms-20"
+          (click)="DriverIsSearch=true;DriverPageNumber=0;getAllUserAndDrivers()">Search</button> -->
+      </div>
+    </mat-card-header>
+
+    <mat-card-content class="custom-drop-shadow tab-header">
+      <mat-card class="tagus-card p-0">
+        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" (selectedTabChange)="tabClick($event)"
+          [selectedIndex]="selectedtab" class="tab-group-2">
+
+          <!-- <mat-tab>
+            <ng-template mat-tab-label class="shadow-md">
+              <b>Group Of Companies</b>
+            </ng-template>
+            <div class="pt-30 pe-30 ps-30 pb-15 mat-tab-div-first-tab">
+              <div class="d-flex justify-content-end mb-20">
+                <button mat-flat-button color="primary" class="me-15" (click)="openAddGOC()"
+                  [disabled]="!isAddAccess"
+                  [ngClass]="[mainThemeClass!='' ? 'dialog-save-btn': 'text-bg-info',isAddAccess?'text-white':'']">
+                  <div class="d-flex align-items-center">
+                    <span class="material-symbols-outlined me-5">
+                      add
+                    </span>
+                    <span>Add</span>
+                  </div>
+                </button>
+              </div>
+
+              <div class="mat-elevation-z8   tagus-mat-table overflow-auto">
+                <table mat-table [dataSource]="groupNameList">
+
+                  <ng-container matColumnDef="GroupName">
+                    <th mat-header-cell *matHeaderCellDef>Group Name</th>
+                    <td mat-cell *matCellDef="let element">{{element.GOCName}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="CityName">
+                    <th mat-header-cell *matHeaderCellDef>City</th>
+                    <td mat-cell *matCellDef="let element">
+                      {{element.CityName}}
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="OfficeAddress">
+                    <th mat-header-cell *matHeaderCellDef>Office Address</th>
+                    <td mat-cell *matCellDef="let element">{{element.Address1}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="CP1">
+                    <th mat-header-cell *matHeaderCellDef matTooltip="Contact Person 1">CP 1</th>
+                    <td mat-cell *matCellDef="let element">{{element.ConPerson1}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="CP2">
+                    <th mat-header-cell *matHeaderCellDef matTooltip="Contact Person 2">CP 2</th>
+                    <td mat-cell *matCellDef="let element">{{element.ConPerson2}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="Mobile1">
+                    <th mat-header-cell *matHeaderCellDef>Mobile 1</th>
+                    <td mat-cell *matCellDef="let element">{{element.Mobile1}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="Mobile2">
+                    <th mat-header-cell *matHeaderCellDef>Mobile 2</th>
+                    <td mat-cell *matCellDef="let element">{{element.Mobile2}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="Email1">
+                    <th mat-header-cell *matHeaderCellDef>Email 1</th>
+                    <td mat-cell *matCellDef="let element">{{element.EmailId1}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="Email2">
+                    <th mat-header-cell *matHeaderCellDef>Email 2</th>
+                    <td mat-cell *matCellDef="let element">{{element.EmailId2}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="CreatedBy">
+                    <th mat-header-cell *matHeaderCellDef>Created By</th>
+                    <td class="text-center" mat-cell *matCellDef="let element">{{element.CreatedUserName}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="CreatedDate">
+                    <th mat-header-cell *matHeaderCellDef>Created Date</th>
+                    <td mat-cell *matCellDef="let element">{{element.CreatedDate | date: 'dd-MM-yyyy'}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="Action">
+                    <th mat-header-cell *matHeaderCellDef>Action</th>
+                    <td mat-cell *matCellDef="let element">
+                      <span class="material-symbols-outlined cursor-pointer" [matMenuTriggerFor]="iconMenu">
+                        more_vert
+                      </span>
+                      <mat-menu #iconMenu="matMenu" class="dotMenu monthMenu icon-alignment-div" xPosition="before">
+                        <button mat-menu-item type="button" class="bg-transparent border-none position-relative"
+                          (click)="openUpdateGOC(element)" [disabled]="!isEditAccess">
+                          <span class="icon-alignment">
+                            <span class="material-symbols-outlined">
+                              edit
+                            </span>
+                          </span>
+                          <span>
+                            Edit
+                          </span>
+                        </button>
+                      </mat-menu>
+                    </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="GOCdisplayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: GOCdisplayedColumns;" class="example-element-row"></tr>
+
+                </table>
+
+                <div class="fw-bold no-records text-center" *ngIf="groupNameList.length==0">
+                  No Records Found
+                </div>
+
+              </div>
+
+              <div class="text-end bg-white border-top-radius">
+                <div class="d-flex justify-content-end">
+                  <nav aria-label="Page navigation example"
+                    *ngIf="GOCtotalRecords !== 0 && GOCtotalRecords !== null && GOCtotalRecords>10">
+                    <ul class="pagination">
+                      <li class="page-item me-15" *ngIf="GOCPageNumber > 1">
+                        <a class="page-link cursor-pointer" (click)="GOCpageClick(GOCPageNumber - 1)">Previous</a>
+                      </li>
+                      <li class="page-item me-15" *ngFor="let page of GOCgetPages()">
+                        <a class="page-link cursor-pointer" (click)="page!='...'?GOCpageClick(page):''"
+                          [ngClass]="page==GOCPageNumber?'active':''">
+                          {{page}}</a>
+                      </li>
+                      <li class="page-item" *ngIf="GOCPageNumber < GOCtotalPages()">
+                        <a class="page-link cursor-pointer" (click)="GOCpageClick(GOCPageNumber + 1)">Next</a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </mat-tab> -->
+
+          <mat-tab>
+            <ng-template mat-tab-label class="shadow-md">
+              <b>Client's Office</b>
+            </ng-template>
+            <div class="pt-30 pe-30 ps-30 pb-15 mat-tab-div-first-tab">
+              <div class="d-flex justify-content-end mb-20">
+                <button mat-flat-button color="primary" class="me-15 add-button" (click)="openAddClientOffice()"
+                  [disabled]="!isAddAccess"
+                  [ngClass]="[mainThemeClass!='' ? 'dialog-save-btn': 'text-bg-info',isAddAccess?'text-white':'']">
+                  <div class="d-flex align-items-center">
+                    <span class="material-symbols-outlined pe-3">
+                      add
+                    </span>
+                    <span>Add</span>
+                  </div>
+                </button>
+              </div>
+
+              <div class="mat-elevation-z8   tagus-mat-table overflow-auto">
+                <table (matSortChange)="COfficeAnnounceSortChange($event)" mat-table [dataSource]="clientOfficeList"
+                  matSort #COfficeTableList>
+
+                  <!-- ClientId -->
+                  <ng-container matColumnDef="ClientId">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="ClientId">Client Id</th>
+                    <td mat-cell *matCellDef="let element">{{element.ClientId}}</td>
+                  </ng-container>
+
+                  <!-- Client Office Code -->
+                  <ng-container matColumnDef="ClientOfficeCode">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="Id">Client Office Code</th>
+                    <td mat-cell *matCellDef="let element">
+                      {{element.Id}}
+                    </td>
+                  </ng-container>
+
+                  <!-- Client Name -->
+                  <ng-container matColumnDef="ClientName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="ClientName">Client Name</th>
+                    <td mat-cell *matCellDef="let element">{{element.ClientName}}</td>
+                  </ng-container>
+
+                  <!-- City -->
+                  <ng-container matColumnDef="CityName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="CityName">City</th>
+                    <td mat-cell *matCellDef="let element">{{element.CityName}}</td>
+                  </ng-container>
+
+                  <!-- Pin Code -->
+                  <ng-container matColumnDef="PinCode">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="PinCode">Pin Code</th>
+                    <td mat-cell *matCellDef="let element">{{element.PinCode}}</td>
+                  </ng-container>
+
+                  <!-- Contact Person -->
+                  <ng-container matColumnDef="ContactPerson">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="ConPerson">Contact Person</th>
+                    <td mat-cell *matCellDef="let element">{{element.ConPerson}}</td>
+                  </ng-container>
+
+
+                  <!-- OracleCustId -->
+                  <ng-container matColumnDef="OracleCustId">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="R12OracleCustomerId">Oracle Customer Id</th>
+                    <td mat-cell *matCellDef="let element">{{element.R12OracleCustomerId}}</td>
+                  </ng-container>
+
+                  <!-- OracleCustSiteId -->
+                  <ng-container matColumnDef="OracleCustSiteId">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="R12OracleCustSiteId">Oracle customer site Id
+                    </th>
+                    <td mat-cell *matCellDef="let element">{{element.R12OracleCustSiteId}}</td>
+                  </ng-container>
+
+                  <!-- Status -->
+                  <ng-container matColumnDef="Status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="Status">Status</th>
+                    <td mat-cell *matCellDef="let element">{{element.Status}}</td>
+                  </ng-container>
+
+                  <!-- GST NO -->
+                  <ng-container matColumnDef="GSTNO">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="GstNo">GST NO</th>
+                    <td mat-cell *matCellDef="let element">{{element.GstNo}}</td>
+                  </ng-container>
+
+                  <!-- WFStatus -->
+                  <ng-container matColumnDef="WFStatus">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="WFStatus">Workflow Status</th>
+                    <td mat-cell *matCellDef="let element">
+                      {{element.WFStatus==1?'Pending':element.WFStatus==2?'Approved':element.WFStatus==3?'Rejected':''}}
+                    </td>
+                  </ng-container>
+
+                  <!-- Action -->
+                  <ng-container matColumnDef="Action">
+                    <th mat-header-cell *matHeaderCellDef>Action</th>
+                    <td mat-cell *matCellDef="let element">
+
+                      <span class="material-symbols-outlined cursor-pointer"
+                        (click)="isEditAccess ? element.WFStatus!=1?openEditModalCOffice(element):'':''"
+                        [ngClass]="[!isEditAccess?'cursor-not-allowed':'',element.WFStatus==1?'cursor-not-allowed':'']"
+                        matTooltip="Edit">
+                        edit
+                      </span>
+
+                      <span class="material-symbols-outlined cursor-pointer ps-20"
+                        (click)="isViewAccess ? openViewDialogCOffice(element):''"
+                        [ngClass]="[!isViewAccess?'cursor-not-allowed':'']" matTooltip="View">
+                        visibility
+                      </span>
+
+                      <!-- <span class="material-symbols-outlined cursor-pointer" [matMenuTriggerFor]="iconMenu">
+                        more_vert
+                      </span>
+                      <mat-menu #iconMenu="matMenu" class="dotMenu monthMenu icon-alignment-div" xPosition="before">
+                        <button mat-menu-item type="button" class="bg-transparent border-none position-relative"
+                          (click)="openEditModal(element)" [disabled]="!isEditAccess">
+                          <span class="icon-alignment">
+                            <span class="material-symbols-outlined">
+                              edit
+                            </span>
+                          </span>
+                          <span>
+                            Edit
+                          </span>
+                        </button>
+                      </mat-menu> -->
+                    </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="ClientOfficedisplayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: ClientOfficedisplayedColumns;" class="example-element-row"
+                    (click)="selectedRowIndex2 = row.position"
+                    [ngClass]="{'highlightTableColor': selectedRowIndex2 == row.position}"></tr>
+
+                </table>
+
+                <div class="fw-bold no-records text-center" *ngIf="clientOfficeList.length==0">
+                  No Records Found
+                </div>
+
+              </div>
+
+              <div class="text-end bg-white border-top-radius"
+                *ngIf="COfficetotalRecords !== 0 && COfficetotalRecords !== null && COfficetotalRecords>10">
+                <!-- <div class="d-flex justify-content-end">
+                  <nav aria-label="Page navigation example"
+                    *ngIf="COfficetotalRecords !== 0 && COfficetotalRecords !== null && COfficetotalRecords>10">
+                    <ul class="pagination">
+                      <li class="page-item me-15" *ngIf="COfficePageNumber > 1">
+                        <a class="page-link cursor-pointer"
+                          (click)="COfficepageClick(COfficePageNumber - 1)">Previous</a>
+                      </li>
+                      <li class="page-item me-15" *ngFor="let page of COfficegetPages()">
+                        <a class="page-link cursor-pointer" (click)="page!='...'?COfficepageClick(page):''"
+                          [ngClass]="page==COfficePageNumber?'active':''">
+                          {{page}}</a>
+                      </li>
+                      <li class="page-item" *ngIf="COfficePageNumber < COfficetotalPages()">
+                        <a class="page-link cursor-pointer" (click)="COfficepageClick(COfficePageNumber + 1)">Next</a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div> -->
+
+                <mat-paginator (page)="COfficehandlePage($event)" [pageSize]="PageSize"
+                  [pageSizeOptions]="[10, 15, 20, 25, 100]" [length]="COfficetotalRecords"
+                  [showFirstLastButtons]="true"></mat-paginator>
+
+              </div>
+            </div>
+          </mat-tab>
+
+          <mat-tab>
+            <ng-template mat-tab-label class="shadow-md">
+              <b>Users and Drivers</b>
+            </ng-template>
+            <div class="pt-30 pe-30 ps-30 pb-15 mat-tab-div">
+              <div class="d-flex justify-content-end mb-20">
+                <button mat-flat-button color="primary" class="me-15" (click)="DriverExlUpldPopUp()"
+                  [disabled]="!isAddAccess"
+                  [ngClass]="[mainThemeClass!='' ? 'dialog-save-btn': 'text-bg-info',isAddAccess?'text-white':'']">
+                  <div class="d-flex align-items-center">
+                    <span>Upload Excel</span>
+                  </div>
+                </button>
+
+                <button mat-flat-button color="primary" class="me-15 add-button" (click)="openAddUsersAndDrivers()"
+                  [disabled]="!isAddAccess"
+                  [ngClass]="[mainThemeClass!='' ? 'dialog-save-btn': 'text-bg-info',isAddAccess?'text-white':'']">
+                  <div class="d-flex align-items-center">
+                    <span class="material-symbols-outlined pe-3">
+                      add
+                    </span>
+                    <span>Add</span>
+                  </div>
+                </button>
+              </div>
+
+              <div class="mat-elevation-z8   tagus-mat-table overflow-auto mt-20">
+                <table (matSortChange)="DriverAnnounceSortChange($event)" mat-table [dataSource]="DriversUsersList"
+                  matSort #driverTableList>
+
+                  <!-- Client Name -->
+                  <ng-container matColumnDef="Client Name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="ClientName">Client Name</th>
+                    <td mat-cell *matCellDef="let element">{{element.ClientName}}</td>
+                  </ng-container>
+
+                  <!-- PreFix -->
+                  <ng-container matColumnDef="PreFix">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="PreFix">PreFix</th>
+                    <td mat-cell *matCellDef="let element">
+                      {{element.PreFix}}
+                    </td>
+                  </ng-container>
+
+                  <!-- First Name -->
+                  <ng-container matColumnDef="First Name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="FName">First Name</th>
+                    <td mat-cell *matCellDef="let element">{{element.FName}}</td>
+                  </ng-container>
+
+                  <!-- Last Name -->
+                  <ng-container matColumnDef="Last Name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="LName">Last Name</th>
+                    <td mat-cell *matCellDef="let element">{{element.LName}}</td>
+                  </ng-container>
+
+                  <!-- City -->
+                  <ng-container matColumnDef="City">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="CityName">City</th>
+                    <td mat-cell *matCellDef="let element">{{element.CityName}}</td>
+                  </ng-container>
+
+                  <!-- Mobile No -->
+                  <ng-container matColumnDef="Mobile No">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="Mobile">Mobile No</th>
+                    <td mat-cell *matCellDef="let element">{{element.Mobile}}</td>
+                  </ng-container>
+
+                  <!-- WFStatus -->
+                  <ng-container matColumnDef="WFStatus">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="WFStatus">Workflow Status</th>
+                    <td mat-cell *matCellDef="let element">
+                      {{element.WFStatus==1?'Pending':element.WFStatus==2?'Approved':element.WFStatus==3?'Rejected':''}}
+                    </td>
+                  </ng-container>
+
+                  <!-- Action -->
+                  <ng-container matColumnDef="Action">
+                    <th mat-header-cell *matHeaderCellDef>Action</th>
+                    <td mat-cell *matCellDef="let element">
+
+                      <!-- <span class="material-symbols-outlined cursor-pointer"
+                        (click)="isEditAccess ?openUpdateUsersAndDrivers(element):''"
+                        [ngClass]="!isEditAccess?'cursor-not-allowed':''" matTooltip="Edit">
+                        edit
+                      </span> -->
+
+                      <span class="material-symbols-outlined cursor-pointer"
+                        (click)="isEditAccess ? element.WFStatus!=1?openUpdateUsersAndDrivers(element):'':''"
+                        [ngClass]="[!isEditAccess?'cursor-not-allowed':'',element.WFStatus==1?'cursor-not-allowed':'']"
+                        matTooltip="Edit">
+                        edit
+                      </span>
+
+                      <span class="material-symbols-outlined cursor-pointer ps-20"
+                        (click)="isViewAccess ? openViewDialogUsersAndDrivers(element):''"
+                        [ngClass]="[!isViewAccess?'cursor-not-allowed':'']" matTooltip="View">
+                        visibility
+                      </span>
+
+                      <!-- <span class="material-symbols-outlined cursor-pointer" [matMenuTriggerFor]="iconMenu">
+                        more_vert
+                      </span>
+                      <mat-menu #iconMenu="matMenu" class="dotMenu monthMenu icon-alignment-div" xPosition="before">
+                        <button mat-menu-item type="button" class="bg-transparent border-none position-relative"
+                          (click)="openUpdateUsersAndDrivers(element)" [disabled]="!isEditAccess">
+                          <span class="icon-alignment">
+                            <span class="material-symbols-outlined">
+                              edit
+                            </span>
+                          </span>
+                          <span>
+                            Edit
+                          </span>
+                        </button>
+                      </mat-menu> -->
+                    </td>
+
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="UserDriverdisplayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: UserDriverdisplayedColumns;" class="example-element-row"
+                    (click)="selectedRowIndex3 = row.position"
+                    [ngClass]="{'highlightTableColor': selectedRowIndex3 == row.position}"></tr>
+
+                </table>
+
+                <div class="fw-bold no-records text-center" *ngIf="DriversUsersList.length==0">
+                  No Records Found
+                </div>
+
+              </div>
+
+              <div class="text-end bg-white border-top-radius box-shadow"
+                *ngIf="DrivertotalRecords !== 0 && DrivertotalRecords !== null && DrivertotalRecords>10">
+                <!-- <div class="d-flex justify-content-end">
+                  <nav aria-label="Page navigation example"
+                    *ngIf="DrivertotalRecords !== 0 && DrivertotalRecords !== null && DrivertotalRecords>10">
+                    <ul class="pagination">
+                      <li class="page-item me-15" *ngIf="DriverPageNumber > 1">
+                        <a class="page-link cursor-pointer" (click)="DriverpageClick(DriverPageNumber - 1)">Previous</a>
+                      </li>
+                      <li class="page-item me-15" *ngFor="let page of DrivergetPages()">
+                        <a class="page-link cursor-pointer" (click)="page!='...'?DriverpageClick(page):''"
+                          [ngClass]="page==DriverPageNumber?'active':''">
+                          {{page}}</a>
+                      </li>
+                      <li class="page-item" *ngIf="DriverPageNumber < DrivertotalPages()">
+                        <a class="page-link cursor-pointer" (click)="DriverpageClick(DriverPageNumber + 1)">Next</a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div> -->
+                <mat-paginator (page)="DriverhandlePage($event)" [pageSize]="PageSize"
+                  [pageSizeOptions]="[10, 15, 20, 25, 100]" [length]="DrivertotalRecords"
+                  [showFirstLastButtons]="true"></mat-paginator>
+
+              </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,243 @@
+.fit-bottom {
+  border-radius: 10px 10px 0 0;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  width: 82%;
+  justify-content: flex-end;
+}
+
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+  .header-left-side.d-flex {
+    display: block !important;
+  }
+}
+
+:host ::ng-deep {
+  // .ng-select .ng-select-container {
+  //   height: 56px;
+  // }
+
+  .mat-expansion-panel-body {
+    padding: 0 5px 10px;
+  }
+
+  .changedColor {
+    color: red !important;
+  }
+}
+
+.mat-checkbox-custom {
+  // border: 1px solid #B1B5C3;
+  border-radius: 10px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.color-grey {
+  color: #050505;
+}
+
+.form-control {
+  min-height: calc(1.5em + (0.5rem + 2px));
+  padding: 0.25rem 0.5rem;
+  font-size: .875rem;
+  border-radius: 0.2rem;
+  font-weight: 400;
+  line-height: 1.5;
+  background-clip: padding-box;
+}
+
+.dark-theme .dark-mode-bg {
+  background-color: #14171c !important;
+  color: white !important;
+}
+
+.mat-mdc-form-field-input-control.mat-mdc-form-field-input-control {
+  font-size: 15px;
+}
+
+.requiredField {
+  font-size: 12px;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.box-delete-view {
+  width: 450px;
+  height: auto;
+}
+
+.box-delete-view.box-modal-common {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  background: #fff;
+  display: none;
+  z-index: 99999;
+  margin: 16% 35%;
+}
+
+
+.client-card {
+  border: none;
+}
+
+.card-title {
+  background: #D8E1E4;
+  border-radius: 10px 10px 0px 0px;
+  font-size: 18px;
+  font-weight: 600;
+  // line-height: 21.09px;
+}
+
+.inner-card {
+  border-radius: 10px 10px 10px 10px;
+}
+
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 21.09px;
+}
+
+.cam-btn .mdc-button {
+  padding: 5px 15px !important;
+}
+
+
+.form-expansion-panel {
+  .mat-expansion-panel .mat-expansion-panel-header {
+    color: white !important;
+    border-radius: 5px !important;
+    background: slateGray !important;
+    font-size: large;
+  }
+
+  .mat-expansion-panel .mat-expansion-panel-header .mat-expanded {
+    color: white !important;
+    border-radius: 5px !important;
+    background: slateGray !important;
+  }
+
+  .mat-expansion-panel .mat-expansion-panel-content {
+    background-color: white !important;
+  }
+}
+
+.form-expansion-panel {
+  .mat-expansion-panel-content {
+    background-color: white !important;
+  }
+}
+
+.ctm-btn-bg {
+  .mat-button-toggle-checked {
+    background-color: #ffffff !important;
+  }
+}
+
+.form-expansion-panel {
+  .mat-expansion-panel.gray-expansion .mat-expansion-panel-header {
+    background: #D8E1E4 !important;
+  }
+
+  .mat-expansion-panel.gray-expansion .mat-expansion-panel-header .mat-expanded {
+    background: #D8E1E4 !important;
+  }
+
+  .mat-expansion-panel.gray-expansion .mat-expansion-body {
+    padding: 0 !important;
+    padding-right: 5px !important;
+  }
+
+}
+
+.gray-expansion .mat-expansion-panel-content {
+  background-color: #B9B9B9;
+}
+
+.expansion-header {
+  color: #2B3A67 !important;
+}
+
+.custom-div {
+  height: 525px;
+  overflow: auto;
+}
+
+
+.example-listbox-container {
+  display: block;
+  // width: 250px;
+  // border: 1px solid black;
+}
+
+.example-listbox-invalid {
+  border-color: red;
+}
+
+.example-listbox-label {
+  display: block;
+  padding: 5px;
+}
+
+.example-listbox-invalid .example-listbox-label {
+  color: red;
+}
+
+.example-listbox {
+  list-style: none;
+  padding: 5px;
+  // margin: 0;
+  // height: 200px;
+  overflow: auto;
+}
+
+.example-option {
+  position: relative;
+  padding: 5px 5px 5px 25px;
+}
+
+.example-option[aria-selected='true']::before {
+  content: '';
+  display: block;
+  width: 15px;
+  height: 18px;
+  margin: 2px;
+  background-image: url('../../../assets/images/check-solid.png');
+  background-size: cover;
+  position: absolute;
+  left: 2px;
+}
+
+.example-option:focus,
+.example-option:active,
+.example-option[aria-selected=true] {
+  background: #1fb7ef;
+  color: white;
+  border-radius: 5px;
+}
+
+.example-listbox-errors p {
+  color: red;
+}
+
+.gray-expansion.mat-expansion-panel {
+  .mat-expansion-panel-body {
+    padding: 0 5px 10px;
+  }
+}
+
+.mat-expansion-panel-body {
+  padding: 0 5px 10px;
+}

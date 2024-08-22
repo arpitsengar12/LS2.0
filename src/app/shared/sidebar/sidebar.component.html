@@ -1,0 +1,226 @@
+<div class="sidebar-area box-shadow" [ngClass]="{ active: isToggled }" (mouseenter)="isHovered=true"
+  (mouseleave)="isHovered=false" #sidebarArea>
+  <ng-scrollbar visibility="hover">
+    <div class="sidebar-inner text-white d-flex justify-content-end pe-20 pt-20 pb-0 " [ngClass]="isToggled?'ps-0':''">
+      <!-- <div *ngIf="!isToggled" class="burger-menu" (click)="toggle()">
+        <span class="material-symbols-outlined"> keyboard_double_arrow_left </span>
+      </div>
+      <div *ngIf="isToggled" class="burger-menu" (click)="toggle()">
+        <span class="material-symbols-outlined"> keyboard_double_arrow_right </span>
+      </div> -->
+      <!-- [ngClass]="favMenuDisabled?'cursor-not-allowed':''" -->
+      <!-- <div>
+        <span class="material-symbols-outlined cursor-pointer me-10" matTooltip="Home" (click)="commonService.pageNavigation({URL:'MainWithoutSidebar.aspx'})"
+          routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"> home </span>
+      </div> -->
+      <div class="burger-menu" (click)="toggle()">
+        <span class="material-symbols-outlined cursor-pointer" *ngIf="isToggled"> menu </span>
+        <span class="material-symbols-outlined cursor-pointer" *ngIf="!isToggled"> close </span>
+      </div>
+    </div>
+    <div class="sidebar-inner text-white pt-0"
+      [ngClass]="[ isHovered?'d-block':'d-none',isToggled?'d-none':'',!isToggled && !isHovered?'d-block':'d-none']">
+      <div class="sidebar-menu">
+        <form class="sidebar-search-box position-relative mt-15" (keyup)="searchMenus($event,searchTerm.value)">
+          <input type="text" class="input-search d-block" placeholder="Search here.." #searchTerm>
+          <button type="submit" class="mt-3"><i class="ri-search-line"></i></button>
+        </form>
+        <mat-divider class="mt-5 mb-5"></mat-divider>
+
+        <mat-accordion #MatAccordion
+          [multi]="(searchTerm.value && searchTerm.value !='' && searchTerm.value.length>0)?true:false">
+          <mat-expansion-panel
+            [ngClass]="searchTerm.value && searchTerm.value !='' && searchTerm.value.length>0?'d-none':''"
+            (opened)="panelOpenState = true;addFavBtnClicked=false;getfavoriteMenu()" (closed)="panelOpenState = true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <span class="title">My Favorite</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="d-flex justify-content-center">
+              <mat-spinner *ngIf="favMenuBuffer" class="hw-25px"></mat-spinner>
+            </div>
+            <mat-accordion [ngClass]="!favMenuBuffer?'':'d-none'">
+              <ul class="sidebar-sub-menu">
+                <li class="sidemenu-item d-flex justify-content-center">
+                  <!-- <input *ngIf="!addFavBtnClicked" type="button" value="Add Favorite" (click)="addFavBtnClick()"
+                    class="add-favorite-input"> -->
+                  <form [formGroup]="favMenuForm">
+                    <ng-select dropdownPosition="bottom" formControlName="favMenuName" class="mb-18" bindLabel="Menu"
+                      bindValue="Menu" (change)="addfavorite($event)" class="add-fav-ngSelect" [items]="favMenuItems"
+                      [appendTo]="'body'" placeholder="Add Favorite" #favMenu (window:scroll)="favMenu.close()"
+                      [ngClass]="favMenu.hasValue || favMenu.isOpen?'placeholder-padding':''" (open)="isToggled=false;isFavMenuOpened=true"
+                      (close)="isToggled=true;isFavMenuOpened=false">
+                      <ng-template ng-option-tmp let-item="item" let-search="searchTerm" let-index="index">
+                        {{item.Menu}}
+                      </ng-template>
+                    </ng-select>
+                  </form>
+                </li>
+              </ul>
+              <ul class="sidebar-sub-menu">
+                <li *ngIf="favoriteMenuList.length==0" class="sidemenu-item">
+                  <a class="sidemenu-link">
+                    No favorite menu added
+                  </a>
+                </li>
+              </ul>
+              <ul class="sidebar-sub-menu" *ngFor="let parentMenu of favoriteMenuList">
+                <li class="sidemenu-item">
+                  <mat-expansion-panel (opened)="panelOpenState = true;allexpansionMenu();addFavBtnClicked=false"
+                    (closed)="panelOpenState = true">
+                    <mat-expansion-panel-header class="text-dark">
+                      <mat-panel-title>
+                        <i *ngIf="!favMenuBuffer" class="m-0"
+                          (click)="panelOpenState = false;deleteFavMenu(parentMenu.Menu)"><span
+                            class="material-symbols-outlined font-size-15 mt-3"> close </span>
+                        </i>
+                        <!-- <mat-spinner *ngIf="favMenuBuffer" class="font-size-15 mt-3"></mat-spinner> -->
+                        <span class="title ">{{parentMenu.Menu}}</span>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-accordion *ngFor="let subMenu of parentMenu.SubmenuList"
+                      [ngClass]="(parentMenu.SubmenuList && subMenu.selected)?'':'d-none'">
+                      <a *ngIf="!subMenu.ChildMenuList" (click)="subMenuHovered=false;handleClick(subMenu, $event);"
+                        (dblclick)="handleDoubleClick($event)" class="sidebar-subMenu-link p-5"
+                        routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                        (mouseenter)="onSubMenuHover($event)" (mouseleave)="subMenuHovered=false;">
+                        <span class="title  mb-5 cursor-pointer"> {{subMenu.SubMenuName}}</span>
+                      </a>
+
+                      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = true"
+                        *ngIf="subMenu.ChildMenuList && subMenu.ChildMenuList!=null && subMenu.ChildMenuList.length>0"
+                        class="SubMenus FavMenus">
+                        <mat-expansion-panel-header class="ps-10">
+                          <mat-panel-title>
+                            {{subMenu.SubMenuName}}
+                          </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <ul class="sidebar-sub-menu" *ngFor="let childMenu of subMenu.ChildMenuList"
+                          [ngClass]="(childMenu.AccessLevelArray[0]==0 && childMenu.AccessLevelArray[1]==0 && childMenu.AccessLevelArray[2]==0 && childMenu.AccessLevelArray[3]==0 && childMenu.AccessLevelArray[4]==0)||childMenu.ChildMenuName==null?'d-none':''">
+
+
+                          <li
+                            (click)="childMenuOpened(childMenu.ChildMenuName);childMenu.URL ? menuClicked(childMenu): ''"
+                            class="sidemenu-item cursor-pointer d-flex align-items-center">
+                            <!-- <svg class="col-1" width="12" height="12" xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 256 256">
+                              <rect width="256" height="256" fill="none" />
+                              <path
+                                d="M86.9,73.82a16.72,16.72,0,0,1,0-23.65l29.27-29.28a16.75,16.75,0,0,1,23.66,0L169.1,50.17a16.72,16.72,0,0,1,0,23.65L139.83,103.1a16.75,16.75,0,0,1-23.66,0h0Zm148.21,42.35L205.83,86.89a16.74,16.74,0,0,0-23.65,0L152.9,116.17a16.75,16.75,0,0,0,0,23.66l29.28,29.28h0a16.74,16.74,0,0,0,23.65,0l29.28-29.28A16.75,16.75,0,0,0,235.11,116.17Zm-132,0L73.82,86.89a16.74,16.74,0,0,0-23.65,0L20.89,116.17a16.75,16.75,0,0,0,0,23.66l29.28,29.28h0a16.74,16.74,0,0,0,23.65,0l29.28-29.28A16.75,16.75,0,0,0,103.1,116.17Zm36.73,36.73a16.75,16.75,0,0,0-23.66,0L86.9,182.18a16.72,16.72,0,0,0,0,23.65l29.27,29.28h0a16.75,16.75,0,0,0,23.66,0l29.27-29.28a16.72,16.72,0,0,0,0-23.65Z"
+                                fill="#1fb7ef" />
+                            </svg> -->
+                            <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                              class="sidemenu-link col-11">
+                              {{childMenu.ChildMenuName}}
+                            </a>
+                          </li>
+                        </ul>
+                      </mat-expansion-panel>
+                    </mat-accordion>
+                  </mat-expansion-panel>
+                </li>
+              </ul>
+            </mat-accordion>
+          </mat-expansion-panel>
+          <mat-divider class="mt-5 mb-5"
+            [ngClass]="searchTerm.value && searchTerm.value !='' && searchTerm.value.length>0?'d-none':''"></mat-divider>
+          <!-- <a (click)="menuClicked($event,'Login as user');" routerLink="/" class="sidebar-menu-link"
+            routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <span class="title  mb-5">Login as user</span>
+          </a>
+          <mat-divider class="mt-5 mb-5"></mat-divider> -->
+          <a (click)="menuClicked({URL:'MainWithoutSidebar.aspx'})" class="sidebar-menu-link" routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}">
+            <span class="title ">Home</span>
+          </a>
+          <!-- <mat-divider class="mt-5 mb-5"></mat-divider>
+          <a (click)="menuClicked({menuName:'Compliance',URL:'compliance'});" routerLink="/compliance"
+            class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <span class="title  mt-5">Compliance</span>
+          </a> -->
+          <mat-divider class="mt-5 mb-5"></mat-divider>
+          <div *ngFor="let parentMenu of sidebarMenuItems">
+            <mat-expansion-panel (opened)="panelOpenState = true;allexpansionMenu();" (closed)="panelOpenState = true"
+              [ngClass]="parentMenu.SubmenuList?'':'d-none'">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <span class="title ">{{parentMenu.Menu}}</span>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-accordion *ngFor="let subMenu of parentMenu.SubmenuList"
+                [multi]="(searchTerm.value && searchTerm.value !='' && searchTerm.value.length>0)?true:false"
+                [ngClass]="[(parentMenu.SubmenuList && subMenu.selected)?'':'d-none',subMenu.URL?'cursor-pointer':'',(subMenu && subMenu.AccessLevelArray && subMenu.AccessLevelArray[0]==0 && subMenu.AccessLevelArray[1]==0 && subMenu.AccessLevelArray[2]==0 && subMenu.AccessLevelArray[3]==0 && subMenu.AccessLevelArray[4]==0)||subMenu.SubMenuName==null?'d-none':'']">
+                <a *ngIf="!subMenu.ChildMenuList" (click)="subMenuHovered=false;handleClick(subMenu, $event);"
+                  (dblclick)="handleDoubleClick($event)" class="sidebar-subMenu-link" routerLinkActive="active"
+                  [routerLinkActiveOptions]="{exact: true}" (mouseenter)="singleClick=true;onSubMenuHover($event)"
+                  (mouseleave)="subMenuHovered=false;">
+                  <span class="title  mb-5 cursor-pointer"> {{subMenu.SubMenuName}}</span>
+                </a>
+
+                <mat-expansion-panel (opened)="panelOpenState = true;allchildMenu()" (closed)="panelOpenState = true"
+                  *ngIf="subMenu.ChildMenuList && subMenu.ChildMenuList!=null && subMenu.ChildMenuList.length>0"
+                  class="SubMenus"
+                  [expanded]="(searchTerm.value && searchTerm.value !='' && searchTerm.value.length>0)?true:false">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      {{subMenu.SubMenuName}}
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <ul class="sidebar-sub-menu" *ngFor="let childMenu of subMenu.ChildMenuList"
+                    [ngClass]="[(childMenu.AccessLevelArray[0]==0 && childMenu.AccessLevelArray[1]==0 && childMenu.AccessLevelArray[2]==0 && childMenu.AccessLevelArray[3]==0 && childMenu.AccessLevelArray[4]==0)||childMenu.ChildMenuName==null?'d-none':'',(childMenu.selected)?'':'d-none']">
+                    <li (click)="childMenuOpened(childMenu.ChildMenuName);childMenu.URL ? menuClicked(childMenu): ''"
+                      class="sidemenu-item cursor-pointer d-flex align-items-center ps-15">
+                      <!-- <svg class="col-1" width="12" height="12" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 256 256">
+                        <rect width="256" height="256" fill="none" />
+                        <path
+                          d="M86.9,73.82a16.72,16.72,0,0,1,0-23.65l29.27-29.28a16.75,16.75,0,0,1,23.66,0L169.1,50.17a16.72,16.72,0,0,1,0,23.65L139.83,103.1a16.75,16.75,0,0,1-23.66,0h0Zm148.21,42.35L205.83,86.89a16.74,16.74,0,0,0-23.65,0L152.9,116.17a16.75,16.75,0,0,0,0,23.66l29.28,29.28h0a16.74,16.74,0,0,0,23.65,0l29.28-29.28A16.75,16.75,0,0,0,235.11,116.17Zm-132,0L73.82,86.89a16.74,16.74,0,0,0-23.65,0L20.89,116.17a16.75,16.75,0,0,0,0,23.66l29.28,29.28h0a16.74,16.74,0,0,0,23.65,0l29.28-29.28A16.75,16.75,0,0,0,103.1,116.17Zm36.73,36.73a16.75,16.75,0,0,0-23.66,0L86.9,182.18a16.72,16.72,0,0,0,0,23.65l29.27,29.28h0a16.75,16.75,0,0,0,23.66,0l29.27-29.28a16.72,16.72,0,0,0,0-23.65Z"
+                          fill="#1fb7ef" />
+                      </svg> -->
+                      <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                        class="sidemenu-link col-11">
+                        {{childMenu.ChildMenuName}}
+                      </a>
+                    </li>
+                  </ul>
+                </mat-expansion-panel>
+                <mat-divider class="custom-lightGray"></mat-divider>
+              </mat-accordion>
+            </mat-expansion-panel>
+            <mat-divider class="mt-5 mb-5"></mat-divider>
+          </div>
+        </mat-accordion>
+      </div>
+    </div>
+  </ng-scrollbar>
+</div>
+
+<div
+  [ngClass]="[(this.ChildMenuList && subMenuHovered)?(this.ChildMenuList.length>0?'':'d-none'):'d-none',!singleClick?'desktop-menu-hidden':'']"
+  (mouseenter)="subMenuHovered=true;" #childMenuDiv>
+  <div class="childMenu-div" (mouseleave)="subMenuHovered=false;"
+    [ngStyle]="{'margin-top':childMenuMtValue+'px', 'display': childMenuDisplay}">
+    <ul class="sidebar-sub-menu" *ngFor="let childMenu of this.ChildMenuList"
+      [ngClass]="(childMenu.AccessLevelArray[0]==0 && childMenu.AccessLevelArray[1]==0 && childMenu.AccessLevelArray[2]==0 && childMenu.AccessLevelArray[3]==0 && childMenu.AccessLevelArray[4]==0)||childMenu.ChildMenuName==null?'d-none':''">
+      <li (click)="childMenuOpened(childMenu.ChildMenuName);childMenu.URL ? menuClicked(childMenu): ''"
+        class="sidemenu-item cursor-pointer">
+        <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+          {{childMenu.ChildMenuName}}
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- <div class="fav-menuDiv" #favMenuDiv [ngStyle]="{'margin-top':mtValue+'px', 'display': divDisplay}"
+  (click)="addfavorite()">
+  <ul class="m-0">
+    <li>
+      <a class="align-items-center d-flex">
+        <span class="align-items-center d-flex menu-font text-dark"> <span class="material-icons me-5">
+            grade</span> Add to favorites</span>
+      </a>
+    </li>
+  </ul>
+</div> -->

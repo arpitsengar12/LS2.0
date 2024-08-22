@@ -1,0 +1,60 @@
+:host ::ng-deep {
+  .ng-select .ng-select-container {
+    height: 56px;
+  }
+
+  .ng-select.customLevels .ng-select-container {
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+  }
+}
+
+.dark-theme .dark-mode-bg {
+  background-color: #14171c !important;
+  color: white !important;
+}
+
+.card-title {
+  background: #D8E1E4;
+  border-radius: 10px 10px 0px 0px;
+  font-size: 18px;
+  font-weight: 600;
+  // line-height: 21.09px;
+}
+
+.inner-card {
+  border-radius: 10px 10px 10px 10px;
+}
+
+.form-expansion-panel {
+  .mat-expansion-panel .mat-expansion-panel-header {
+    color: white !important;
+    border-radius: 5px !important;
+    background: slateGray !important;
+    font-size: large;
+  }
+
+  .mat-expansion-panel .mat-expansion-panel-header .mat-expanded {
+    color: white !important;
+    border-radius: 5px !important;
+    background: slateGray !important;
+  }
+
+  .mat-expansion-panel .mat-expansion-panel-content {
+    background-color: white !important;
+  }
+}
+
+.form-expansion-panel {
+  .mat-expansion-panel-content {
+    background-color: white !important;
+  }
+}
+
+.customLevelDiv {
+  width: 75px;
+  height: 56px;
+  background-color: #3AB7E6;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}

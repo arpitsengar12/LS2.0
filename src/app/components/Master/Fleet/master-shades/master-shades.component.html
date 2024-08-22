@@ -1,0 +1,215 @@
+<div [ngClass]="mainThemeClass">
+  <div class="pageName-headerDiv">
+    <mat-card class="tagus-card p-0 dark-theme-bg">
+      <mat-card-header class="m-0">
+        <div>
+          <h5 class="mb-0" [ngClass]="mainThemeClass!='' ? 'theme-text-color': ''"> Shade Master</h5>
+          <div class="d-flex">
+            <span class="material-symbols-outlined cursor-pointer"
+              (click)="commonService.pageNavigation({URL:'MainWithoutSidebar.aspx'})">
+              west
+            </span><app-breadcrumb class="ms-10 mt-3"></app-breadcrumb>
+          </div>
+        </div>
+
+        <div class="col-8 d-flex justify-content-end">
+          <div class="position-relative" class="col-4">
+            <form [formGroup]="addShadeForm">
+              <div class="tagus-form-group without-icon">
+                <mat-form-field appearance="fill">
+                  <mat-label for="shadeType">Enter Shade </mat-label>
+                  <input matInput type="text" class="form-control" placeholder="Enter Shade"
+                    formControlName="shadeType">
+                  <mat-error *ngIf="submitted && validators['shadeType'].errors && validators['shadeType'].errors['required']
+                    ">Enter shade name </mat-error>
+                </mat-form-field>
+              </div>
+            </form>
+          </div>
+          <div class="ms-40 d-flex mt-3">
+
+            <div>
+              <button *ngIf="!editMode" mat-flat-button color="primary" class="me-15 add-button" (click)="addClick()"
+                [disabled]="!isAddAccess"
+                [ngClass]="[mainThemeClass!='' ? 'dialog-save-btn': 'text-bg-info',isAddAccess?'text-white':'']">
+                <div class="d-flex align-items-center">
+                  <span class="material-symbols-outlined pe-3">
+                    add
+                  </span>
+                  <span>Add</span>
+                </div>
+              </button>
+            </div>
+
+
+
+            <div>
+              <button *ngIf="editMode" mat-flat-button class="gray white-color me-15"
+                (click)="cancelClick()">Cancel</button>
+            </div>
+
+            <div>
+              <button *ngIf="editMode" mat-flat-button color="primary" class="me-30" (click)="updateShade()"
+                [disabled]="!isEditAccess"
+                [ngClass]="[mainThemeClass!='' ? 'dialog-save-btn': 'text-bg-info',isEditAccess?'text-white':'']">
+                <div class="d-flex align-items-center">
+                  <span>Update</span>
+                </div>
+              </button>
+            </div>
+
+            <div>
+              <h5 class="mb-0 me-30 mt-12 cursor-pointer custom-underline" (click)="versionPageredirect()"
+                [ngClass]="[mainThemeClass!='' ? 'theme-text-color': '',!editMode || !IsAuditTrail? 'd-none':'']">
+                Version History
+              </h5>
+            </div>
+          </div>
+        </div>
+      </mat-card-header>
+    </mat-card>
+  </div>
+
+  <mat-card class="mb-25 tagus-card">
+    <mat-card-content>
+      <mat-card-header class="overflow-auto">
+        <div class="col-xxl-3 colxl-3 col-lg-3 col-md-4">
+          <h5 class="mb-0">Shade Master Details</h5>
+        </div>
+
+        <div class="text-end d-flex justify-content-end">
+          <!-- <div class="d-flex border-radius searchBox-border">
+            <div class="d-flex background-white"
+              [ngClass]="!NgfilterDropdown.hasValue?'searchFilterDiv-withoutTextInput':'searchFilterDiv'">
+
+              <div class="tagus-form-group without-icon me-5" [ngClass]="!NgfilterDropdown.hasValue?'col-12':'col-5'">
+                <ng-select dropdownPosition="bottom" [placeholder]="!filterBtnClicked ? 'Filter' : ''" #NgfilterDropdown
+                  (window:scroll)="NgfilterDropdown.close()" class="dropdown filterDropdown" bindLabel="filterName"
+                  (change)="IsSearch = true;filterApplied($event);filterBtnClicked=true;" bindValue="filterName" [items]="filterList"
+                  [appendTo]="'body'" (clear)="searchText='';IsSearch=false;filterBtnClicked=false;getAllShades()"
+                  [ngClass]="NgfilterDropdown.hasValue || NgfilterDropdown.isOpen?'placeholder-padding':''">
+                </ng-select>
+              </div>
+
+              <hr class="vertical-divider mt-15" *ngIf="NgfilterDropdown.hasValue">
+
+              <form class="search-box position-relative d-inline-flex m-15" *ngIf="NgfilterDropdown.hasValue">
+                <input type="text" class="input-search d-block background-white" placeholder="Search here.."
+                  [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"
+                  (keyup)="SearchFilterApplied()">
+                <button type="submit"><i class="ri-search-line"></i></button>
+                <button *ngIf="searchText.length>0" type="button" class="clear-button"
+                  (click)="searchText='';IsSearch=false;getAllShades()">
+                  <i class="ri-close-line"></i>
+                </button>
+              </form>
+
+            </div>
+          </div> -->
+          <div class="d-flex border-radius searchBox-border">
+            <div class="d-flex background-white searchFilterDivNew">
+
+              <form class="search-box position-relative d-inline-flex m-15">
+                <input type="text" class="input-search d-block background-white" placeholder="Search here.."
+                  [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" (keyup)="SearchFilterApplied()">
+                <button type="submit"><i class="ri-search-line"></i></button>
+                <button *ngIf="searchText.length>0" type="button" class="clear-button"
+                  (click)="searchText='';IsSearch=false;getAllShades()">
+                  <i class="ri-close-line"></i>
+                </button>
+              </form>
+
+            </div>
+          </div>
+
+          <!-- <button mat-flat-button color="primary" class="bg-theme-color ms-20"
+            (click)="IsSearch=true;PageNumber=1;getAllShades()">Search</button> -->
+        </div>
+      </mat-card-header>
+
+
+      <div class="mat-elevation-z8   tagus-mat-table overflow-auto mt-20">
+        <table (matSortChange)="announceSortChange($event)" mat-table [dataSource]="ShadesList" matSort #shadeTableList>
+
+          <!-- Shade Type -->
+          <ng-container matColumnDef="Shade Type">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="ShadeDesc">Shade Name</th>
+            <td mat-cell *matCellDef="let element">{{element.ShadeDesc}}</td>
+          </ng-container>
+
+          <!-- Created By -->
+          <ng-container matColumnDef="Created By">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="CreatedByUser">Created By</th>
+            <td mat-cell *matCellDef="let element">{{element.CreatedByUser}}</td>
+          </ng-container>
+
+          <!-- Created Date -->
+          <ng-container matColumnDef="Created Date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="CreatedDate">Created Date</th>
+            <td mat-cell *matCellDef="let element">{{element.CreatedDate | date: 'dd-MM-yyyy'}}</td>
+          </ng-container>
+
+          <!-- Action -->
+          <ng-container matColumnDef="Action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element">
+              <span (click)="isEditAccess?setData(element):''" class="material-symbols-outlined cursor-pointer"
+                [ngClass]="!isEditAccess?'cursor-not-allowed':''" matTooltip="Edit">
+                edit
+              </span>
+
+              <!-- <span class="material-symbols-outlined cursor-pointer" [matMenuTriggerFor]="iconMenu">
+                more_vert
+              </span>
+              <mat-menu #iconMenu="matMenu" class="dotMenu monthMenu icon-alignment-div" xPosition="before">
+                <button mat-menu-item type="button" class="bg-transparent border-none position-relative"
+                  [disabled]="!isEditAccess" (click)="setData(element);scrollToTop()"
+                  [ngClass]="[isEditAccess?'text-white':'']">
+                  <span class="icon-alignment">
+                    <span class="material-symbols-outlined cursor-pointer">
+                      edit
+                    </span>
+                  </span>
+                  <span>Edit</span>
+                </button>
+              </mat-menu> -->
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="example-element-row"
+            (click)="selectedRowIndex = row.position"
+            [ngClass]="{'highlightTableColor': selectedRowIndex == row.position}"></tr>
+
+        </table>
+
+        <div class="fw-bold no-records text-center" *ngIf="ShadesList.length==0">
+          No Records Found
+        </div>
+
+      </div>
+      <div class="text-end bg-white border-top-radius"
+        *ngIf="totalRecords !== 0 && totalRecords !== null && totalRecords>10">
+        <!-- <div class="d-flex justify-content-end">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item me-15" *ngIf="PageNumber > 1">
+                <a class="page-link cursor-pointer" (click)="pageClick(PageNumber - 1)">Previous</a>
+              </li>
+              <li class="page-item me-15" *ngFor="let page of getPages()">
+                <a class="page-link cursor-pointer" (click)="page!='...'?pageClick(page):''"
+                  [ngClass]="page==PageNumber?'active':''">
+                  {{page}}</a>
+              </li>
+              <li class="page-item" *ngIf="PageNumber < totalPages()">
+                <a class="page-link cursor-pointer" (click)="pageClick(PageNumber + 1)">Next</a>
+              </li>
+            </ul>
+          </nav>
+        </div> -->
+
+        <mat-paginator (page)="handlePage($event)" [pageSize]="PageSize" [pageSizeOptions]="[10, 15, 20, 25, 100]"
+          [length]="totalRecords" [showFirstLastButtons]="true"></mat-paginator>
+      </div>
+    </mat-card-content>
+  </mat-card>

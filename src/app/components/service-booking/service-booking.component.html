@@ -1,0 +1,187 @@
+<div [ngClass]="">
+  <div class="pageName-headerDiv">
+    <mat-card class="p-0 dark-theme-bg tagus-card">
+      <mat-card-header class="m-0 d-flex">
+        <div>
+          <h5 class="mb-0">Service Booking</h5>
+          <div class="d-flex">
+            <span class="material-symbols-outlined cursor-pointer" (click)="goBack()">
+              west
+            </span>
+            <app-breadcrumb class="ms-10 mt-3"></app-breadcrumb>
+          </div>
+        </div>
+      </mat-card-header>
+    </mat-card>         
+  </div>      
+  <mat-card class="mb-25 tagus-card">
+    <mat-card-header class="overflow-auto">
+      <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-4 button-group">
+        <h5 class="mb-0">Service Booking List</h5>
+        <button mat-button class="button" >Add Service Booking</button>
+        <!-- <button mat-button class="button">Add Service Booking</button> -->
+        <button mat-button class="button">Add Accidental Booking</button>
+      </div>
+      <div class="text-end d-flex justify-content-end">
+        <div class="d-flex border-radius searchBox-border">
+          <div class="d-flex background-white searchFilterDivNew">
+            <form class="search-box position-relative d-inline-flex m-15">
+              <input type="text" class="input-search d-block background-white" placeholder="Search here.." (input)="applyFilter($event)">
+              <button type="submit"><i class="ri-search-line"></i></button>
+              <button type="button" class="clear-button" (click)="applyFilter($event)">
+                <i class="ri-close-line"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="mat-elevation-z8 tagus-mat-table overflow-auto mt-20">
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+          
+          <!-- Booking Number Column -->
+          <ng-container matColumnDef="BookingNumber">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Booking Number </th>
+            <td mat-cell *matCellDef="let element"> {{element.BookingNumber}} </td>
+          </ng-container>
+      
+          <!-- Asset Number Column -->
+          <ng-container matColumnDef="AssetNumber">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Asset Number </th>
+            <td mat-cell *matCellDef="let element"> {{element.AssetNumber}} </td>
+          </ng-container>
+      
+          <!-- Registration Number Column -->
+          <ng-container matColumnDef="RegNo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Registration Number </th>
+            <td mat-cell *matCellDef="let element"> {{element.RegNo}} </td>
+          </ng-container>
+      
+          <!-- Chassis Number Column -->
+          <ng-container matColumnDef="ChasisNo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Chassis Number </th>
+            <td mat-cell *matCellDef="let element"> {{element.ChasisNo}} </td>
+          </ng-container>
+      
+          <!-- Service Type Column -->    
+          <ng-container matColumnDef="ServiceType">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Service Type </th>
+            <td mat-cell *matCellDef="let element"> {{element.ServiceType}} </td>
+          </ng-container>
+      
+          <!-- Service Description Column -->
+          <ng-container matColumnDef="ServiceDesc">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Service Description </th>
+            <td mat-cell *matCellDef="let element"> {{element.ServiceDesc}} </td>
+          </ng-container>
+      
+          <!-- City Name Column -->
+          <ng-container matColumnDef="CityName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> City </th>
+            <td mat-cell *matCellDef="let element"> {{element.CityName}} </td>
+          </ng-container>
+      
+          <!-- Client Name Column -->
+          <ng-container matColumnDef="ClientName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Client Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.ClientName}} </td>
+          </ng-container>
+      
+          <!-- Booking Person Column -->
+          <ng-container matColumnDef="BookingPerson">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Booking Person </th>
+            <td mat-cell *matCellDef="let element"> {{element.BookingPerson}} </td>
+          </ng-container>
+      
+          <!-- Model Column -->
+          <ng-container matColumnDef="Model">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Model </th>
+            <td mat-cell *matCellDef="let element"> {{element.Model}} </td>
+          </ng-container>
+      
+          <!-- Variant Name Column -->
+          <ng-container matColumnDef="VariantName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Variant Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.VariantName}} </td>
+          </ng-container>
+      
+          <!-- Booking Date Column -->
+          <ng-container matColumnDef="BookingDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Booking Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.BookingDate}} </td>
+          </ng-container>
+      
+          <!-- Booking Time Column -->
+          <ng-container matColumnDef="BookingTime">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Booking Time </th>
+            <td mat-cell *matCellDef="let element"> {{element.BookingTime}} </td>
+          </ng-container>
+      
+          <!-- Last Km Column -->
+          <ng-container matColumnDef="LastKm">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Km </th>
+            <td mat-cell *matCellDef="let element"> {{element.LastKm}} </td>
+          </ng-container>
+          
+      
+          <!-- Service Done Column -->
+          <ng-container matColumnDef="ServiceDone">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Service Done </th>
+            <td mat-cell *matCellDef="let element"> {{element.ServiceDone}} </td>
+          </ng-container>
+      
+          <!-- Service Done Date Column -->
+          <ng-container matColumnDef="ServiceDoneDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Service Done Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.ServiceDoneDate}} </td>
+          </ng-container>
+      
+          <!-- Request Service Date Column -->
+          <ng-container matColumnDef="RequestServiceDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Request Service Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.requestServiceDate}} </td>
+          </ng-container>
+      
+          <!-- Replacement Required Column -->
+          <ng-container matColumnDef="ReplacementRequired">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Replacement Required </th>
+            <td mat-cell *matCellDef="let element"> {{element.isReplacementRequired}} </td>
+          </ng-container>
+      
+          <!-- Workshop Name Column -->
+          <ng-container matColumnDef="WorkshopName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Workshop Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.workshopName}} </td>
+          </ng-container>
+      
+          <!-- Booking Status Column -->
+          <ng-container matColumnDef="BookingStatus">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Booking Status </th>
+            <td mat-cell *matCellDef="let element"> {{element.bookingStatus}} </td>
+          </ng-container>
+      
+          <!-- Job Details Column -->
+          <ng-container matColumnDef="JobDetails">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Job Details </th>
+            <td mat-cell *matCellDef="let element">
+              <ul>
+                <li *ngFor="let job of element.jobDetails">
+                  {{job.description}} ({{job.status}})
+                </li>
+              </ul>
+            </td>
+          </ng-container>
+      
+          <!-- Define the header and data cells -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+        </table>
+      </div>
+      
+      
+    </mat-card-content>
+  </mat-card>
+</div>

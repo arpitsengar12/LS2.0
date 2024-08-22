@@ -1,0 +1,173 @@
+<div class="pageName-headerDiv">
+    <mat-card class="p-0 dark-theme-bg tagus-card">
+        <mat-card-header class="m-0 d-flex">
+            <div class="">
+
+
+              <h5 class="mb-2 headingcolor">Expense Claim</h5>
+                <div class="d-flex">
+                    
+                    <app-breadcrumb class="ms-10 mt-3"></app-breadcrumb>
+                </div>
+                <span class="material-symbols-outlined cursor-pointer" (click)="goBack()">
+                    west
+                </span> 
+            </div>
+        </mat-card-header>
+    </mat-card>
+</div>
+<mat-card>
+<mat-tab-group>
+    <mat-tab label="January">Content for January</mat-tab>
+    <mat-tab label="February">Content for February</mat-tab>
+    <mat-tab label="March">Content for March</mat-tab>
+    <mat-tab label="April">Content for April</mat-tab>
+    <mat-tab label="May">Content for May</mat-tab>
+    <mat-tab label="June">Content for June</mat-tab>
+    <mat-tab label="July">Content for July</mat-tab>
+    <mat-tab label="August">Content for August</mat-tab>
+    <mat-tab label="September">Content for September</mat-tab>
+    <mat-tab label="October">Content for October</mat-tab>
+    <mat-tab label="November">Content for November</mat-tab>
+    <mat-tab label="December">Content for December</mat-tab>
+  </mat-tab-group>
+</mat-card>
+  
+<mat-card class="mb-25 tagus-card">
+    <mat-card-header class="">
+        <div class="row col-md-12">
+            <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Invoice No.:</mat-label>
+                        <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="Invoice"
+                            formControlName="cityName">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Department:</mat-label>
+                        <mat-select [tabIndex]="3" formControlName="department" placeholder="Select Department">
+                            <mat-option *ngFor="let department of departments " [value]="department">
+                                {{ department }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Type:</mat-label>
+                        <mat-select [tabIndex]="3" formControlName="Type" placeholder="Select Type">
+                            <mat-option *ngFor="let department of departments " [value]="department">
+                                {{ department }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Invoice Amount</mat-label>
+                        <input [tabIndex]="4" matInput type="text" class="form-control" placeholder="Invoice Amount"
+                            formControlName="InvAmount">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-4 file-upload-container">
+                <input type="file" id="file" class="file-input">
+            </div>
+            
+
+            <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Invoice Date</mat-label>
+                        <input matInput [matDatepicker]="picker" [tabIndex]="4" formControlName="InvDate" placeholder="Invoice Date">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            
+            
+            <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                    <mat-form-field appearance="fill">
+                        <mat-label>From Date</mat-label>
+                        <input matInput [matDatepicker]="fromDatePicker" [tabIndex]="4" formControlName="fromdate" placeholder="From Date">
+                        <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #fromDatePicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            
+
+            <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                    <mat-form-field appearance="fill">
+                        <mat-label>To Date</mat-label>
+                        <input matInput [matDatepicker]="toDatePicker" [tabIndex]="4" formControlName="todate" placeholder="To Date">
+                        <mat-datepicker-toggle matSuffix [for]="toDatePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #toDatePicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            
+
+
+            <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Remark</mat-label>
+                        <input [tabIndex]="4" matInput type="text" class="form-control" placeholder="Remark"
+                            formControlName="remark">
+                    </mat-form-field>
+                </div>
+            </div>
+
+
+            <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Email</mat-label>
+                        <input [tabIndex]="4" matInput type="text" class="form-control" placeholder="Email"
+                            formControlName="email">
+                    </mat-form-field>
+                </div>
+            </div>
+
+
+            <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Months:</mat-label>
+                    <mat-select [tabIndex]="3" formControlName="months" placeholder="Select">
+                      <mat-option *ngFor="let month of months" [value]="month">
+                        {{ month }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              
+            <p>I arpit.sengar , do hereby declare that the aforesaid information is true and correct. I further declare that I shall indemnify the company against all costs and consequences if any information is later on found to be incorrect. Also, if required I shall present the original copies of all invoices and supporting’s to the company officials as and when required.</p>
+
+            <div class="col-md-12 button-group text-end justify-content-end">
+                <button mat-button class="button" >Save</button>
+                <!-- <button mat-button class="button">Add Service Booking</button> -->
+                <button mat-button class="button">Cancel</button>
+              </div>
+            
+        </div>
+
+
+
+
+    </mat-card-header>
+</mat-card>

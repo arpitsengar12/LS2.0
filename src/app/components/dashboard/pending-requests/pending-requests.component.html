@@ -1,0 +1,497 @@
+<div [ngClass]="mainThemeClass">
+  <div class="pageName-headerDiv">
+    <mat-card class="tagus-card p-0 pb-25 dark-theme-bg">
+      <mat-card-header class="m-0">
+        <div>
+          <h5 class="mb-0" [ngClass]="mainThemeClass!='' ? 'theme-text-color': ''"> Dashboard Notification</h5>
+          <div class="d-flex">
+            <span class="material-symbols-outlined cursor-pointer"
+              (click)="commonService.pageNavigation({URL:'MainWithoutSidebar.aspx'})">
+              west
+            </span><app-breadcrumb class="ms-10 mt-3"></app-breadcrumb>
+          </div>
+        </div>
+      </mat-card-header>
+    </mat-card>
+  </div>
+
+  <div class="position-relative">
+    <mat-card class="mb-20 tagus-card p-0">
+      <mat-card-content>
+        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" (selectedTabChange)="tabClick($event)"
+          [selectedIndex]="selectedtab" class="tab-group-2">
+
+          <mat-tab>
+            <ng-template mat-tab-label class="shadow-md">
+              <b>All</b>
+            </ng-template>
+            <div class="pt-30 pe-30 ps-30 pb-15 mat-tab-div">
+
+              <mat-card class="mb-25 tagus-card">
+                <mat-card-content>
+                  <div class="mat-elevation-z8   tagus-mat-table overflow-auto mt-20">
+                    <table (matSortChange)="announceSortChange($event,'AllRequestTable')" mat-table
+                      [dataSource]="AllRequestList" matSort #AllRequestTable>
+
+                      <!-- Module -->
+                      <ng-container matColumnDef="Module">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="Module">Module</th>
+                        <td mat-cell *matCellDef="let element">{{element.Module}}</td>
+                      </ng-container>
+
+                      <!-- Requested By -->
+                      <ng-container matColumnDef="Requested By">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="RequestedByUser">Requested By</th>
+                        <td mat-cell *matCellDef="let element">{{element.RequestedByUser}}</td>
+                      </ng-container>
+
+                      <!-- Last Approved By -->
+                      <ng-container matColumnDef="Last Approved By">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="CreatedByUser">Last Approved By</th>
+                        <td mat-cell *matCellDef="let element">{{element.CreatedByUser}}</td>
+                      </ng-container>
+
+                      <!-- Details -->
+                      <ng-container matColumnDef="Details">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="Details">Details</th>
+                        <!-- <td mat-cell *matCellDef="let element">{{element.Details}}</td> -->
+                        <td mat-cell *matCellDef="let element">Approval Request has been raised by
+                          {{element.RequestedByUser}} on {{element.CreatedDate | date:'dd-MM-yyyy'}}</td>
+                      </ng-container>
+
+                      <!-- Pending Since -->
+                      <ng-container matColumnDef="Pending Since">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="PendingSince">Pending Since</th>
+                        <td mat-cell *matCellDef="let element">{{element.PendingSince}}</td>
+                      </ng-container>
+
+                      <!-- Status -->
+                      <ng-container matColumnDef="Status">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="Status">Status</th>
+                        <td mat-cell *matCellDef="let element">
+                          <span
+                            [ngClass]="[element.StatusId==1?'pendingColorText':element.StatusId==2?'ApprovedColorText':element.StatusId==3?'rejectedColorText':'']">{{element.Status}}
+                          </span>
+                        </td>
+                      </ng-container>
+
+
+                      <ng-container matColumnDef="Action">
+                        <th mat-header-cell *matHeaderCellDef>Action</th>
+                        <td mat-cell *matCellDef="let element">
+                          <div class="d-flex justify-content-center align-items-start">
+                            <button (click)="ViewPageRedirection(element)" mat-flat-button
+                              class="text-outline-primary mt-10 me-15 white-color">
+                              View
+                            </button>
+
+                            <button *ngIf="element.Status=='Pending'" mat-stroked-button [disabled]="!isApprovAccess"
+                              class="mt-10 me-15"
+                              [ngClass]="[mainThemeClass!='' ? 'dialog-save-btn': 'text-bg-info',isApprovAccess?'text-white':'']"
+                              (click)="approveRequest(element)">Approve
+                            </button>
+
+                            <button *ngIf="element.Status=='Pending'" (click)="rejectRequest(element)" mat-flat-button
+                              class="mt-10 me-15" [disabled]="!isApprovAccess"
+                              [ngClass]="[isApprovAccess?'custom-gray-bg text-white ':'']">
+                              Reject
+                            </button>
+                          </div>
+
+                        </td>
+                      </ng-container>
+
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="example-element-row"
+                        (click)="selectedRowIndex = row.position"
+                        [ngClass]="{'highlightTableColor': selectedRowIndex == row.position}"></tr>
+
+                    </table>
+
+                    <div class="fw-bold no-records text-center" *ngIf="AllRequestList.length==0">
+                      No Records Found
+                    </div>
+
+                  </div>
+                  <div class="text-end bg-white border-top-radius"
+                    *ngIf="totalRecords !== 0 && totalRecords !== null && totalRecords>10">
+                    <!-- <div class="d-flex justify-content-end">
+                    <nav aria-label="Page navigation example">
+                      <ul class="pagination">
+                        <li class="page-item me-15" *ngIf="PageNumber > 1">
+                          <a class="page-link cursor-pointer" (click)="pageClick(PageNumber - 1)">Previous</a>
+                        </li>
+                        <li class="page-item me-15" *ngFor="let page of getPages()">
+                          <a class="page-link cursor-pointer" (click)="page!='...'?pageClick(page):''"
+                            [ngClass]="page==PageNumber?'active':''">
+                            {{page}}</a>
+                        </li>
+                        <li class="page-item" *ngIf="PageNumber < totalPages()">
+                          <a class="page-link cursor-pointer" (click)="pageClick(PageNumber + 1)">Next</a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div> -->
+
+                    <mat-paginator (page)="handlePage($event)" [pageSize]="PageSize"
+                      [pageSizeOptions]="[10, 15, 20, 25, 100]" [length]="totalRecords"
+                      [showFirstLastButtons]="true"></mat-paginator>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+
+            </div>
+
+          </mat-tab>
+
+          <mat-tab>
+            <ng-template mat-tab-label class="shadow-md">
+              <b>Pending</b>
+            </ng-template>
+            <div class="pt-30 pe-30 ps-30 pb-15 mat-tab-div">
+
+              <mat-card class="mb-25 tagus-card">
+                <mat-card-content>
+                  <div class="mat-elevation-z8   tagus-mat-table overflow-auto mt-20">
+                    <table (matSortChange)="announceSortChange($event,'PendingRequestTable')" mat-table
+                      [dataSource]="PendingRequestList" matSort #PendingRequestTable>
+
+                      <!-- Module -->
+                      <ng-container matColumnDef="Module">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="Module">Module</th>
+                        <td mat-cell *matCellDef="let element">{{element.Module}}</td>
+                      </ng-container>
+
+                      <!-- Requested By -->
+                      <ng-container matColumnDef="Requested By">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="RequestedByUser">Requested By</th>
+                        <td mat-cell *matCellDef="let element">{{element.RequestedByUser}}</td>
+                      </ng-container>
+
+                      <!-- Last Approved By -->
+                      <ng-container matColumnDef="Last Approved By">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="CreatedByUser">Last Approved By</th>
+                        <td mat-cell *matCellDef="let element">{{element.CreatedByUser}}</td>
+                      </ng-container>
+
+                      <!-- Details -->
+                      <ng-container matColumnDef="Details">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="Details">Details</th>
+                        <!-- <td mat-cell *matCellDef="let element">{{element.Details}}</td> -->
+                        <td mat-cell *matCellDef="let element">Approval Request has been raised by
+                          {{element.RequestedByUser}} on {{element.CreatedDate | date:'dd-MM-yyyy'}}</td>
+                      </ng-container>
+
+                      <!-- Pending Since -->
+                      <ng-container matColumnDef="Pending Since">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="Pending Since">Pending Since</th>
+                        <td mat-cell *matCellDef="let element">{{element.PendingSince}}</td>
+                      </ng-container>
+
+                      <!-- Status -->
+                      <ng-container matColumnDef="Status">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="Status">Status</th>
+                        <td mat-cell *matCellDef="let element">
+                          <span
+                            [ngClass]="[element.Status=='Pending'?'pendingColorText':element.StatusId==2?'ApprovedColorText':element.StatusId==3?'rejectedColorText':'']">{{element.Status}}
+                          </span>
+                        </td>
+                      </ng-container>
+
+
+                      <ng-container matColumnDef="Action">
+                        <th mat-header-cell *matHeaderCellDef>Action</th>
+                        <td mat-cell *matCellDef="let element">
+                          <div class="d-flex justify-content-center align-items-start">
+                            <button (click)="ViewPageRedirection(element)" mat-flat-button
+                              class="text-outline-primary mt-10 me-15 white-color">
+                              View
+                            </button>
+
+                            <button mat-stroked-button [disabled]="!isApprovAccess"
+                              [ngClass]="[mainThemeClass!='' ? 'dialog-save-btn': 'text-bg-info',isApprovAccess?'text-white':'']"
+                              (click)="approveRequest(element)" class="mt-10 me-15">Approve
+                            </button>
+
+                            <button (click)="rejectRequest(element)" mat-flat-button class="mt-10 me-15"
+                              [disabled]="!isApprovAccess" [ngClass]="[isApprovAccess?'custom-gray-bg text-white ':'']">
+                              Reject
+                            </button>
+                          </div>
+
+                        </td>
+                      </ng-container>
+
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="example-element-row"
+                        (click)="selectedRowIndex = row.position"
+                        [ngClass]="{'highlightTableColor': selectedRowIndex == row.position}"></tr>
+
+                    </table>
+
+                    <div class="fw-bold no-records text-center" *ngIf="PendingRequestList.length==0">
+                      No Records Found
+                    </div>
+
+                  </div>
+                  <div class="text-end bg-white border-top-radius"
+                    *ngIf="totalRecords !== 0 && totalRecords !== null && totalRecords>10">
+                    <!-- <div class="d-flex justify-content-end">
+                    <nav aria-label="Page navigation example">
+                      <ul class="pagination">
+                        <li class="page-item me-15" *ngIf="PageNumber > 1">
+                          <a class="page-link cursor-pointer" (click)="pageClick(PageNumber - 1)">Previous</a>
+                        </li>
+                        <li class="page-item me-15" *ngFor="let page of getPages()">
+                          <a class="page-link cursor-pointer" (click)="page!='...'?pageClick(page):''"
+                            [ngClass]="page==PageNumber?'active':''">
+                            {{page}}</a>
+                        </li>
+                        <li class="page-item" *ngIf="PageNumber < totalPages()">
+                          <a class="page-link cursor-pointer" (click)="pageClick(PageNumber + 1)">Next</a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div> -->
+
+                    <mat-paginator (page)="handlePage($event)" [pageSize]="PageSize"
+                      [pageSizeOptions]="[10, 15, 20, 25, 100]" [length]="totalRecords"
+                      [showFirstLastButtons]="true"></mat-paginator>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+
+            </div>
+
+          </mat-tab>
+
+          <mat-tab>
+            <ng-template mat-tab-label class="shadow-md">
+              <b>Approved</b>
+            </ng-template>
+            <div class="pt-30 pe-30 ps-30 pb-15 mat-tab-div">
+
+              <mat-card class="mb-25 tagus-card">
+                <mat-card-content>
+                  <div class="mat-elevation-z8   tagus-mat-table overflow-auto mt-20">
+                    <table (matSortChange)="announceSortChange($event,'ApprovedRequestTable')" mat-table
+                      [dataSource]="ApprovedRequestList" matSort #ApprovedRequestTable>
+
+                      <!-- Module -->
+                      <ng-container matColumnDef="Module">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="Module">Module</th>
+                        <td mat-cell *matCellDef="let element">{{element.Module}}</td>
+                      </ng-container>
+
+                      <!-- Requested By -->
+                      <ng-container matColumnDef="Requested By">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="RequestedByUser">Requested By</th>
+                        <td mat-cell *matCellDef="let element">{{element.RequestedByUser}}</td>
+                      </ng-container>
+
+                      <!-- Last Approved By -->
+                      <ng-container matColumnDef="Last Approved By">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="CreatedByUser">Last Approved By</th>
+                        <td mat-cell *matCellDef="let element">{{element.CreatedByUser}}</td>
+                      </ng-container>
+
+                      <!-- Details -->
+                      <ng-container matColumnDef="Details">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="Details">Details</th>
+                        <!-- <td mat-cell *matCellDef="let element">{{element.Details}}</td> -->
+                        <td mat-cell *matCellDef="let element">Approval Request has been raised by
+                          {{element.RequestedByUser}} on {{element.CreatedDate | date:'dd-MM-yyyy'}}</td>
+                      </ng-container>
+
+                      <!-- Pending Since -->
+                      <ng-container matColumnDef="Pending Since">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="ModifiedDate">Approved On</th>
+                        <td mat-cell *matCellDef="let element">{{element.ModifiedDate | date:'dd-MM-yyyy'}}</td>
+                      </ng-container>
+
+                      <!-- Status -->
+                      <ng-container matColumnDef="Status">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="Status">Status</th>
+                        <td mat-cell *matCellDef="let element">
+                          <span
+                            [ngClass]="[element.Status=='Pending'?'pendingColorText':element.StatusId==2?'ApprovedColorText':element.StatusId==3?'rejectedColorText':'']">{{element.Status}}
+                          </span>
+                        </td>
+                      </ng-container>
+
+
+                      <ng-container matColumnDef="Action">
+                        <th mat-header-cell *matHeaderCellDef>Action</th>
+                        <td mat-cell *matCellDef="let element">
+                          <div class="d-flex justify-content-center align-items-start">
+                            <button (click)="ViewPageRedirection(element)" mat-flat-button
+                              class="text-outline-primary mt-10 me-15 white-color">
+                              View
+                            </button>
+
+                          </div>
+
+                        </td>
+                      </ng-container>
+
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="example-element-row"
+                        (click)="selectedRowIndex = row.position"
+                        [ngClass]="{'highlightTableColor': selectedRowIndex == row.position}"></tr>
+
+                    </table>
+
+                    <div class="fw-bold no-records text-center" *ngIf="ApprovedRequestList.length==0">
+                      No Records Found
+                    </div>
+
+                  </div>
+                  <div class="text-end bg-white border-top-radius"
+                    *ngIf="totalRecords !== 0 && totalRecords !== null && totalRecords>10">
+                    <!-- <div class="d-flex justify-content-end">
+                    <nav aria-label="Page navigation example">
+                      <ul class="pagination">
+                        <li class="page-item me-15" *ngIf="PageNumber > 1">
+                          <a class="page-link cursor-pointer" (click)="pageClick(PageNumber - 1)">Previous</a>
+                        </li>
+                        <li class="page-item me-15" *ngFor="let page of getPages()">
+                          <a class="page-link cursor-pointer" (click)="page!='...'?pageClick(page):''"
+                            [ngClass]="page==PageNumber?'active':''">
+                            {{page}}</a>
+                        </li>
+                        <li class="page-item" *ngIf="PageNumber < totalPages()">
+                          <a class="page-link cursor-pointer" (click)="pageClick(PageNumber + 1)">Next</a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div> -->
+
+                    <mat-paginator (page)="handlePage($event)" [pageSize]="PageSize"
+                      [pageSizeOptions]="[10, 15, 20, 25, 100]" [length]="totalRecords"
+                      [showFirstLastButtons]="true"></mat-paginator>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+
+            </div>
+
+          </mat-tab>
+
+          <mat-tab>
+            <ng-template mat-tab-label class="shadow-md">
+              <b>Rejected</b>
+            </ng-template>
+            <div class="pt-30 pe-30 ps-30 pb-15 mat-tab-div">
+
+              <mat-card class="mb-25 tagus-card">
+                <mat-card-content>
+                  <div class="mat-elevation-z8   tagus-mat-table overflow-auto mt-20">
+                    <table (matSortChange)="announceSortChange($event,'RejectedRequestTable')" mat-table
+                      [dataSource]="RejectedRequestList" matSort #RejectedRequestTable>
+
+                      <!-- Module -->
+                      <ng-container matColumnDef="Module">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="Module">Module</th>
+                        <td mat-cell *matCellDef="let element">{{element.Module}}</td>
+                      </ng-container>
+
+                      <!-- Requested By -->
+                      <ng-container matColumnDef="Requested By">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="RequestedByUser">Requested By</th>
+                        <td mat-cell *matCellDef="let element">{{element.RequestedByUser}}</td>
+                      </ng-container>
+
+                      <!-- Last Approved By -->
+                      <ng-container matColumnDef="Last Approved By">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="CreatedByUser">Last Approved By</th>
+                        <td mat-cell *matCellDef="let element">{{element.CreatedByUser}}</td>
+                      </ng-container>
+
+                      <!-- Details -->
+                      <ng-container matColumnDef="Details">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="Details">Details</th>
+                        <!-- <td mat-cell *matCellDef="let element">{{element.Details}}</td> -->
+                        <td mat-cell *matCellDef="let element">Approval Request has been raised by
+                          {{element.RequestedByUser}} on {{element.CreatedDate | date:'dd-MM-yyyy'}}</td>
+                      </ng-container>
+
+                      <!-- Pending Since -->
+                      <ng-container matColumnDef="Pending Since">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="ModifiedDate">Rejected On</th>
+                        <td mat-cell *matCellDef="let element">{{element.ModifiedDate | date:'dd-MM-yyyy'}}</td>
+                      </ng-container>
+
+                      <!-- Status -->
+                      <ng-container matColumnDef="Status">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="Status">Status</th>
+                        <td mat-cell *matCellDef="let element">
+                          <span
+                            [ngClass]="[element.StatusId==1?'pendingColorText':element.StatusId==2?'ApprovedColorText':element.StatusId==3?'rejectedColorText':'']">{{element.Status}}
+                          </span>
+                        </td>
+                      </ng-container>
+
+
+                      <ng-container matColumnDef="Action">
+                        <th mat-header-cell *matHeaderCellDef>Action</th>
+                        <td mat-cell *matCellDef="let element">
+                          <div class="d-flex justify-content-center align-items-start">
+                            <button (click)="ViewPageRedirection(element)" mat-flat-button
+                              class="text-outline-primary mt-10 me-15 white-color">
+                              View
+                            </button>
+
+                          </div>
+
+                        </td>
+                      </ng-container>
+
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="example-element-row"
+                        (click)="selectedRowIndex = row.position"
+                        [ngClass]="{'highlightTableColor': selectedRowIndex == row.position}"></tr>
+
+                    </table>
+
+                    <div class="fw-bold no-records text-center" *ngIf="RejectedRequestList.length==0">
+                      No Records Found
+                    </div>
+
+                  </div>
+                  <div class="text-end bg-white border-top-radius"
+                    *ngIf="totalRecords !== 0 && totalRecords !== null && totalRecords>10">
+                    <!-- <div class="d-flex justify-content-end">
+                    <nav aria-label="Page navigation example">
+                      <ul class="pagination">
+                        <li class="page-item me-15" *ngIf="PageNumber > 1">
+                          <a class="page-link cursor-pointer" (click)="pageClick(PageNumber - 1)">Previous</a>
+                        </li>
+                        <li class="page-item me-15" *ngFor="let page of getPages()">
+                          <a class="page-link cursor-pointer" (click)="page!='...'?pageClick(page):''"
+                            [ngClass]="page==PageNumber?'active':''">
+                            {{page}}</a>
+                        </li>
+                        <li class="page-item" *ngIf="PageNumber < totalPages()">
+                          <a class="page-link cursor-pointer" (click)="pageClick(PageNumber + 1)">Next</a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div> -->
+
+                    <mat-paginator (page)="handlePage($event)" [pageSize]="PageSize"
+                      [pageSizeOptions]="[10, 15, 20, 25, 100]" [length]="totalRecords"
+                      [showFirstLastButtons]="true"></mat-paginator>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+
+            </div>
+
+          </mat-tab>
+
+        </mat-tab-group>
+      </mat-card-content>
+
+    </mat-card>
+  </div>
+</div>

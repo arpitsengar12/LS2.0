@@ -1,0 +1,505 @@
+<div [ngClass]="mainThemeClass">
+  <div class="pageName-headerDiv">
+    <mat-card class="tagus-card p-0 pb-25 dark-theme-bg">
+      <mat-card-header class="m-0">
+        <div>
+          <h5 class="mb-0" [ngClass]="mainThemeClass!='' ? 'theme-text-color': ''">Cities</h5>
+          <div class="d-flex">
+            <span class="material-symbols-outlined cursor-pointer" (click)="location.back()">
+              west
+            </span><app-breadcrumb class="ms-10 mt-3"></app-breadcrumb>
+          </div>
+        </div>
+
+        <div *ngIf="!IsApproverView && !isView" class="d-flex justify-content-end me-25 align-items-center">
+          <h5 class="mb-0 me-30 cursor-pointer custom-underline" (click)="versionPageredirect()"
+            [ngClass]="[mainThemeClass!='' ? 'theme-text-color': '',!editMode || !IsAuditTrail? 'd-none':'']">
+            Version History
+          </h5>
+          <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg"
+            class="cursor-pointer me-15" (click)="resetForm()" matTooltip="Reset">
+            <g id="solar:refresh-bold">
+              <path *ngIf="!darkThemeMode" id="Vector"
+                d="M10.5692 1.96876C6.37444 1.96876 2.92694 5.17389 2.59094 9.26014H1.75007C1.61996 9.26007 1.49278 9.29869 1.38467 9.37107C1.27656 9.44344 1.1924 9.54632 1.14289 9.66664C1.09337 9.78695 1.08074 9.91926 1.10659 10.0468C1.13244 10.1743 1.19561 10.2912 1.28807 10.3828L2.75807 11.8405C2.88097 11.9623 3.04701 12.0307 3.22007 12.0307C3.39312 12.0307 3.55916 11.9623 3.68207 11.8405L5.15207 10.3828C5.24452 10.2912 5.30769 10.1743 5.33354 10.0468C5.35939 9.91926 5.34676 9.78695 5.29724 9.66664C5.24773 9.54632 5.16357 9.44344 5.05546 9.37107C4.94735 9.29869 4.82017 9.26007 4.69007 9.26014H3.90869C4.24119 5.90801 7.09194 3.28126 10.5692 3.28126C11.7157 3.27888 12.8436 3.5707 13.845 4.1288C14.8465 4.6869 15.688 5.49262 16.2891 6.46888C16.3331 6.54463 16.3918 6.61081 16.4617 6.66351C16.5317 6.71621 16.6115 6.75437 16.6965 6.77574C16.7814 6.79711 16.8698 6.80126 16.9563 6.78794C17.0429 6.77462 17.1259 6.7441 17.2005 6.69819C17.2751 6.65228 17.3398 6.59189 17.3907 6.5206C17.4416 6.44931 17.4777 6.36854 17.4969 6.28308C17.5161 6.19761 17.5179 6.10917 17.5024 6.02296C17.4869 5.93676 17.4542 5.85453 17.4064 5.78113C16.688 4.61413 15.6823 3.65088 14.4854 2.98342C13.2885 2.31597 11.9396 1.96662 10.5692 1.96876ZM18.2359 9.15864C18.1131 9.03734 17.9474 8.96932 17.7748 8.96932C17.6022 8.96932 17.4365 9.03734 17.3137 9.15864L15.8376 10.6164C15.7449 10.7078 15.6814 10.8248 15.6554 10.9523C15.6293 11.0799 15.6418 11.2124 15.6913 11.3328C15.7407 11.4533 15.8249 11.5563 15.933 11.6288C16.0412 11.7013 16.1685 11.7399 16.2987 11.7399H17.0853C16.7511 15.0911 13.8907 17.7188 10.3968 17.7188C9.24675 17.722 8.11501 17.4306 7.10946 16.8725C6.1039 16.3143 5.25803 15.508 4.65244 14.5303C4.60717 14.4569 4.54789 14.3932 4.47798 14.3427C4.40808 14.2922 4.32892 14.2561 4.24503 14.2362C4.16114 14.2163 4.07415 14.2132 3.98905 14.2269C3.90394 14.2407 3.82237 14.271 3.749 14.3163C3.60083 14.4078 3.49505 14.5543 3.45493 14.7237C3.4148 14.8932 3.44363 15.0716 3.53507 15.2198C4.25829 16.388 5.26859 17.3516 6.46973 18.0188C7.67086 18.686 9.02282 19.0346 10.3968 19.0313C14.6038 19.0313 18.0662 15.8288 18.4031 11.7399H19.2501C19.3803 11.7399 19.5076 11.7013 19.6157 11.6288C19.7239 11.5563 19.808 11.4533 19.8575 11.3328C19.9069 11.2124 19.9194 11.0799 19.8934 10.9523C19.8673 10.8248 19.8039 10.7078 19.7112 10.6164L18.2359 9.15864Z"
+                fill="black" />
+              <path *ngIf="darkThemeMode" id="Vector"
+                d="M10.5692 1.96876C6.37444 1.96876 2.92694 5.17389 2.59094 9.26014H1.75007C1.61996 9.26007 1.49278 9.29869 1.38467 9.37107C1.27656 9.44344 1.1924 9.54632 1.14289 9.66664C1.09337 9.78695 1.08074 9.91926 1.10659 10.0468C1.13244 10.1743 1.19561 10.2912 1.28807 10.3828L2.75807 11.8405C2.88097 11.9623 3.04701 12.0307 3.22007 12.0307C3.39312 12.0307 3.55916 11.9623 3.68207 11.8405L5.15207 10.3828C5.24452 10.2912 5.30769 10.1743 5.33354 10.0468C5.35939 9.91926 5.34676 9.78695 5.29724 9.66664C5.24773 9.54632 5.16357 9.44344 5.05546 9.37107C4.94735 9.29869 4.82017 9.26007 4.69007 9.26014H3.90869C4.24119 5.90801 7.09194 3.28126 10.5692 3.28126C11.7157 3.27888 12.8436 3.5707 13.845 4.1288C14.8465 4.6869 15.688 5.49262 16.2891 6.46888C16.3331 6.54463 16.3918 6.61081 16.4617 6.66351C16.5317 6.71621 16.6115 6.75437 16.6965 6.77574C16.7814 6.79711 16.8698 6.80126 16.9563 6.78794C17.0429 6.77462 17.1259 6.7441 17.2005 6.69819C17.2751 6.65228 17.3398 6.59189 17.3907 6.5206C17.4416 6.44931 17.4777 6.36854 17.4969 6.28308C17.5161 6.19761 17.5179 6.10917 17.5024 6.02296C17.4869 5.93676 17.4542 5.85453 17.4064 5.78113C16.688 4.61413 15.6823 3.65088 14.4854 2.98342C13.2885 2.31597 11.9396 1.96662 10.5692 1.96876ZM18.2359 9.15864C18.1131 9.03734 17.9474 8.96932 17.7748 8.96932C17.6022 8.96932 17.4365 9.03734 17.3137 9.15864L15.8376 10.6164C15.7449 10.7078 15.6814 10.8248 15.6554 10.9523C15.6293 11.0799 15.6418 11.2124 15.6913 11.3328C15.7407 11.4533 15.8249 11.5563 15.933 11.6288C16.0412 11.7013 16.1685 11.7399 16.2987 11.7399H17.0853C16.7511 15.0911 13.8907 17.7188 10.3968 17.7188C9.24675 17.722 8.11501 17.4306 7.10946 16.8725C6.1039 16.3143 5.25803 15.508 4.65244 14.5303C4.60717 14.4569 4.54789 14.3932 4.47798 14.3427C4.40808 14.2922 4.32892 14.2561 4.24503 14.2362C4.16114 14.2163 4.07415 14.2132 3.98905 14.2269C3.90394 14.2407 3.82237 14.271 3.749 14.3163C3.60083 14.4078 3.49505 14.5543 3.45493 14.7237C3.4148 14.8932 3.44363 15.0716 3.53507 15.2198C4.25829 16.388 5.26859 17.3516 6.46973 18.0188C7.67086 18.686 9.02282 19.0346 10.3968 19.0313C14.6038 19.0313 18.0662 15.8288 18.4031 11.7399H19.2501C19.3803 11.7399 19.5076 11.7013 19.6157 11.6288C19.7239 11.5563 19.808 11.4533 19.8575 11.3328C19.9069 11.2124 19.9194 11.0799 19.8934 10.9523C19.8673 10.8248 19.8039 10.7078 19.7112 10.6164L18.2359 9.15864Z"
+                fill="white" />
+            </g>
+          </svg>
+          <button (click)="location.back()" mat-flat-button class="gray me-15 white-color">
+            Cancel
+          </button>
+          <button *ngIf="!editMode" (click)="addCities()" mat-flat-button color="primary" class="bg-theme-color"
+            [disabled]="!isAddAccess" [ngClass]="[isAddAccess?'text-white':'']">Save</button>
+          <button *ngIf="editMode" (click)="updateCities()" mat-flat-button color="primary" class="bg-theme-color"
+            [disabled]="!isEditAccess" [ngClass]="[isEditAccess?'text-white':'']">Update</button>
+
+        </div>
+
+        <div *ngIf="isView" class="d-flex justify-content-end align-items-center pe-30">
+          <h5 class="mb-0 me-30 cursor-pointer custom-underline" (click)="versionPageredirect()"
+            [ngClass]="[mainThemeClass!='' ? 'theme-text-color': '',!IsAuditTrail? 'd-none':'']">
+            Version History
+          </h5>
+          <button (click)="location.back()" mat-flat-button class="gray me-15 white-color">
+            Back
+          </button>
+        </div>
+
+        <div *ngIf="IsApproverView" class="d-flex justify-content-end align-items-center pe-30">
+
+          <button (click)="location.back()" mat-flat-button class="gray-bg mt-10 me-15 white-color">
+            Cancel
+          </button>
+
+          <button mat-stroked-button [disabled]="!isApprovAccess" class="mt-10 me-15"
+            [ngClass]="[mainThemeClass!='' ? 'dialog-save-btn': 'text-bg-info',isApprovAccess?'text-white':'']"
+            (click)="approveRequest()">Approve
+          </button>
+
+          <button (click)="rejectRequest()" mat-stroked-button class="mt-10 me-15" [disabled]="!isApprovAccess"
+            [ngClass]="[isApprovAccess?'custom-gray-bg text-white ':'']">
+            Reject
+          </button>
+        </div>
+      </mat-card-header>
+    </mat-card>
+  </div>
+
+  <mat-card class="mb-25 tagus-card">
+    <mat-card-content>
+      <div class="position-relative">
+        <form [formGroup]="addCityForm">
+          <div class="mb-15  h-100">
+            <mat-accordion class="example-headers-align" multi class="form-expansion-panel">
+              <mat-expansion-panel class="box-shadow-none" [expanded]="true">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    City Details
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <div class="position-relative">
+                  <div class="row p-15 mt-10">
+
+                    <div class="col-4 disable-input">
+                      <div class="tagus-form-group without-icon">
+                        <mat-form-field appearance="fill">
+                          <mat-label>Code</mat-label>
+                          <input [tabIndex]="1" [readonly]="true" matInput placeholder="Code" type="text"
+                            class="form-control" formControlName="cityCode">
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <div class="col-4">
+                      <div class="tagus-form-group without-icon">
+                        <mat-form-field appearance="fill">
+                          <mat-label>City</mat-label>
+                          <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="City"
+                            formControlName="cityName">
+                          <mat-error *ngIf="submitted && validators['cityName'].errors && validators['cityName'].errors['required']
+                            ">Enter City </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <div class="col-4">
+                      <div class="tagus-form-group without-icon mandatory-field">
+                        <ng-select [tabIndex]="3" dropdownPosition="bottom" formControlName="StateName"
+                          placeholder="Select State" class="dropdown" bindLabel="StateName" bindValue="StateID"
+                          [items]="stateList" [appendTo]="'body'" [clearable]="false" #stateDropdown
+                          (window:scroll)="stateDropdown.close()"
+                          [ngClass]="stateDropdown.hasValue || stateDropdown.isOpen?'placeholder-padding':''">
+                        </ng-select>
+                        <mat-error class="requiredField ms-15 me-15"
+                          [ngStyle]="{visibility:(submitted && addCityForm.get('StateName')!.hasError('required'))?'visible':'hidden'}">
+                          Select State
+                        </mat-error>
+                      </div>
+                    </div>
+
+                    <div class="col-4" [ngClass]="editMode?'disable-input':''">
+                      <div class="tagus-form-group without-icon mandatory-field">
+                        <ng-select [tabIndex]="4" dropdownPosition="bottom" formControlName="InsZoneSeatUpto"
+                          placeholder="Ins. Zone(Pvt/Taxi) seats up to 6" class="dropdown"
+                          bindLabel="GeneralDescription" bindValue="GeneralID" [items]="insZoneUpto6List"
+                          [appendTo]="'body'" [clearable]="false" [readonly]="editMode" #zoneDropdown
+                          (window:scroll)="zoneDropdown.close()"
+                          [ngClass]="zoneDropdown.hasValue || zoneDropdown.isOpen?'placeholder-padding':''">
+                        </ng-select>
+                        <mat-error class="requiredField ms-15 me-15"
+                          [ngStyle]="{visibility:(submitted && addCityForm.get('InsZoneSeatUpto')!.hasError('required'))?'visible':'hidden'}">
+                          Select Zone seats
+                        </mat-error>
+                      </div>
+                    </div>
+
+                    <div class="col-4" [ngClass]="editMode?'disable-input':''">
+                      <div class="tagus-form-group without-icon mandatory-field">
+                        <ng-select [tabIndex]="5" dropdownPosition="bottom" formControlName="InsZoneSeatMorethan"
+                          placeholder="Ins. Zone(Taxi) Capacity more than 6" class="dropdown"
+                          bindLabel="GeneralDescription" bindValue="GeneralID" [items]="insZoneMoreThan6List"
+                          [appendTo]="'body'" [clearable]="false" [readonly]="editMode" #zoneDropdown1
+                          (window:scroll)="zoneDropdown1.close()"
+                          [ngClass]="zoneDropdown1.hasValue || zoneDropdown1.isOpen?'placeholder-padding':''">
+                        </ng-select>
+                        <mat-error class="requiredField ms-15 me-15"
+                          [ngStyle]="{visibility:(submitted && addCityForm.get('InsZoneSeatMorethan')!.hasError('required'))?'visible':'hidden'}">
+                          Select Zone Capacity
+                        </mat-error>
+                      </div>
+                    </div>
+
+                    <div class="col-4">
+                      <div class="tagus-form-group without-icon">
+                        <ng-select [tabIndex]="6" dropdownPosition="bottom" formControlName="regionName"
+                          placeholder="Select Region" class="dropdown" bindLabel="RegionName" bindValue="RegionID"
+                          [items]="regionList" [appendTo]="'body'" [clearable]="false" #regionDropdown
+                          (window:scroll)="regionDropdown.close()"
+                          [ngClass]="regionDropdown.hasValue || regionDropdown.isOpen?'placeholder-padding':''">
+                        </ng-select>
+                      </div>
+                    </div>
+
+                    <div class="col-4">
+                      <div class="tagus-form-group without-icon">
+                        <mat-form-field appearance="fill">
+                          <mat-label>PIN Code</mat-label>
+                          <input [tabIndex]="7" maxlength="6" matInput type="text" class="form-control"
+                            placeholder="PIN Code" formControlName="pinCode">
+                          <mat-error
+                            *ngIf="submitted && validators['pinCode'].errors && validators['pinCode'].errors['required']">Enter
+                            PIN Code</mat-error>
+                          <mat-error
+                            *ngIf="submitted && validators['pinCode'].errors && validators['pinCode'].errors['pattern']">Enter
+                            Valid PIN Code</mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <div class="col-4">
+                      <div class="tagus-form-group without-icon">
+                        <mat-form-field appearance="fill">
+                          <mat-label>Octroi</mat-label>
+                          <input [tabIndex]="8" matInput type="text" class="form-control" placeholder="Octroi"
+                            formControlName="octroi">
+                          <mat-error
+                            *ngIf="submitted && validators['octroi'].errors && validators['octroi'].errors['pattern']">Enter
+                            Decimal Value</mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <div class="col-4">
+                      <div class="tagus-form-group without-icon">
+                        <mat-form-field appearance="fill">
+                          <mat-label>Oracle Code</mat-label>
+                          <input [tabIndex]="9" matInput type="text" class="form-control" placeholder="Oracle Code"
+                            formControlName="oracleCode">
+                          <mat-error
+                            *ngIf="submitted && validators['oracleCode'].errors && validators['oracleCode'].errors['pattern']">Enter
+                            Decimal Value</mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <div class="col-4">
+                      <div class="tagus-form-group without-icon">
+                        <mat-form-field appearance="fill">
+                          <mat-label>Contracted Boundary</mat-label>
+                          <input [tabIndex]="10" matInput type="text" class="form-control"
+                            placeholder="Contracted Boundary" formControlName="contractedBoundry">
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <div class="col-4">
+                      <div class="tagus-form-group without-icon">
+                        <ng-select [tabIndex]="11" dropdownPosition="bottom" formControlName="EmissionLevel"
+                          placeholder="Emission Level:" class="dropdown" bindLabel="item" bindValue="item"
+                          [items]="emissionList" [appendTo]="'body'" [clearable]="false" #emissionDropdown
+                          (window:scroll)="emissionDropdown.close()"
+                          [ngClass]="emissionDropdown.hasValue || emissionDropdown.isOpen?'placeholder-padding':''">
+                        </ng-select>
+                      </div>
+                    </div>
+
+                    <div class="col-4 d-flex justify-content-space-between align-items-center mb-20">
+                      <div class="col-5 d-flex justify-content-space-between">
+                        <mat-label>If City is Capital</mat-label>
+                        <mat-slide-toggle [tabIndex]="12" formControlName="IsCapital"></mat-slide-toggle>
+                      </div>
+                    </div>
+
+                    <div class="col-4 disable-input">
+                      <div class="tagus-form-group without-icon">
+                        <mat-form-field appearance="fill">
+                          <mat-label>RV Deviation</mat-label>
+                          <input [tabIndex]="13" [readonly]="true" matInput type="text" class="form-control"
+                            placeholder="RV Deviation" formControlName="RVDeviation">
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <div class="col-4 disable-input">
+                      <div class="tagus-form-group without-icon">
+                        <mat-form-field appearance="fill">
+                          <mat-label>RMT Deviation</mat-label>
+                          <input [tabIndex]="14" [readonly]="true" matInput type="text" class="form-control"
+                            placeholder="RMT Deviation" formControlName="RMTDeviation">
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <div class="col-4 d-flex justify-content-space-between align-items-center mb-20">
+                      <div class="col-5 d-flex justify-content-space-between">
+                        <mat-label>Is Addon Applied</mat-label>
+                        <mat-slide-toggle [tabIndex]="15" formControlName="IsAddOnApplied"></mat-slide-toggle>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+
+          <div class="mb-15  h-100">
+            <mat-accordion class="example-headers-align" multi class="form-expansion-panel">
+              <mat-expansion-panel class="box-shadow-none" [expanded]="true">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    SMAS ( India ) Pvt. Ltd Office Details
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <div class="position-relative">
+                  <div class="row p-15 mt-10">
+
+                    <div class="col-4">
+
+                      <div class="d-flex justify-content-space-between align-items-center pt-25 mt-3 mb-30">
+                        <div class="col-5 d-flex justify-content-space-between">
+                          <mat-label>SMAS City</mat-label>
+                          <mat-slide-toggle [tabIndex]="16" formControlName="IsSMASCity"></mat-slide-toggle>
+                        </div>
+                      </div>
+
+
+                      <div class="tagus-form-group without-icon address-field">
+                        <mat-form-field appearance="fill">
+                          <mat-label>Address Line 1</mat-label>
+                          <textarea [tabIndex]="19" placeholder="Enter Address Line 1" formControlName="address1"
+                            matInput cols="35" rows="1" aria-setsize=""></textarea>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="tagus-form-group without-icon">
+                        <mat-form-field appearance="fill">
+                          <mat-label>Contact Person</mat-label>
+                          <input [tabIndex]="22" matInput type="text" class="form-control" placeholder="Contact Person"
+                            formControlName="contactPerson">
+                          <mat-error *ngIf="submitted && validators['contactPerson'].errors && validators['contactPerson'].errors['required']
+                            ">Enter Contact Person </mat-error>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="tagus-form-group without-icon">
+                        <mat-form-field appearance="fill">
+                          <mat-label for="salesGMEMail">Sales GM Email </mat-label>
+                          <input [tabIndex]="25" matInput placeholder="Sales GM Email" type="text" class="form-control"
+                            id="salesGMEMail" formControlName="salesGMEMail">
+                          <mat-error *ngIf="submitted && validators['salesGMEMail'].errors && validators['salesGMEMail'].errors['pattern']
+                              ">Enter Valid Email </mat-error>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="tagus-form-group without-icon">
+                        <mat-form-field appearance="fill">
+                          <mat-label>STD Code</mat-label>
+                          <input [tabIndex]="28" matInput type="text" class="form-control" placeholder="STD Code"
+                            formControlName="STDCode">
+                          <mat-error
+                            *ngIf="submitted && validators['STDCode'].errors && validators['STDCode'].errors['required']">Enter
+                            STD Code</mat-error>
+                        </mat-form-field>
+                      </div>
+
+                    </div>
+
+                    <div class="col-4">
+
+                      <div class="tagus-form-group without-icon">
+                        <mat-form-field appearance="fill">
+                          <mat-label>SMAS Service Direct Phone</mat-label>
+                          <input [tabIndex]="17" maxlength="10" matInput type="text" class="form-control"
+                            placeholder="SMAS Service Direct Phone" formControlName="SMASServiceDPhone">
+                          <mat-error
+                            *ngIf="submitted && validators['SMASServiceDPhone'].errors && validators['SMASServiceDPhone'].errors['pattern']">Enter
+                            Valid Phone</mat-error>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="tagus-form-group without-icon address-field">
+                        <mat-form-field appearance="fill">
+                          <mat-label>Address Line 2</mat-label>
+                          <textarea [tabIndex]="20" placeholder="Enter Address Line 2" formControlName="address2"
+                            matInput cols="35" rows="1" aria-setsize=""></textarea>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="tagus-form-group without-icon">
+                        <mat-form-field appearance="fill">
+                          <mat-label for="procurementEmail">Procurement Email </mat-label>
+                          <input [tabIndex]="23" matInput placeholder="Procurement Email" type="text"
+                            class="form-control" id="procurementEmail" formControlName="procurementEmail">
+                          <mat-error *ngIf="submitted && validators['procurementEmail'].errors && validators['procurementEmail'].errors['pattern']
+                              ">Enter Valid Email </mat-error>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="tagus-form-group without-icon">
+                        <mat-form-field appearance="fill">
+                          <mat-label>RC Days</mat-label>
+                          <input [tabIndex]="26" matInput type="text" class="form-control" placeholder="RC Days"
+                            formControlName="RCDays">
+                          <mat-error *ngIf="submitted && validators['RCDays'].errors && validators['RCDays'].errors['pattern']
+                              ">Enter Integer Value </mat-error>
+                        </mat-form-field>
+                      </div>
+
+                    </div>
+
+                    <div class="col-4">
+
+
+                      <div class="tagus-form-group without-icon mb-20">
+                        <ng-select [tabIndex]="18" dropdownPosition="bottom" formControlName="SMASCityApplicable"
+                          placeholder="SMAS City Applicable" class="dropdown" bindLabel="CityName" bindValue="CityName"
+                          [items]="SMASCityApplList" [appendTo]="'body'" [clearable]="false" #SMASCityAppDropdown
+                          (window:scroll)="SMASCityAppDropdown.close()"
+                          [ngClass]="SMASCityAppDropdown.hasValue || SMASCityAppDropdown.isOpen?'placeholder-padding':''">
+                        </ng-select>
+                      </div>
+
+                      <div class="tagus-form-group without-icon">
+                        <mat-form-field appearance="fill">
+                          <mat-label for="phoneNo">Phone</mat-label>
+                          <input [tabIndex]="21" maxlength="10" matInput type="text" class="form-control"
+                            placeholder="Phone" formControlName="phoneNo">
+                          <mat-error
+                            *ngIf="submitted && validators['phoneNo'].errors && validators['phoneNo'].errors['pattern']">Enter
+                            Valid Phone</mat-error>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="tagus-form-group without-icon">
+                        <mat-form-field appearance="fill">
+                          <mat-label for="fleetEmail">Fleet Email </mat-label>
+                          <input [tabIndex]="24" matInput placeholder="Fleet Email" type="text" class="form-control"
+                            id="fleetEmail" formControlName="fleetEmail">
+                          <mat-error *ngIf="submitted && validators['fleetEmail'].errors && validators['fleetEmail'].errors['pattern']
+                              ">Enter Valid Email </mat-error>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="tagus-form-group without-icon">
+                        <mat-form-field appearance="fill">
+                          <mat-label for="pinCode2">PIN</mat-label>
+                          <input [tabIndex]="27" maxlength="6" matInput type="text" class="form-control"
+                            placeholder="PIN" formControlName="pinCode2">
+                          <mat-error
+                            *ngIf="submitted && validators['pinCode2'].errors && validators['pinCode2'].errors['required']">Enter
+                            PIN</mat-error>
+                          <mat-error
+                            *ngIf="submitted && validators['pinCode2'].errors && validators['pinCode2'].errors['pattern']">Enter
+                            Valid PIN</mat-error>
+                        </mat-form-field>
+                      </div>
+
+                    </div>
+
+                  </div>
+                </div>
+
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+
+          <div class="mb-15  h-100">
+            <mat-accordion class="example-headers-align" multi class="form-expansion-panel">
+              <mat-expansion-panel class="box-shadow-none" [expanded]="true">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Services
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <div class="position-relative">
+                  <div class="row p-15 mt-10">
+                    <div class="col-4 d-flex flex-column">
+                      <div class="d-flex justify-content-space-between p-10">
+                        <mat-label><strong> Service Available </strong></mat-label>
+                      </div>
+                      <div class="selection-list-div">
+                        <mat-selection-list #services formControlName="servicesList" [multiple]="true">
+                          <mat-list-option *ngFor="let service of servicesList" [togglePosition]="'before'"
+                            [value]="service.Id">
+                            {{ service.ServiceDesc }}
+                          </mat-list-option>
+                        </mat-selection-list>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </form>
+
+
+      </div>
+    </mat-card-content>
+    <div *ngIf="!IsApproverView && !isView" class="d-flex justify-content-end mb-15 align-items-center ">
+      <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg"
+        class="cursor-pointer me-15" (click)="resetForm()" matTooltip="Reset">
+        <g id="solar:refresh-bold">
+          <path *ngIf="!darkThemeMode" id="Vector"
+            d="M10.5692 1.96876C6.37444 1.96876 2.92694 5.17389 2.59094 9.26014H1.75007C1.61996 9.26007 1.49278 9.29869 1.38467 9.37107C1.27656 9.44344 1.1924 9.54632 1.14289 9.66664C1.09337 9.78695 1.08074 9.91926 1.10659 10.0468C1.13244 10.1743 1.19561 10.2912 1.28807 10.3828L2.75807 11.8405C2.88097 11.9623 3.04701 12.0307 3.22007 12.0307C3.39312 12.0307 3.55916 11.9623 3.68207 11.8405L5.15207 10.3828C5.24452 10.2912 5.30769 10.1743 5.33354 10.0468C5.35939 9.91926 5.34676 9.78695 5.29724 9.66664C5.24773 9.54632 5.16357 9.44344 5.05546 9.37107C4.94735 9.29869 4.82017 9.26007 4.69007 9.26014H3.90869C4.24119 5.90801 7.09194 3.28126 10.5692 3.28126C11.7157 3.27888 12.8436 3.5707 13.845 4.1288C14.8465 4.6869 15.688 5.49262 16.2891 6.46888C16.3331 6.54463 16.3918 6.61081 16.4617 6.66351C16.5317 6.71621 16.6115 6.75437 16.6965 6.77574C16.7814 6.79711 16.8698 6.80126 16.9563 6.78794C17.0429 6.77462 17.1259 6.7441 17.2005 6.69819C17.2751 6.65228 17.3398 6.59189 17.3907 6.5206C17.4416 6.44931 17.4777 6.36854 17.4969 6.28308C17.5161 6.19761 17.5179 6.10917 17.5024 6.02296C17.4869 5.93676 17.4542 5.85453 17.4064 5.78113C16.688 4.61413 15.6823 3.65088 14.4854 2.98342C13.2885 2.31597 11.9396 1.96662 10.5692 1.96876ZM18.2359 9.15864C18.1131 9.03734 17.9474 8.96932 17.7748 8.96932C17.6022 8.96932 17.4365 9.03734 17.3137 9.15864L15.8376 10.6164C15.7449 10.7078 15.6814 10.8248 15.6554 10.9523C15.6293 11.0799 15.6418 11.2124 15.6913 11.3328C15.7407 11.4533 15.8249 11.5563 15.933 11.6288C16.0412 11.7013 16.1685 11.7399 16.2987 11.7399H17.0853C16.7511 15.0911 13.8907 17.7188 10.3968 17.7188C9.24675 17.722 8.11501 17.4306 7.10946 16.8725C6.1039 16.3143 5.25803 15.508 4.65244 14.5303C4.60717 14.4569 4.54789 14.3932 4.47798 14.3427C4.40808 14.2922 4.32892 14.2561 4.24503 14.2362C4.16114 14.2163 4.07415 14.2132 3.98905 14.2269C3.90394 14.2407 3.82237 14.271 3.749 14.3163C3.60083 14.4078 3.49505 14.5543 3.45493 14.7237C3.4148 14.8932 3.44363 15.0716 3.53507 15.2198C4.25829 16.388 5.26859 17.3516 6.46973 18.0188C7.67086 18.686 9.02282 19.0346 10.3968 19.0313C14.6038 19.0313 18.0662 15.8288 18.4031 11.7399H19.2501C19.3803 11.7399 19.5076 11.7013 19.6157 11.6288C19.7239 11.5563 19.808 11.4533 19.8575 11.3328C19.9069 11.2124 19.9194 11.0799 19.8934 10.9523C19.8673 10.8248 19.8039 10.7078 19.7112 10.6164L18.2359 9.15864Z"
+            fill="black" />
+          <path *ngIf="darkThemeMode" id="Vector"
+            d="M10.5692 1.96876C6.37444 1.96876 2.92694 5.17389 2.59094 9.26014H1.75007C1.61996 9.26007 1.49278 9.29869 1.38467 9.37107C1.27656 9.44344 1.1924 9.54632 1.14289 9.66664C1.09337 9.78695 1.08074 9.91926 1.10659 10.0468C1.13244 10.1743 1.19561 10.2912 1.28807 10.3828L2.75807 11.8405C2.88097 11.9623 3.04701 12.0307 3.22007 12.0307C3.39312 12.0307 3.55916 11.9623 3.68207 11.8405L5.15207 10.3828C5.24452 10.2912 5.30769 10.1743 5.33354 10.0468C5.35939 9.91926 5.34676 9.78695 5.29724 9.66664C5.24773 9.54632 5.16357 9.44344 5.05546 9.37107C4.94735 9.29869 4.82017 9.26007 4.69007 9.26014H3.90869C4.24119 5.90801 7.09194 3.28126 10.5692 3.28126C11.7157 3.27888 12.8436 3.5707 13.845 4.1288C14.8465 4.6869 15.688 5.49262 16.2891 6.46888C16.3331 6.54463 16.3918 6.61081 16.4617 6.66351C16.5317 6.71621 16.6115 6.75437 16.6965 6.77574C16.7814 6.79711 16.8698 6.80126 16.9563 6.78794C17.0429 6.77462 17.1259 6.7441 17.2005 6.69819C17.2751 6.65228 17.3398 6.59189 17.3907 6.5206C17.4416 6.44931 17.4777 6.36854 17.4969 6.28308C17.5161 6.19761 17.5179 6.10917 17.5024 6.02296C17.4869 5.93676 17.4542 5.85453 17.4064 5.78113C16.688 4.61413 15.6823 3.65088 14.4854 2.98342C13.2885 2.31597 11.9396 1.96662 10.5692 1.96876ZM18.2359 9.15864C18.1131 9.03734 17.9474 8.96932 17.7748 8.96932C17.6022 8.96932 17.4365 9.03734 17.3137 9.15864L15.8376 10.6164C15.7449 10.7078 15.6814 10.8248 15.6554 10.9523C15.6293 11.0799 15.6418 11.2124 15.6913 11.3328C15.7407 11.4533 15.8249 11.5563 15.933 11.6288C16.0412 11.7013 16.1685 11.7399 16.2987 11.7399H17.0853C16.7511 15.0911 13.8907 17.7188 10.3968 17.7188C9.24675 17.722 8.11501 17.4306 7.10946 16.8725C6.1039 16.3143 5.25803 15.508 4.65244 14.5303C4.60717 14.4569 4.54789 14.3932 4.47798 14.3427C4.40808 14.2922 4.32892 14.2561 4.24503 14.2362C4.16114 14.2163 4.07415 14.2132 3.98905 14.2269C3.90394 14.2407 3.82237 14.271 3.749 14.3163C3.60083 14.4078 3.49505 14.5543 3.45493 14.7237C3.4148 14.8932 3.44363 15.0716 3.53507 15.2198C4.25829 16.388 5.26859 17.3516 6.46973 18.0188C7.67086 18.686 9.02282 19.0346 10.3968 19.0313C14.6038 19.0313 18.0662 15.8288 18.4031 11.7399H19.2501C19.3803 11.7399 19.5076 11.7013 19.6157 11.6288C19.7239 11.5563 19.808 11.4533 19.8575 11.3328C19.9069 11.2124 19.9194 11.0799 19.8934 10.9523C19.8673 10.8248 19.8039 10.7078 19.7112 10.6164L18.2359 9.15864Z"
+            fill="white" />
+        </g>
+      </svg>
+      <button [tabIndex]="28" (click)="location.back()" mat-flat-button class="gray me-15 white-color">
+        Cancel
+      </button>
+      <button [tabIndex]="29" *ngIf="!editMode" (click)="addCities()" mat-flat-button color="primary"
+        class="bg-theme-color" [disabled]="!isAddAccess" [ngClass]="[isAddAccess?'text-white':'']">Save</button>
+      <button [tabIndex]="29" *ngIf="editMode" (click)="updateCities()" mat-flat-button color="primary"
+        class="bg-theme-color" [disabled]="!isEditAccess" [ngClass]="[isEditAccess?'text-white':'']">Update</button>
+
+    </div>
+
+    <div *ngIf="IsApproverView" class="d-flex justify-content-end align-items-center pb-30 pe-30">
+
+      <button (click)="location.back()" mat-flat-button class="gray mt-10 me-15 white-color">
+        Cancel
+      </button>
+
+      <button mat-stroked-button [disabled]="!isApprovAccess" class="mt-10 me-15"
+        [ngClass]="[mainThemeClass!='' ? 'dialog-save-btn': 'text-bg-info',isApprovAccess?'text-white':'']"
+        (click)="approveRequest()">Approve
+      </button>
+
+      <button (click)="rejectRequest()" mat-stroked-button class="mt-10 me-15" [disabled]="!isApprovAccess"
+        [ngClass]="[isApprovAccess?'custom-gray-bg text-white ':'']">
+        Reject
+      </button>
+    </div>
+  </mat-card>
+</div>

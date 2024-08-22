@@ -1,0 +1,269 @@
+<div [ngClass]="mainThemeClass">
+	<div class="pageName-headerDiv">
+		<mat-card class="tagus-card p-0 dark-theme-bg">
+			<mat-card-header class="m-0">
+				<div>
+					<h5 class="mb-0" [ngClass]="mainThemeClass!='' ? 'theme-text-color': ''"> Third Party Premium Table
+					</h5>
+					<div class="d-flex">
+						<span class="material-symbols-outlined cursor-pointer"
+							(click)="commonService.pageNavigation({URL:'MainWithoutSidebar.aspx'})">
+							west
+						</span><app-breadcrumb class="ms-10 mt-3"></app-breadcrumb>
+					</div>
+				</div>
+
+				<div class="col-8 d-flex justify-content-end">
+					<div class="position-relative" class="col-4">
+						<form [formGroup]="addDescriptionForm">
+							<div class="tagus-form-group without-icon">
+								<mat-form-field appearance="fill">
+									<mat-label for="description">Enter Description </mat-label>
+									<input matInput type="text" class="form-control" placeholder="Enter Description"
+										formControlName="description">
+									<mat-error *ngIf="submitted && validators['description'].errors && validators['description'].errors['required']
+                      ">Enter Description </mat-error>
+								</mat-form-field>
+							</div>
+						</form>
+					</div>
+					<div class="ms-40 d-flex mt-3">
+						<div>
+							<button *ngIf="!editMode" mat-flat-button color="primary" class="me-15"
+								(click)="addDescription()" [disabled]="!isAddAccess"
+								[ngClass]="[mainThemeClass!='' ? 'dialog-save-btn': 'text-bg-info',isAddAccess?'text-white':'']">
+								<div class="d-flex align-items-center">
+									<span class="material-symbols-outlined">
+										add
+									</span>
+									<span>Add</span>
+								</div>
+							</button>
+						</div>
+
+						<div>
+							<button *ngIf="editMode" mat-flat-button color="primary" class="me-15"
+								(click)="updateDescription()" [disabled]="!isEditAccess"
+								[ngClass]="[mainThemeClass!='' ? 'dialog-save-btn': 'text-bg-info',isEditAccess?'text-white':'']">
+								<div class="d-flex align-items-center">
+									<span>Update</span>
+								</div>
+							</button>
+						</div>
+
+						<div>
+							<button *ngIf="editMode" mat-flat-button class="gray white-color" (click)="cancelClick()">Cancel</button>
+						</div>
+					</div>
+				</div>
+			</mat-card-header>
+		</mat-card>
+	</div>
+
+	<mat-card class="mb-25 tagus-card">
+		<mat-card-content>
+			<mat-card-header class="overflow-auto">
+				<mat-button-toggle-group [(ngModel)]="selectedDescription" aria-label="Font Style"
+					class="action-Toggles custom-togglebBtnColor" *ngFor="let description of DescriptionList">
+					<mat-button-toggle value="{{description}}" (click)="getAllTppByDesc(description)">
+						<b>{{description.ThirdPartyDescription}}</b>
+					</mat-button-toggle>
+					<mat-button-toggle value="{{description}}" (click)="editDesc(description)"> <b><span
+								class="material-symbols-outlined">
+								edit
+							</span></b>
+					</mat-button-toggle>
+
+				</mat-button-toggle-group>
+
+			</mat-card-header>
+
+			<mat-card-header class="overflow-auto">
+				<div class="col-xxl-3 colxl-3 col-lg-3 col-md-4">
+					<div class="d-flex">
+						<h5 class="mb-0">TPP Id : {{descriptionId}}</h5>
+						<h5 class="mb-0 ms-30">Description : {{description}}</h5>
+					</div>
+				</div>
+
+				<div class="text-end d-flex justify-content-end">
+					<!-- <div class="d-flex border-radius searchBox-border">
+						<div class="d-flex background-white"
+							[ngClass]="!NgfilterDropdown.hasValue?'searchFilterDiv-withoutTextInput':'searchFilterDiv'">
+
+							<div class="tagus-form-group without-icon me-5" [ngClass]="!NgfilterDropdown.hasValue?'col-12':'col-5'">
+								<ng-select dropdownPosition="bottom" [placeholder]="!filterBtnClicked ? 'Filter' : ''" #NgfilterDropdown
+									(window:scroll)="NgfilterDropdown.close()" class="dropdown filterDropdown" bindLabel="filterName"
+									(change)="IsSearch = true;filterApplied($event);filterBtnClicked=true;" bindValue="filterName" [items]="filterList"
+									[appendTo]="'body'" (clear)="searchText='';IsSearch=false;filterBtnClicked=false;getAllTpp()"
+									[ngClass]="NgfilterDropdown.hasValue || NgfilterDropdown.isOpen?'placeholder-padding':''">
+								</ng-select>
+							</div>
+
+							<hr class="vertical-divider mt-15" *ngIf="NgfilterDropdown.hasValue">
+
+							<form class="search-box position-relative d-inline-flex m-15" *ngIf="NgfilterDropdown.hasValue">
+								<input type="text" class="input-search d-block background-white" placeholder="Search here.."
+									[(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"
+									(keyup)="SearchFilterApplied()">
+								<button type="submit"><i class="ri-search-line"></i></button>
+								<button *ngIf="searchText.length>0" type="button" class="clear-button"
+									(click)="searchText='';IsSearch=false;getAllTpp()">
+									<i class="ri-close-line"></i>
+								</button>
+							</form>
+
+						</div>
+					</div> -->
+
+					<div class="d-flex border-radius searchBox-border">
+						<div class="d-flex background-white searchFilterDivNew">
+
+							<form class="search-box position-relative d-inline-flex m-15">
+								<input type="text" class="input-search d-block background-white" placeholder="Search here.."
+									[(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" (keyup)="SearchFilterApplied()">
+								<button type="submit"><i class="ri-search-line"></i></button>
+								<button *ngIf="searchText.length>0" type="button" class="clear-button"
+									(click)="searchText='';IsSearch=false;getAllTpp()">
+									<i class="ri-close-line"></i>
+								</button>
+							</form>
+
+						</div>
+					</div>
+
+					<!-- <button mat-flat-button color="primary" class="bg-theme-color ms-20"
+						(click)="IsSearch=true;PageNumber=1;getAllTpp()">Search</button> -->
+				</div>
+			</mat-card-header>
+
+
+			<div class="mat-elevation-z8   tagus-mat-table overflow-auto mt-20">
+				<table (matSortChange)="announceSortChange($event)" mat-table [dataSource]="TppList" matSort #TPPTableList>
+
+					<!-- Year -->
+					<ng-container matColumnDef="Year">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header="">Year</th>
+						<td mat-cell *matCellDef="let element">{{element.Year}}</td>
+					</ng-container>
+
+					<!-- CC From -->
+					<ng-container matColumnDef="CC From">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header="">CC From</th>
+						<td mat-cell *matCellDef="let element">{{element.Year}}</td>
+					</ng-container>
+
+					<!-- CC To -->
+					<ng-container matColumnDef="CC To">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header="">CC To</th>
+						<td mat-cell *matCellDef="let element">{{element.Year}}</td>
+					</ng-container>
+
+					<!-- Basic -->
+					<ng-container matColumnDef="Basic">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header="">Basic</th>
+						<td mat-cell *matCellDef="let element">{{element.Year}}</td>
+					</ng-container>
+
+					<!-- ULPPPD -->
+					<ng-container matColumnDef="ULPPPD">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header="">ULPPPD</th>
+						<td mat-cell *matCellDef="let element">{{element.Year}}</td>
+					</ng-container>
+
+					<!-- Driver -->
+					<ng-container matColumnDef="Driver">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header="">Driver</th>
+						<td mat-cell *matCellDef="let element">{{element.Year}}</td>
+					</ng-container>
+
+					<!-- Personal / Lacs -->
+					<ng-container matColumnDef="Personal / Lacs">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header="">Personal / Lacs</th>
+						<td mat-cell *matCellDef="let element">{{element.Year}}</td>
+					</ng-container>
+
+					<!-- Occup Legal -->
+					<ng-container matColumnDef="Occup Legal">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header="">Occup Legal</th>
+						<td mat-cell *matCellDef="let element">{{element.Year}}</td>
+					</ng-container>
+
+					<!-- Bonus -->
+					<ng-container matColumnDef="Bonus">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header="">Bonus</th>
+						<td mat-cell *matCellDef="let element">{{element.Year}}</td>
+					</ng-container>
+
+					<!-- Misc Legal -->
+					<ng-container matColumnDef="Misc Legal">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header="">Misc Legal</th>
+						<td mat-cell *matCellDef="let element">{{element.Year}}</td>
+					</ng-container>
+
+					<!-- Action -->
+					<ng-container matColumnDef="Action">
+						<th mat-header-cell *matHeaderCellDef>Action</th>
+						<td mat-cell *matCellDef="let element">
+
+							<span class="material-symbols-outlined cursor-pointer" (click)="isEditAccess ?openEditModal(element):''"
+								[ngClass]="!isEditAccess?'cursor-not-allowed':''" matTooltip="Edit">
+								edit
+							</span>
+
+
+							<!-- <span class="material-symbols-outlined cursor-pointer" [matMenuTriggerFor]="iconMenu">
+								more_vert
+							</span>
+							<mat-menu #iconMenu="matMenu" class="dotMenu monthMenu icon-alignment-div" xPosition="before">
+								<button mat-menu-item type="button" class="bg-transparent border-none position-relative"
+									(click)="openEditModal(element)" [disabled]="!isEditAccess">
+									<span class="icon-alignment">
+										<span class="material-symbols-outlined">
+											edit
+										</span>
+									</span>
+									<span>
+										Edit
+									</span>
+								</button>
+							</mat-menu> -->
+						</td>
+					</ng-container>
+
+					<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+					<tr mat-row *matRowDef="let row; columns: displayedColumns;" class="example-element-row" (click)="selectedRowIndex = row.position" [ngClass]="{'highlightTableColor': selectedRowIndex == row.position}"></tr>
+
+				</table>
+
+				<div class="fw-bold no-records text-center" *ngIf="TppList.length==0">
+					No Records Found
+				</div>
+
+			</div>
+			<div class="text-end bg-white border-top-radius"
+				*ngIf="totalRecords !== 0 && totalRecords !== null && totalRecords>10">
+				<!-- <div class="d-flex justify-content-end">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item me-15" *ngIf="PageNumber > 1">
+                <a class="page-link cursor-pointer" (click)="pageClick(PageNumber - 1)">Previous</a>
+              </li>
+              <li class="page-item me-15" *ngFor="let page of getPages()">
+                <a class="page-link cursor-pointer" (click)="page!='...'?pageClick(page):''"
+                  [ngClass]="page==PageNumber?'active':''">
+                  {{page}}</a>
+              </li>
+              <li class="page-item" *ngIf="PageNumber < totalPages()">
+                <a class="page-link cursor-pointer" (click)="pageClick(PageNumber + 1)">Next</a>
+              </li>
+            </ul>
+          </nav>
+        </div> -->
+
+				<mat-paginator (page)="handlePage($event)" [pageSize]="PageSize" [pageSizeOptions]="[10, 15, 20, 25, 100]"
+					[length]="totalRecords" [showFirstLastButtons]="true"></mat-paginator>
+			</div>
+		</mat-card-content>
+	</mat-card>
+</div>

@@ -1,0 +1,59 @@
+<div [ngClass]="mainThemeClass">
+  <div class="create-dialog-box scrollable-dialog">
+    <div class="dialog-header d-flex align-items-center justify-content-space-between p-20 table-accept-color">
+      <h4 class="mb-0 text-white">Upload Driver Excel</h4>
+      <i class="flaticon-close text-white cursor-pointer" (click)="close()"></i>
+    </div>
+
+
+    <form [formGroup]="uploadDriverExlForm" class="pb-0">
+      <div class="row pe-15">
+        <div class="col-6">
+          <div class="tagus-form-group without-icon mandatory-field">
+            <ng-select dropdownPosition="bottom" formControlName="clientName" placeholder="Client Name" class="dropdown"
+              bindLabel="ClientName" bindValue="Id" [items]="clientList" [appendTo]="'body'"
+              (change)="selectedClient($event)" [clearable]="false" #clientDropDown
+              (window:scroll)="clientDropDown.close()"
+              [ngClass]="clientDropDown.hasValue || clientDropDown.isOpen?'placeholder-padding':''">
+            </ng-select>
+            <mat-error class="me-15 ms-15"
+              [ngStyle]="{visibility:(submitted && validators['clientName'].errors && validators['clientName'].errors['required'])?'visible':'hidden'}">Select
+              Client Name</mat-error>
+          </div>
+        </div>
+        <div class="col-6 mt-3 mb-15">
+          <div class="tagus-form-group without-icon file-input">
+            <div class="tagus-form-group without-icon">
+              <ngx-dropzone class="w-100 h-55" (change)="onSelect($event)" #modelImage>
+                <ngx-dropzone-label class="fw-semibold d-flex align-items-center m-0 ms-15">
+                  <span class="material-symbols-outlined me-30">
+                    upload
+                  </span>
+                  Drop files here or click to
+                  upload.</ngx-dropzone-label>
+                <ngx-dropzone-label *ngIf="url" class="m-0 ms-15">{{ fileName}} </ngx-dropzone-label>
+                <span *ngIf="url" (click)="$event.stopPropagation();files=[];url='';fileName='';fileType=''"
+                  class="material-symbols-outlined cursor-pointer me-10">
+                  delete
+                </span>
+              </ngx-dropzone>
+            </div>
+            <mat-error class="me-15 ms-15 mt-3" [ngStyle]="{display:(submitted && !url)?'block':'none'}">
+              Select Excel File </mat-error>
+          </div>
+
+          <div class="mt-5"> <span> To download sample file <a class="cursor-pointer blue-color"
+                (click)="getDriverExlFormat()"><u>click
+                  here</u></a></span></div>
+        </div>
+        <div class="d-flex justify-content-end align-items-center">
+          <button [disabled]="!isAddAccess" mat-flat-button
+                      color="primary" class="bg-theme-color" [ngClass]="[isAddAccess?'text-white':'']"
+            (click)="uploadFile()">Upload
+          </button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>

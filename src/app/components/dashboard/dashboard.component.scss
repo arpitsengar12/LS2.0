@@ -1,0 +1,28 @@
+.card-title {
+  background: #D8E1E4;
+  border-radius: 10px 10px 0px 0px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 21.09px;
+}
+
+.inner-card {
+  border-radius: 10px 10px 10px 10px;
+}
+
+.dashBoard-Image {
+  height: 350px !important;
+  width: 750px !important;
+}
+
+@media only screen and (max-width: 768px) {
+  .dashboard-card-header {
+    margin-top: 20px !important;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .dashboard-card-header {
+    margin-top: 10px !important;
+  }
+}

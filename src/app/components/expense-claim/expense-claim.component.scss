@@ -1,0 +1,12 @@
+*{
+    white-space: nowrap;
+}
+.custom-button {
+    background-color: #1fb7ef; /* Example: Green background */
+    color: white;              /* White text color */
+    
+    &:hover {
+      background-color: #1fb7ef; /* Darker shade on hover */
+    }
+  }
+  

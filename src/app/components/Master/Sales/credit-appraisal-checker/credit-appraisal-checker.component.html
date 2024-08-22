@@ -1,0 +1,423 @@
+<div [ngClass]="mainThemeClass">
+  <div class="pageName-headerDiv">
+    <mat-card class="tagus-card p-0 pb-25 dark-theme-bg">
+      <mat-card-header class="m-0">
+        <div>
+          <h5 class="mb-0" [ngClass]="mainThemeClass!='' ? 'theme-text-color': ''">Credit Appraisal Checker</h5>
+          <div class="d-flex">
+            <span class="material-symbols-outlined cursor-pointer"
+              (click)="commonService.pageNavigation({URL:'MainWithoutSidebar.aspx'})">
+              west
+            </span><app-breadcrumb class="ms-10 mt-3"></app-breadcrumb>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end me-25 align-items-center">
+          <h5 class="mb-0 me-30 cursor-pointer custom-underline" (click)="versionPageredirect()"
+            [ngClass]="[mainThemeClass!='' ? 'theme-text-color': '',!editMode || !IsAuditTrail? 'd-none':'']">
+            Version History
+          </h5>
+        </div>
+      </mat-card-header>
+    </mat-card>
+  </div>
+
+  <mat-card class="mb-25 tagus-card">
+    <div class="position-relative" [ngClass]="!editMode?'d-none':''">
+      <form [formGroup]="approveCreditAppraisalForm">
+        <div class="mb-15  h-100">
+          <mat-accordion class="example-headers-align" multi class="form-expansion-panel">
+            <mat-expansion-panel class="box-shadow-none expansion-bottom-border" [expanded]="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Credit Appraisal Form
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <div class="position-relative">
+                <div class="row p-15 mt-10">
+                  <div class="col-4" [ngClass]="editMode?'disable-input':''">
+                    <div class="tagus-form-group without-icon">
+                      <ng-select dropdownPosition="bottom" formControlName="gocName" placeholder="Group of companies"
+                        class="dropdown" bindLabel="GOCName" bindValue="GOCName" [items]="groupNameList"
+                        [appendTo]="'body'" (change)="selectedGoc($event)" [clearable]="false" [readonly]="editMode"
+                        #gocDropdown (window:scroll)="gocDropdown.close()"
+                        [ngClass]="gocDropdown.hasValue || gocDropdown.isOpen?'placeholder-padding':''">
+                      </ng-select>
+                      <mat-error *ngIf="submitted && validators['gocName'].errors && validators['gocName'].errors['required']
+                              ">Select Group Name</mat-error>
+                    </div>
+                  </div>
+                  <div class="col-4" [ngClass]="editMode?'disable-input':''">
+                    <div class="tagus-form-group without-icon">
+                      <ng-select dropdownPosition="bottom" [readonly]="editMode" formControlName="clientName"
+                        placeholder="Client Name" class="dropdown" bindLabel="ClientName" bindValue="ClientName"
+                        [items]="ClientList" [appendTo]="'body'" [clearable]="false" #clientDropdown
+                        (window:scroll)="clientDropdown.close()"
+                        [ngClass]="clientDropdown.hasValue || clientDropdown.isOpen?'placeholder-padding':''">
+                        <mat-error *ngIf="submitted && validators['clientName'].errors && validators['clientName'].errors['required']
+                        ">Select Client Name</mat-error>
+                      </ng-select>
+                    </div>
+                  </div>
+
+
+
+                  <div class="col-4">
+                    <div class="tagus-form-group without-icon">
+                      <mat-form-field appearance="fill">
+                        <mat-label for="fromDate">From</mat-label>
+                        <input matInput [matDatepicker]="picker1" formControlName="fromDate"
+                          (dateChange)="onFromDtChange($event);onDateChange($event,'fromDate')"
+                          placeholder="DD/MM/YYYY">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                        <mat-error *ngIf="submitted && validators['fromDate'].errors && validators['fromDate'].errors['required']
+                        ">Select From Date </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="col-4">
+                    <div class="tagus-form-group without-icon">
+                      <mat-form-field appearance="fill">
+                        <mat-label for="toDate">To</mat-label>
+                        <input matInput [matDatepicker]="picker2" formControlName="toDate" [min]="minDate"
+                          placeholder="DD/MM/YYYY" (dateChange)="onDateChange($event,'toDate')">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                        <mat-error *ngIf="submitted && validators['toDate'].errors && validators['toDate'].errors['required']
+                        ">Select To Date </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div [ngClass]="[editMode ? 'disable-input' : '']" class="col-4">
+                    <div class="tagus-form-group without-icon">
+                      <mat-form-field appearance="fill">
+                        <mat-label for="noOfVehicle">No. of Vehicle</mat-label>
+                        <input matInput type="text" class="form-control" formControlName="noOfVehicle"
+                          [readonly]="editMode">
+                        <mat-error *ngIf="submitted && validators['noOfVehicle'].errors && validators['noOfVehicle'].errors['required']
+                      ">Enter No. Of Vehicle </mat-error>
+                        <mat-error
+                          *ngIf="submitted && validators['noOfVehicle'].errors && validators['noOfVehicle'].errors['pattern']">Enter
+                          Integer value</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="col-4">
+                    <div class="tagus-form-group without-icon">
+                      <mat-form-field appearance="fill">
+                        <mat-label for="approvedNo">Approved No.</mat-label>
+                        <input matInput type="text" class="form-control" formControlName="approvedNo">
+                        <mat-error *ngIf="submitted && validators['approvedNo'].errors && validators['approvedNo'].errors['required']
+                      ">Enter No. Of Vehicle </mat-error>
+                        <mat-error
+                          *ngIf="submitted && validators['approvedNo'].errors && validators['approvedNo'].errors['pattern']">Enter
+                          Integer value</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div [ngClass]="[editMode ? 'disable-input' : '']" class="col-4">
+                    <div class="tagus-form-group without-icon">
+                      <mat-form-field appearance="fill">
+                        <mat-label for="amount">Amount</mat-label>
+                        <input matInput type="text" class="form-control" formControlName="amount" [readonly]="editMode">
+                        <mat-error *ngIf="submitted && validators['amount'].errors && validators['amount'].errors['required']
+                      ">Enter Amount </mat-error>
+                        <mat-error
+                          *ngIf="submitted && validators['amount'].errors && validators['amount'].errors['pattern']">Enter
+                          Decimal value</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="col-4">
+                    <div class="tagus-form-group without-icon">
+                      <mat-form-field appearance="fill">
+                        <mat-label for="approvedAmount">Approved Amount</mat-label>
+                        <input matInput type="text" class="form-control" formControlName="approvedAmount">
+                        <mat-error *ngIf="submitted && validators['approvedAmount'].errors && validators['approvedAmount'].errors['required']
+                      ">Enter Approved Amount </mat-error>
+                        <mat-error
+                          *ngIf="submitted && validators['approvedAmount'].errors && validators['approvedAmount'].errors['pattern']">Enter
+                          Decimal value</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="col-4">
+                    <div class="tagus-form-group without-icon address-field">
+                      <mat-form-field appearance="fill">
+                        <mat-label for="remarks">Remarks</mat-label>
+                        <textarea placeholder="Enter Remarks" formControlName="remarks" matInput cols="35" rows="1"
+                          maxlength="50"></textarea>
+                        <mat-error *ngIf="submitted && validators['remarks'].errors && validators['remarks'].errors['required']
+                      ">Enter Remarks </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="d-flex justify-content-end align-items-start">
+                    <button (click)="cancelClick()" mat-flat-button class="gray mt-10 me-15 white-color">
+                      Cancel
+                    </button>
+
+                    <button (click)="rejectCreditAppraisal()" mat-stroked-button
+                      class="custom-gray-bg text-white mt-10 me-15" [disabled]="!isApprovAccess">
+                      Reject
+                    </button>
+
+                    <button mat-stroked-button [disabled]="!isApprovAccess"
+                      [ngClass]="[mainThemeClass!='' ? 'dialog-save-btn': 'text-bg-info',isApprovAccess?'text-white':'']"
+                      (click)="approveCreditAppraisal()" class="mt-10">Approve
+                    </button>
+
+                  </div>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </form>
+
+    </div>
+    <mat-card-header class="overflow-auto">
+      <div class="col-xxl-3 colxl-3 col-lg-3 col-md-4">
+        <h5 class="mb-0">Credit Appraisal Details</h5>
+      </div>
+      <div class="text-end d-flex justify-content-end">
+        <!-- <div class="d-flex border-radius searchBox-border">
+          <div class="d-flex background-white"
+            [ngClass]="!NgfilterDropdown.hasValue?'searchFilterDiv-withoutTextInput':'searchFilterDiv'">
+
+            <div class="tagus-form-group without-icon me-5" [ngClass]="!NgfilterDropdown.hasValue?'col-12':'col-5'">
+              <ng-select dropdownPosition="bottom" [placeholder]="!filterBtnClicked ? 'Filter' : ''" #NgfilterDropdown
+                (window:scroll)="NgfilterDropdown.close()" class="dropdown filterDropdown" bindLabel="filterName"
+                (change)="IsSearch = true;filterApplied($event);filterBtnClicked=true;" bindValue="filterName" [items]="filterList"
+                [appendTo]="'body'"
+                (clear)="searchText='';IsSearch=false;filterBtnClicked=false;GetAllCreditAppraisal()"
+                [ngClass]="NgfilterDropdown.hasValue || NgfilterDropdown.isOpen?'placeholder-padding':''">
+              </ng-select>
+            </div>
+
+            <hr class="vertical-divider mt-15" *ngIf="NgfilterDropdown.hasValue">
+
+            <form class="search-box position-relative d-inline-flex m-15" *ngIf="NgfilterDropdown.hasValue">
+              <input type="text" class="input-search d-block background-white" placeholder="Search here.."
+                [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" (keyup)="SearchFilterApplied()">
+              <button type="submit"><i class="ri-search-line"></i></button>
+              <button *ngIf="searchText.length>0" type="button" class="clear-button"
+                (click)="searchText='';IsSearch=false;GetAllCreditAppraisal()">
+                <i class="ri-close-line"></i>
+              </button>
+            </form>
+
+          </div>
+        </div> -->
+
+        <div class="d-flex border-radius searchBox-border">
+          <div class="d-flex background-white searchFilterDivNew">
+
+            <form class="search-box position-relative d-inline-flex m-15">
+              <input type="text" class="input-search d-block background-white" placeholder="Search here.."
+                [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" (keyup)="SearchFilterApplied()">
+              <button type="submit"><i class="ri-search-line"></i></button>
+              <button *ngIf="searchText.length>0" type="button" class="clear-button"
+                (click)="searchText='';IsSearch=false;GetAllCreditAppraisal()">
+                <i class="ri-close-line"></i>
+              </button>
+            </form>
+
+          </div>
+        </div>
+
+        <!-- <button mat-flat-button color="primary" class="bg-theme-color ms-20"
+          (click)="IsSearch=true;PageNumber=1;GetAllCreditAppraisal()">Search</button> -->
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="mat-elevation-z8   tagus-mat-table overflow-auto">
+        <table (matSortChange)="announceSortChange($event)" mat-table [dataSource]="appraisalList" matSort
+          #appraisalTableList>
+
+          <ng-container matColumnDef="GOCName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="GOCName">Group Name</th>
+            <td mat-cell *matCellDef="let element">{{element.GOCName}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="ClientName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="ClientName">Client Name</th>
+            <td mat-cell *matCellDef="let element">{{element.ClientName}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="FromDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="ValidFrom">From</th>
+            <td mat-cell *matCellDef="let element">
+              {{element.ValidFrom | date: 'dd-MM-yyyy'}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="ToDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="ValidTo">To</th>
+            <td mat-cell *matCellDef="let element">
+              {{element.ValidTo | date: 'dd-MM-yyyy'}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="NoOfVehicle">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="AppliedNo">No. of Vehicle</th>
+            <td mat-cell *matCellDef="let element">
+              {{element.AppliedNo}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="ApprovedNo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="ApprovedNos">Approved No.</th>
+            <td mat-cell *matCellDef="let element">
+              {{element.ApprovedNos}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Amount">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="AppliedAmount">Amount</th>
+            <td mat-cell *matCellDef="let element">
+              {{element.AppliedAmount}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="ApprovedAmount">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="ApprovedAmount">Approved amount</th>
+            <td mat-cell *matCellDef="let element">
+              {{element.ApprovedAmount}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="QuoteApproved">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="QuoteApproved">Quote approved</th>
+            <td mat-cell *matCellDef="let element">
+              {{element.QuoteApproved}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="QuotePrice">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="QuotePrice">Quote Price</th>
+            <td mat-cell *matCellDef="let element">
+              {{element.QuotePrice}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="ActiveNo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="ActiveNo">Active No.</th>
+            <td mat-cell *matCellDef="let element">
+              {{element.ActiveNo}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="ActiveAmount">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="ActiveAmount">Active Amount</th>
+            <td mat-cell *matCellDef="let element">
+              {{element.ActiveAmount}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="Status">Status</th>
+            <td mat-cell *matCellDef="let element">
+              {{element.Status}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="CreatedBy">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="CreatedByName">Created By</th>
+            <td class="text-center" mat-cell *matCellDef="let element">{{element.CreatedByName}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="CreatedDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="CreatedDate">Created Date</th>
+            <td mat-cell *matCellDef="let element">{{element.CreatedDate | date: 'dd-MM-yyyy'}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="ApproverName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="ApprovedBy">Checker</th>
+            <td class="text-center" mat-cell *matCellDef="let element">{{element.ApprovedBy}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="ApprovedDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="ApprovedDate">Approved On</th>
+            <td mat-cell *matCellDef="let element">{{element.ApprovedDate | date: 'dd-MM-yyyy'}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="remarks">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="Remarks">Remarks</th>
+            <td class="text-center" mat-cell *matCellDef="let element">{{element.Remarks}}</td>
+          </ng-container>
+
+          <!-- Action -->
+          <ng-container matColumnDef="Action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element">
+              <span (click)="isEditAccess && element.Status=='Pending'?setData(element):''"
+                class="material-symbols-outlined cursor-pointer"
+                [ngClass]="isEditAccess && (element.Status=='Pending')?'':'cursor-not-allowed'" matTooltip="Edit">
+                edit
+              </span>
+
+              <!-- <span class="material-symbols-outlined cursor-pointer" [matMenuTriggerFor]="iconMenu">
+                more_vert
+              </span>
+              <mat-menu #iconMenu="matMenu" class="dotMenu monthMenu icon-alignment-div" xPosition="before">
+                <button mat-menu-item type="button" class="bg-transparent border-none position-relative"
+                  [disabled]="!isEditAccess||(element.Status!='Pending')" (click)="setData(element);scrollToTop()"
+                  [ngClass]="[isEditAccess?'text-white':'']">
+                  <span class="icon-alignment">
+                    <span class="material-symbols-outlined cursor-pointer">
+                      edit
+                    </span>
+                  </span>
+                  <span>Edit</span>
+                </button>
+               
+              </mat-menu> -->
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="example-element-row" (click)="selectedRowIndex = row.position" [ngClass]="{'highlightTableColor': selectedRowIndex == row.position}"></tr>
+
+        </table>
+
+        <div class="fw-bold no-records text-center" *ngIf="appraisalList.length==0">
+          No Records Found
+        </div>
+
+      </div>
+      <div class="text-end bg-white border-top-radius"
+        *ngIf="totalRecords !== 0 && totalRecords !== null && totalRecords>10">
+        <!-- <div class="d-flex justify-content-end">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item me-15" *ngIf="PageNumber > 1">
+                <a class="page-link cursor-pointer" (click)="pageClick(PageNumber - 1)">Previous</a>
+              </li>
+              <li class="page-item me-15" *ngFor="let page of getPages()">
+                <a class="page-link cursor-pointer" (click)="page!='...'?pageClick(page):''"
+                  [ngClass]="page==PageNumber?'active':''">
+                  {{page}}</a>
+              </li>
+              <li class="page-item" *ngIf="PageNumber < totalPages()">
+                <a class="page-link cursor-pointer" (click)="pageClick(PageNumber + 1)">Next</a>
+              </li>
+            </ul>
+          </nav>
+        </div> -->
+
+        <mat-paginator (page)="handlePage($event)" [pageSize]="PageSize" [pageSizeOptions]="[10, 15, 20, 25, 100]"
+          [length]="totalRecords" [showFirstLastButtons]="true"></mat-paginator>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

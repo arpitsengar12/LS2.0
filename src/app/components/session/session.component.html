@@ -1,0 +1,32 @@
+<div class="create-dialog-box scrollable-dialog" style="padding-top:10% ; padding-left:25%; padding-right: 25%;">
+    <div class="dialog-header d-flex align-items-center justify-content-space-between p-20 table-accept-color">
+        <h4 class="mb-0 text-white" >Employee </h4>
+
+    </div>
+
+    <div class="d-flex p-30 justify-content-center" style="background: #fff;">
+        <div class="tagus-form-group without-icon mb-15">
+            <mat-form-field appearance="fill">
+                <mat-label for="accountName">Employee Id:</mat-label>
+                <input matInput placeholder="Employee Id" type="number" [(ngModel)]="selectedEmployeeId" (blur)="save()"
+                    class="form-control" id="employeeId"
+                    >
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="cam-btn d-flex align-items-center justify-content-end mt-5">
+        <!-- <button mat-stroked-button class="text-bg-info text-white" 
+        (click)="Save()">Save
+    </button>  -->
+        <!-- <button mat-flat-button class="text-soft-dark" (click)="close()">Cancel
+        </button>
+        <button mat-stroked-button class="text-bg-info text-white" (click)="requestApprove('approve')"
+            *ngIf="isAccept">Approve
+        </button>
+        <button mat-stroked-button class="text-bg-info text-white" *ngIf="isReject"
+            (click)="dialogRef.close(true)">Reject
+        </button> -->
+    </div>
+
+</div>

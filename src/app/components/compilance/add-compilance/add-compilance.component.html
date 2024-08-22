@@ -1,0 +1,127 @@
+<div [ngClass]="mainThemeClass">
+  <div class="create-dialog-box scrollable-dialog">
+    <div class="dialog-header d-flex align-items-center justify-content-space-between p-20 table-accept-color">
+      <h4 class="mb-0 text-white">{{complianceMode}} Compliance Category</h4>
+    </div>
+
+    <form [formGroup]="addComplianceForm">
+      <div class="d-flex">
+        <div class="d-flex flex-column ">
+          <div [ngClass]="(complianceMode == 'Edit')?'disable-input':''">
+            <div class="tagus-form-group pe-10 ps-30 mandatory-field">
+
+              <ng-select dropdownPosition="bottom" formControlName="tableName" placeholder="Table Name :"
+                class="dropdown" bindLabel="item" bindValue="item" [items]="tableNameList" [appendTo]="'body'"
+                [readonly]="(complianceMode == 'Edit')" [clearable]="false" (change)="getColumnNames()"
+                #tableNameDropdown (window:scroll)="tableNameDropdown.close()"
+                [ngClass]="tableNameDropdown.hasValue || tableNameDropdown.isOpen?'placeholder-padding':''">
+              </ng-select>
+              <mat-error class="requiredField ms-15 me-15"
+                [ngStyle]="{visibility:(submitted && addComplianceForm.get('tableName')!.hasError('required'))?'visible':'hidden'}">
+                Table Name is required.
+              </mat-error>
+            </div>
+          </div>
+          <div class="tagus-form-group pe-10 ps-30">
+            <div class="d-flex flex-column complianceName">
+              <mat-label class="mb-10">
+                <h5 class="text-dark"> Available : </h5>
+              </mat-label>
+              <div *ngFor="let item of availableComplianceList">
+                <span class="white-color" (click)="updateSelection($event, item)"> {{item.Type}} </span>
+              </div>
+            </div>
+            <div class="h-20"></div>
+          </div>
+          <div class="disable-input">
+            <div class="tagus-form-group pe-10 ps-30">
+
+              <ng-select dropdownPosition="bottom" formControlName="columnType" placeholder="Column Type :"
+                class="dropdown" bindLabel="columntype" bindValue="columntype" [items]="columnTypeList"
+                [appendTo]="'body'" [readonly]="true" [clearable]="false" #columnTypeDropdown
+                (window:scroll)="columnTypeDropdown.close()"
+                [ngClass]="columnTypeDropdown.hasValue || columnTypeDropdown.isOpen?'placeholder-padding':''">
+              </ng-select>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex align-items-center">
+          <div class="tagus-form-group pe-10 ps-30">
+            <div class="d-flex flex-column">
+
+              <span class="material-symbols-outlined" (click)="addtoChosen()">
+                arrow_forward_ios
+              </span>
+
+              <span class="material-symbols-outlined pt-50" (click)="chosentoAvailable()">
+                arrow_back_ios
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex flex-column">
+          <div [ngClass]="(complianceMode == 'Edit')?'disable-input':''">
+            <div class="tagus-form-group pe-10 ps-30 mandatory-field">
+
+              <ng-select dropdownPosition="bottom" formControlName="columnName" placeholder="Column Name :"
+                class="dropdown" bindLabel="ColumnName" bindValue="ColumnName" [items]="columnNameList"
+                [appendTo]="'body'" [clearable]="false" (change)="getColumnType($event)"
+                [readonly]="(complianceMode == 'Edit')" #columnNameDropdown (window:scroll)="columnNameDropdown.close()"
+                [ngClass]="columnNameDropdown.hasValue || columnNameDropdown.isOpen?'placeholder-padding':''">
+              </ng-select>
+              <mat-error class="requiredField ms-15 me-15"
+                [ngStyle]="{visibility:(submitted && addComplianceForm.get('columnName')!.hasError('required'))?'visible':'hidden'}">
+                Column Name is required.
+              </mat-error>
+            </div>
+          </div>
+
+          <div class="tagus-form-group pe-10 ps-30">
+            <div class="d-flex flex-column complianceName">
+              <mat-label class="mb-10">
+                <h5 class="text-dark"> Chosen :</h5>
+              </mat-label>
+
+              <div class="" *ngFor="let item of chosenComplianceList">
+                <span class="white-color" (click)="updateSelection($event, item)"> {{item.Type}} </span>
+              </div>
+            </div>
+            <div class="h-20">
+              <mat-error class="requiredField ms-15 me-15"
+                [ngStyle]="{visibility:(submitted && chosenComplianceList.length==0)?'visible':'hidden'}">
+                Compliance Type is required.
+              </mat-error>
+            </div>
+          </div>
+
+          <div class="tagus-form-group pe-10 ps-30 mandatory-field">
+            <ng-select dropdownPosition="bottom" formControlName="fieldLabel" placeholder="Field Label :"
+              class="dropdown" bindLabel="item" bindValue="item" [items]="fieldLabelList" [appendTo]="'body'"
+              [clearable]="false" #fieldLabelDropdown (window:scroll)="fieldLabelDropdown.close()"
+              [ngClass]="fieldLabelDropdown.hasValue || fieldLabelDropdown.isOpen?'placeholder-padding':''">
+            </ng-select>
+            <mat-error class="requiredField ms-15 me-15"
+              [ngStyle]="{visibility:(submitted && addComplianceForm.get('fieldLabel')!.hasError('required'))?'visible':'hidden'}">
+              Field Label is required.
+            </mat-error>
+          </div>
+
+        </div>
+      </div>
+    </form>
+
+    <div class="cam-btn d-flex align-items-center justify-content-end">
+      <button mat-flat-button class="gray white-color" (click)="close()">Cancel
+      </button>
+      <button *ngIf="!isEdit" mat-stroked-button [disabled]="!isAddAccess"
+        [ngClass]="[mainThemeClass!='' ? 'dialog-save-btn': 'text-bg-info',isAddAccess?'text-white':'']"
+        (click)="addCompliance()">Save
+      </button>
+      <button *ngIf="isEdit" mat-stroked-button [disabled]="!isEditAccess"
+        [ngClass]="[mainThemeClass!='' ? 'dialog-save-btn': 'text-bg-info',isEditAccess?'text-white':'']"
+        (click)="updateCompliance()">Update
+      </button>
+    </div>
+
+  </div>
+</div>

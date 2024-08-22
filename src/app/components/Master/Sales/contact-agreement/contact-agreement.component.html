@@ -1,0 +1,223 @@
+<div [ngClass]="mainThemeClass">
+  <div class="pageName-headerDiv">
+    <mat-card class="tagus-card p-0 pb-25 dark-theme-bg">
+      <mat-card-header class="m-0">
+        <div>
+          <h5 class="mb-0" [ngClass]="mainThemeClass!='' ? 'theme-text-color': ''">Contract Agreement</h5>
+          <div class="d-flex">
+            <span class="material-symbols-outlined cursor-pointer"
+              (click)="commonService.pageNavigation({URL:'MainWithoutSidebar.aspx'})">
+              west
+            </span><app-breadcrumb class="ms-10 mt-3"></app-breadcrumb>
+          </div>
+        </div>
+
+        <button mat-flat-button color="primary" class="me-15 add-button" (click)="addClick()"
+          [disabled]="!isAddAccess"
+          [ngClass]="[mainThemeClass!='' ? 'dialog-save-btn': 'text-bg-info',isAddAccess?'text-white':'']">
+          <div class="d-flex align-items-center">
+            <span class="material-symbols-outlined pe-5">
+              add
+            </span>
+            <span>Add</span>
+          </div>
+        </button>
+      </mat-card-header>
+    </mat-card>
+  </div>
+
+  <mat-card class="mb-25 tagus-card">
+    <mat-card-header class="overflow-auto">
+      <div class="col-xxl-3 colxl-3 col-lg-3 col-md-4">
+        <h5 class="mb-0">Contract Agreement Details</h5>
+      </div>
+      <div class="text-end d-flex justify-content-end">
+        <!-- <div class="d-flex border-radius searchBox-border">
+          <div class="d-flex background-white"
+            [ngClass]="!NgfilterDropdown.hasValue?'searchFilterDiv-withoutTextInput':'searchFilterDiv'">
+
+            <div class="tagus-form-group without-icon me-5" [ngClass]="!NgfilterDropdown.hasValue?'col-12':'col-5'">
+              <ng-select dropdownPosition="bottom" [placeholder]="!filterBtnClicked ? 'Filter' : ''" #NgfilterDropdown
+                (window:scroll)="NgfilterDropdown.close()" class="dropdown filterDropdown" bindLabel="filterName"
+                (change)="IsSearch = true;filterApplied($event);filterBtnClicked=true;" bindValue="filterName" [items]="filterList"
+                [appendTo]="'body'"
+                (clear)="searchText='';IsSearch=false;filterBtnClicked=false;GetAllContractAgreement()"
+                [ngClass]="NgfilterDropdown.hasValue || NgfilterDropdown.isOpen?'placeholder-padding':''">
+              </ng-select>
+            </div>
+
+            <hr class="vertical-divider mt-15" *ngIf="NgfilterDropdown.hasValue">
+
+            <form class="search-box position-relative d-inline-flex m-15" *ngIf="NgfilterDropdown.hasValue">
+              <input type="text" class="input-search d-block background-white" placeholder="Search here.."
+                [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" (keyup)="SearchFilterApplied()">
+              <button type="submit"><i class="ri-search-line"></i></button>
+              <button *ngIf="searchText.length>0" type="button" class="clear-button"
+                (click)="searchText='';IsSearch=false;GetAllContractAgreement()">
+                <i class="ri-close-line"></i>
+              </button>
+            </form>
+
+          </div>
+        </div> -->
+
+        <div class="d-flex border-radius searchBox-border">
+          <div class="d-flex background-white searchFilterDivNew">
+
+            <form class="search-box position-relative d-inline-flex m-15">
+              <input type="text" class="input-search d-block background-white" placeholder="Search here.."
+                [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" (keyup)="SearchFilterApplied()">
+              <button type="submit"><i class="ri-search-line"></i></button>
+              <button *ngIf="searchText.length>0" type="button" class="clear-button"
+                (click)="searchText='';IsSearch=false;GetAllContractAgreement()">
+                <i class="ri-close-line"></i>
+              </button>
+            </form>
+
+          </div>
+        </div>
+
+        <!-- <button mat-flat-button color="primary" class="bg-theme-color ms-20"
+          (click)="IsSearch=true;PageNumber=1;GetAllContractAgreement()">Search</button> -->
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="mat-elevation-z8   tagus-mat-table overflow-auto mt-20">
+        <table (matSortChange)="announceSortChange($event)" mat-table [dataSource]="ContractAgList" matSort
+          #contractAgTableList>
+
+          <!-- Prospect Name -->
+          <ng-container matColumnDef="Prospect Name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="ProspectName">Prospect Name</th>
+            <td mat-cell *matCellDef="let element">{{element.ProspectName}}</td>
+          </ng-container>
+
+          <!-- Agreement No -->
+          <ng-container matColumnDef="Agreement No">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="AgreementNo">Agreement No</th>
+            <td mat-cell *matCellDef="let element">
+              {{element.AgreementNo}}
+            </td>
+          </ng-container>
+
+          <!-- Agreement Date -->
+          <ng-container matColumnDef="Agreement Date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="AgreementDate">Agreement Date</th>
+            <td mat-cell *matCellDef="let element">{{element.AgreementDate | date: 'dd-MM-yyyy'}}</td>
+          </ng-container>
+
+          <!-- Lease Type -->
+          <ng-container matColumnDef="Lease Type">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="LeaseType">Lease Type</th>
+            <td mat-cell *matCellDef="let element">{{element.LeaseType}}</td>
+          </ng-container>
+
+          <!-- Vehicle Type -->
+          <ng-container matColumnDef="Vehicle Type">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="VehicleType">Vehicle Type</th>
+            <td mat-cell *matCellDef="let element">{{element.VehicleType}}</td>
+          </ng-container>
+
+          <!-- Approved -->
+          <ng-container matColumnDef="Approved">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="IsApproved">Approved</th>
+            <td mat-cell *matCellDef="let element">{{element.IsApproved?'Yes':'No'}}</td>
+          </ng-container>
+
+          <!-- Is Online -->
+          <ng-container matColumnDef="Is Online">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="IsOnline">Is Online</th>
+            <td mat-cell *matCellDef="let element">
+              <span class="me-20">{{element.IsOnline?'Yes':'No'}}</span>
+            </td>
+          </ng-container>
+
+          <!-- Is Admin -->
+          <ng-container matColumnDef="Is Admin">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="IsAdmin">Is Admin</th>
+            <td mat-cell *matCellDef="let element">
+              <span class="me-20">{{element.IsAdmin?'Yes':'No'}}</span>
+            </td>
+          </ng-container>
+
+          <!-- WFStatus -->
+          <ng-container matColumnDef="WFStatus">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="WFStatus">Workflow Status</th>
+            <td mat-cell *matCellDef="let element">
+              {{element.WFStatus==1?'Pending':element.WFStatus==2?'Approved':element.WFStatus==3?'Rejected':''}}</td>
+          </ng-container>
+
+          <!-- Action -->
+          <ng-container matColumnDef="Action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element">
+
+              <span class="material-symbols-outlined cursor-pointer"
+                (click)="isEditAccess ? element.WFStatus!=1?openEditModal(element):'':''"
+                [ngClass]="[!isEditAccess?'cursor-not-allowed':'',element.WFStatus==1?'cursor-not-allowed':'']"
+                matTooltip="Edit">
+                edit
+              </span>
+
+              <span class="material-symbols-outlined cursor-pointer ps-20"
+                (click)="isViewAccess ? openViewDialog(element):''" [ngClass]="[!isViewAccess?'cursor-not-allowed':'']"
+                matTooltip="View">
+                visibility
+              </span>
+
+              <!-- <span class="material-symbols-outlined cursor-pointer" [matMenuTriggerFor]="iconMenu">
+                more_vert
+              </span>
+              <mat-menu #iconMenu="matMenu" class="dotMenu monthMenu icon-alignment-div" xPosition="before">
+                <button mat-menu-item type="button" class="bg-transparent border-none position-relative"
+                  (click)="openEditModal(element)" [disabled]="!isEditAccess">
+                  <span class="icon-alignment">
+                    <span class="material-symbols-outlined">
+                      edit
+                    </span>
+                  </span>
+                  <span>
+                    Edit
+                  </span>
+                </button>
+              </mat-menu> -->
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="example-element-row"
+            (click)="selectedRowIndex = row.position"
+            [ngClass]="{'highlightTableColor': selectedRowIndex == row.position}"></tr>
+        </table>
+
+        <div class="fw-bold no-records text-center" *ngIf="ContractAgList.length==0">
+          No Records Found
+        </div>
+
+      </div>
+      <div class="text-end bg-white border-top-radius"
+        *ngIf="totalRecords !== 0 && totalRecords !== null && totalRecords>10">
+        <!-- <div class="d-flex justify-content-end">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item me-15" *ngIf="PageNumber > 1">
+              <a class="page-link cursor-pointer" (click)="pageClick(PageNumber - 1)">Previous</a>
+            </li>
+            <li class="page-item me-15" *ngFor="let page of getPages()">
+              <a class="page-link cursor-pointer" (click)="page!='...'?pageClick(page):''"
+                [ngClass]="page==PageNumber?'active':''">
+                {{page}}</a>
+            </li>
+            <li class="page-item" *ngIf="PageNumber < totalPages()">
+              <a class="page-link cursor-pointer" (click)="pageClick(PageNumber + 1)">Next</a>
+            </li>
+          </ul>
+        </nav>
+      </div> -->
+
+        <mat-paginator (page)="handlePage($event)" [pageSize]="PageSize" [pageSizeOptions]="[10, 15, 20, 25, 100]"
+          [length]="totalRecords" [showFirstLastButtons]="true"></mat-paginator>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,679 @@
+<div [ngClass]="mainThemeClass">
+  <div class="pageName-headerDiv">
+    <mat-card class="tagus-card p-0 pb-25 dark-theme-bg">
+      <mat-card-header class="m-0">
+        <div>
+          <h5 class="mb-0" [ngClass]="mainThemeClass!='' ? 'theme-text-color': ''">Client Form</h5>
+          <div class="d-flex">
+            <span class="material-symbols-outlined cursor-pointer" (click)="location.back()">
+              west
+            </span><app-breadcrumb class="ms-10 mt-3"></app-breadcrumb>
+          </div>
+        </div>
+
+        <div *ngIf="!IsApproverView && !isView" class="d-flex justify-content-end align-items-center pe-30">
+          <h5 class="mb-0 me-30 cursor-pointer custom-underline" (click)="versionPageredirect()"
+            [ngClass]="[mainThemeClass!='' ? 'theme-text-color': '',!editMode || !IsAuditTrail? 'd-none':'']">
+            Version History
+          </h5>
+          <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg"
+            class="cursor-pointer me-15" (click)="resetForm()" matTooltip="Reset">
+            <g id="solar:refresh-bold">
+              <path *ngIf="!darkThemeMode" id="Vector"
+                d="M10.5692 1.96876C6.37444 1.96876 2.92694 5.17389 2.59094 9.26014H1.75007C1.61996 9.26007 1.49278 9.29869 1.38467 9.37107C1.27656 9.44344 1.1924 9.54632 1.14289 9.66664C1.09337 9.78695 1.08074 9.91926 1.10659 10.0468C1.13244 10.1743 1.19561 10.2912 1.28807 10.3828L2.75807 11.8405C2.88097 11.9623 3.04701 12.0307 3.22007 12.0307C3.39312 12.0307 3.55916 11.9623 3.68207 11.8405L5.15207 10.3828C5.24452 10.2912 5.30769 10.1743 5.33354 10.0468C5.35939 9.91926 5.34676 9.78695 5.29724 9.66664C5.24773 9.54632 5.16357 9.44344 5.05546 9.37107C4.94735 9.29869 4.82017 9.26007 4.69007 9.26014H3.90869C4.24119 5.90801 7.09194 3.28126 10.5692 3.28126C11.7157 3.27888 12.8436 3.5707 13.845 4.1288C14.8465 4.6869 15.688 5.49262 16.2891 6.46888C16.3331 6.54463 16.3918 6.61081 16.4617 6.66351C16.5317 6.71621 16.6115 6.75437 16.6965 6.77574C16.7814 6.79711 16.8698 6.80126 16.9563 6.78794C17.0429 6.77462 17.1259 6.7441 17.2005 6.69819C17.2751 6.65228 17.3398 6.59189 17.3907 6.5206C17.4416 6.44931 17.4777 6.36854 17.4969 6.28308C17.5161 6.19761 17.5179 6.10917 17.5024 6.02296C17.4869 5.93676 17.4542 5.85453 17.4064 5.78113C16.688 4.61413 15.6823 3.65088 14.4854 2.98342C13.2885 2.31597 11.9396 1.96662 10.5692 1.96876ZM18.2359 9.15864C18.1131 9.03734 17.9474 8.96932 17.7748 8.96932C17.6022 8.96932 17.4365 9.03734 17.3137 9.15864L15.8376 10.6164C15.7449 10.7078 15.6814 10.8248 15.6554 10.9523C15.6293 11.0799 15.6418 11.2124 15.6913 11.3328C15.7407 11.4533 15.8249 11.5563 15.933 11.6288C16.0412 11.7013 16.1685 11.7399 16.2987 11.7399H17.0853C16.7511 15.0911 13.8907 17.7188 10.3968 17.7188C9.24675 17.722 8.11501 17.4306 7.10946 16.8725C6.1039 16.3143 5.25803 15.508 4.65244 14.5303C4.60717 14.4569 4.54789 14.3932 4.47798 14.3427C4.40808 14.2922 4.32892 14.2561 4.24503 14.2362C4.16114 14.2163 4.07415 14.2132 3.98905 14.2269C3.90394 14.2407 3.82237 14.271 3.749 14.3163C3.60083 14.4078 3.49505 14.5543 3.45493 14.7237C3.4148 14.8932 3.44363 15.0716 3.53507 15.2198C4.25829 16.388 5.26859 17.3516 6.46973 18.0188C7.67086 18.686 9.02282 19.0346 10.3968 19.0313C14.6038 19.0313 18.0662 15.8288 18.4031 11.7399H19.2501C19.3803 11.7399 19.5076 11.7013 19.6157 11.6288C19.7239 11.5563 19.808 11.4533 19.8575 11.3328C19.9069 11.2124 19.9194 11.0799 19.8934 10.9523C19.8673 10.8248 19.8039 10.7078 19.7112 10.6164L18.2359 9.15864Z"
+                fill="black" />
+              <path *ngIf="darkThemeMode" id="Vector"
+                d="M10.5692 1.96876C6.37444 1.96876 2.92694 5.17389 2.59094 9.26014H1.75007C1.61996 9.26007 1.49278 9.29869 1.38467 9.37107C1.27656 9.44344 1.1924 9.54632 1.14289 9.66664C1.09337 9.78695 1.08074 9.91926 1.10659 10.0468C1.13244 10.1743 1.19561 10.2912 1.28807 10.3828L2.75807 11.8405C2.88097 11.9623 3.04701 12.0307 3.22007 12.0307C3.39312 12.0307 3.55916 11.9623 3.68207 11.8405L5.15207 10.3828C5.24452 10.2912 5.30769 10.1743 5.33354 10.0468C5.35939 9.91926 5.34676 9.78695 5.29724 9.66664C5.24773 9.54632 5.16357 9.44344 5.05546 9.37107C4.94735 9.29869 4.82017 9.26007 4.69007 9.26014H3.90869C4.24119 5.90801 7.09194 3.28126 10.5692 3.28126C11.7157 3.27888 12.8436 3.5707 13.845 4.1288C14.8465 4.6869 15.688 5.49262 16.2891 6.46888C16.3331 6.54463 16.3918 6.61081 16.4617 6.66351C16.5317 6.71621 16.6115 6.75437 16.6965 6.77574C16.7814 6.79711 16.8698 6.80126 16.9563 6.78794C17.0429 6.77462 17.1259 6.7441 17.2005 6.69819C17.2751 6.65228 17.3398 6.59189 17.3907 6.5206C17.4416 6.44931 17.4777 6.36854 17.4969 6.28308C17.5161 6.19761 17.5179 6.10917 17.5024 6.02296C17.4869 5.93676 17.4542 5.85453 17.4064 5.78113C16.688 4.61413 15.6823 3.65088 14.4854 2.98342C13.2885 2.31597 11.9396 1.96662 10.5692 1.96876ZM18.2359 9.15864C18.1131 9.03734 17.9474 8.96932 17.7748 8.96932C17.6022 8.96932 17.4365 9.03734 17.3137 9.15864L15.8376 10.6164C15.7449 10.7078 15.6814 10.8248 15.6554 10.9523C15.6293 11.0799 15.6418 11.2124 15.6913 11.3328C15.7407 11.4533 15.8249 11.5563 15.933 11.6288C16.0412 11.7013 16.1685 11.7399 16.2987 11.7399H17.0853C16.7511 15.0911 13.8907 17.7188 10.3968 17.7188C9.24675 17.722 8.11501 17.4306 7.10946 16.8725C6.1039 16.3143 5.25803 15.508 4.65244 14.5303C4.60717 14.4569 4.54789 14.3932 4.47798 14.3427C4.40808 14.2922 4.32892 14.2561 4.24503 14.2362C4.16114 14.2163 4.07415 14.2132 3.98905 14.2269C3.90394 14.2407 3.82237 14.271 3.749 14.3163C3.60083 14.4078 3.49505 14.5543 3.45493 14.7237C3.4148 14.8932 3.44363 15.0716 3.53507 15.2198C4.25829 16.388 5.26859 17.3516 6.46973 18.0188C7.67086 18.686 9.02282 19.0346 10.3968 19.0313C14.6038 19.0313 18.0662 15.8288 18.4031 11.7399H19.2501C19.3803 11.7399 19.5076 11.7013 19.6157 11.6288C19.7239 11.5563 19.808 11.4533 19.8575 11.3328C19.9069 11.2124 19.9194 11.0799 19.8934 10.9523C19.8673 10.8248 19.8039 10.7078 19.7112 10.6164L18.2359 9.15864Z"
+                fill="white" />
+            </g>
+          </svg>
+          <button (click)="location.back()" mat-flat-button class="gray me-15 white-color">
+            Cancel
+          </button>
+          <button *ngIf="selectedtab==0" mat-flat-button color="primary" class="bg-theme-color"
+            [disabled]="!isAddAccess" [ngClass]="[isAddAccess?'text-white':'']" (click)="moveToNextTab()">Save and Next
+          </button>
+          <button *ngIf="!editMode && selectedtab==1" mat-flat-button color="primary" class="bg-theme-color"
+            [disabled]="!isAddAccess" [ngClass]="[isAddAccess?'text-white':'']" (click)="addClient()">Save
+          </button>
+          <button *ngIf="editMode && selectedtab==1"  [disabled]="!isEditAccess" mat-flat-button
+                      color="primary" class="bg-theme-color" [ngClass]="[isEditAccess?'text-white':'']"
+            (click)="updateClient()">Update
+          </button>
+        </div>
+
+        <div *ngIf="isView" class="d-flex justify-content-end align-items-center pe-30">
+          <h5 class="mb-0 me-30 cursor-pointer custom-underline" (click)="versionPageredirect()"
+            [ngClass]="[mainThemeClass!='' ? 'theme-text-color': '',!IsAuditTrail? 'd-none':'']">
+            Version History
+          </h5>
+
+          <button (click)="location.back()" mat-flat-button class="gray text-dark me-15 white-color">
+            Back
+          </button>
+        </div>
+
+        <div *ngIf="IsApproverView" class="d-flex justify-content-end align-items-center pe-30">
+
+          <button (click)="location.back()" mat-flat-button class="gray mt-10 me-15 white-color">
+            Cancel
+          </button>
+
+          <button mat-stroked-button [disabled]="!isApprovAccess" class="mt-10 me-15"
+            [ngClass]="[mainThemeClass!='' ? 'dialog-save-btn': 'text-bg-info',isApprovAccess?'text-white':'']"
+            (click)="approveRequest()">Approve
+          </button>
+
+          <button (click)="rejectRequest()" mat-stroked-button class="mt-10 me-15" [disabled]="!isApprovAccess"
+            [ngClass]="[isApprovAccess?'custom-gray-bg text-white ':'']">
+            Reject
+          </button>
+        </div>
+      </mat-card-header>
+    </mat-card>
+  </div>
+
+  <mat-card class="mb-25 p-0 tagus-card">
+    <mat-card-content>
+      <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" (selectedTabChange)="tabClick($event)"
+        [selectedIndex]="selectedtab" class="tab-group-1">
+        <mat-tab label="Tab 1">
+          <ng-template mat-tab-label class="shadow-md">
+            <b>Client Details</b>
+          </ng-template>
+          <div class="pt-30 pe-30 ps-30 pb-15 mat-tab-div-first-tab">
+            <div class="mb-15  h-100">
+              <mat-accordion class="example-headers-align" multi class="form-expansion-panel">
+                <mat-expansion-panel class="box-shadow-none" [expanded]="true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Personal Information
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+
+                  <div class="position-relative">
+                    <form [formGroup]="clientDetailsForm">
+                      <div class="row p-15 mt-10">
+
+                        <div class="col-4">
+
+                          <div [ngClass]="[editMode ? 'disable-input' : '']">
+                            <div class="tagus-form-group without-icon ">
+                              <mat-form-field appearance="fill">
+                                <mat-label>Client Name</mat-label>
+                                <input [tabIndex]="1" matInput type="text" class="form-control"
+                                  placeholder="Enter Client Name" formControlName="ClientName" [readonly]="editMode">
+                                <mat-error *ngIf="clientDetailsFormSubmitted && clientDetailsFormValidators['ClientName'].errors && clientDetailsFormValidators['ClientName'].errors['required']
+                              ">Enter Client Name </mat-error>
+                                <mat-error
+                                  *ngIf="clientDetailsFormSubmitted && clientDetailsFormValidators['ClientName'].errors && clientDetailsFormValidators['ClientName'].errors['pattern']">Enter
+                                  Valid Client Name</mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="tagus-form-group without-icon ">
+                            <mat-form-field appearance="fill">
+                              <mat-label>Account Name</mat-label>
+                              <input [tabIndex]="4" matInput type="text" class="form-control"
+                                placeholder="Enter Account Name" formControlName="AccountName">
+                              <mat-error *ngIf="clientDetailsFormSubmitted && clientDetailsFormValidators['AccountName'].errors && clientDetailsFormValidators['AccountName'].errors['required']
+                              ">Enter Account Name </mat-error>
+                              <mat-error
+                                *ngIf="clientDetailsFormSubmitted && clientDetailsFormValidators['AccountName'].errors && clientDetailsFormValidators['AccountName'].errors['pattern']">Enter
+                                Valid Account Name</mat-error>
+                            </mat-form-field>
+                          </div>
+
+                          <div class="tagus-form-group without-icon mb-5 mandatory-field">
+                            <ng-select [tabIndex]="7" dropdownPosition="bottom" formControlName="City"
+                              placeholder="City" class="dropdown" bindLabel="CityName" bindValue="CityID"
+                              [items]="cityList" [appendTo]="'body'" [clearable]="false" #cityDropdown
+                              (window:scroll)="cityDropdown.close()"
+                              [ngClass]="cityDropdown.hasValue || cityDropdown.isOpen?'placeholder-padding':''">
+                            </ng-select>
+                            <mat-error class="ms-15 me-15"
+                              [ngStyle]="{visibility:(clientDetailsFormSubmitted && clientDetailsFormValidators['City'].errors && clientDetailsFormValidators['City'].errors['required'])?'visible':'hidden'}">Select
+                              City </mat-error>
+                          </div>
+
+                          <div class="tagus-form-group without-icon mb-5 mandatory-field">
+                            <ng-select [tabIndex]="10" dropdownPosition="bottom" formControlName="SubIndustry"
+                              placeholder="Sub-Industry" class="dropdown" bindLabel="value" bindValue="value"
+                              [items]="subIndustryList" [appendTo]="'body'" [clearable]="false" #SubIndustryDropdown
+                              (window:scroll)="SubIndustryDropdown.close()"
+                              [ngClass]="SubIndustryDropdown.hasValue || SubIndustryDropdown.isOpen?'placeholder-padding':''">
+                            </ng-select>
+                            <mat-error class="ms-15 me-15"
+                              [ngStyle]="{visibility:(clientDetailsFormSubmitted && clientDetailsFormValidators['SubIndustry'].errors && clientDetailsFormValidators['SubIndustry'].errors['required'])?'visible':'hidden'}">Select
+                              Sub Industry </mat-error>
+                          </div>
+
+                          <div class="tagus-form-group without-icon ">
+                            <mat-form-field appearance="fill">
+                              <mat-label>Email Id 2</mat-label>
+                              <input [tabIndex]="13" formControlName="Email2" matInput type="text" class="form-control"
+                                placeholder="Enter Email">
+                              <mat-error *ngIf="clientDetailsFormSubmitted && clientDetailsFormValidators['Email2'].errors && clientDetailsFormValidators['Email2'].errors['pattern']
+                                                                ">Enter Valid Email </mat-error>
+                            </mat-form-field>
+                          </div>
+
+                          <div class="tagus-form-group without-icon address-field">
+                            <mat-form-field appearance="fill">
+                              <mat-label>Address Line 3</mat-label>
+                              <textarea [tabIndex]="16" placeholder="Address Line 3" formControlName="Address3" matInput
+                                cols="35" rows="1"></textarea>
+                            </mat-form-field>
+                          </div>
+                        </div>
+
+                        <div class="col-4">
+
+                          <div class="tagus-form-group without-icon ">
+                            <mat-form-field appearance="fill">
+                              <mat-label>Mobile</mat-label>
+                              <input [tabIndex]="2" maxlength="10" matInput type="text" class="form-control"
+                                placeholder="Enter Mobile" formControlName="Mobile">
+                              <mat-error *ngIf="clientDetailsFormSubmitted && clientDetailsFormValidators['Mobile'].errors && clientDetailsFormValidators['Mobile'].errors['required']
+                                                            ">Enter Mobile </mat-error>
+                              <mat-error
+                                *ngIf="clientDetailsFormSubmitted && clientDetailsFormValidators['Mobile'].errors && clientDetailsFormValidators['Mobile'].errors['pattern']">Enter
+                                Valid Mobile</mat-error>
+                            </mat-form-field>
+                          </div>
+
+                          <div class="tagus-form-group without-icon address-field">
+                            <mat-form-field appearance="fill">
+                              <mat-label>Account Address : </mat-label>
+                              <textarea [tabIndex]="5" placeholder="Enter Account Address :"
+                                formControlName="AccountAddress" matInput cols="35" rows="1" aria-setsize=""></textarea>
+                            </mat-form-field>
+                          </div>
+
+                          <div class="tagus-form-group without-icon mandatory-field">
+                            <ng-select [tabIndex]="8" dropdownPosition="bottom" formControlName="IsJapanese"
+                              placeholder="Is Japanese" class="dropdown" bindLabel="name" bindValue="id"
+                              [items]="japneseList" [appendTo]="'body'" [clearable]="false" #IsJapaneseDropdown
+                              (window:scroll)="IsJapaneseDropdown.close()"
+                              [ngClass]="IsJapaneseDropdown.hasValue || IsJapaneseDropdown.isOpen?'placeholder-padding':''">
+                            </ng-select>
+                            <mat-error class="ms-15 me-15"
+                              [ngStyle]="{visibility:(clientDetailsFormSubmitted && clientDetailsFormValidators['IsJapanese'].errors && clientDetailsFormValidators['IsJapanese'].errors['required'])?'visible':'hidden'}">Select
+                              Is Japanese </mat-error>
+                          </div>
+
+                          <div class="tagus-form-group without-icon mb-5 mandatory-field">
+                            <ng-select [tabIndex]="11" dropdownPosition="bottom" formControlName="TurnOver"
+                              placeholder="Turn Over" class="dropdown" bindLabel="value" bindValue="value"
+                              [items]="turnOverList" [appendTo]="'body'" [clearable]="false" #TurnOverDropdown
+                              (window:scroll)="TurnOverDropdown.close()"
+                              [ngClass]="TurnOverDropdown.hasValue || TurnOverDropdown.isOpen?'placeholder-padding':''">
+                            </ng-select>
+                            <mat-error class="ms-15 me-15"
+                              [ngStyle]="{visibility:(clientDetailsFormSubmitted && clientDetailsFormValidators['TurnOver'].errors && clientDetailsFormValidators['TurnOver'].errors['required'])?'visible':'hidden'}">Select
+                              Turn Over </mat-error>
+                          </div>
+
+
+                          <div class="tagus-form-group without-icon ">
+                            <mat-form-field appearance="fill">
+                              <mat-label>Mobile 2</mat-label>
+                              <input [tabIndex]="14" maxlength="10" matInput type="text" class="form-control"
+                                placeholder="Enter Mobile 2" formControlName="Mobile2">
+                              <mat-error
+                                *ngIf="clientDetailsFormSubmitted && clientDetailsFormValidators['Mobile2'].errors && clientDetailsFormValidators['Mobile2'].errors['pattern']">Enter
+                                Valid Mobile</mat-error>
+                            </mat-form-field>
+                          </div>
+
+                          <div class="tagus-form-group without-icon address-field">
+                            <mat-form-field appearance="fill">
+                              <mat-label>Office Address</mat-label>
+                              <textarea [tabIndex]="17" placeholder="Enter Office" formControlName="officeAddress"
+                                matInput cols="35" rows="1" aria-setsize=""></textarea>
+                            </mat-form-field>
+                          </div>
+                        </div>
+
+                        <div class="col-4">
+
+                          <div class="tagus-form-group without-icon">
+                            <mat-form-field appearance="fill">
+                              <mat-label>Email</mat-label>
+                              <input [tabIndex]="3" matInput type="text" class="form-control" placeholder="Enter Email"
+                                formControlName="Email">
+                              <mat-error *ngIf="clientDetailsFormSubmitted && clientDetailsFormValidators['Email'].errors && clientDetailsFormValidators['Email'].errors['required']
+                                                            ">Enter Email </mat-error>
+
+                              <mat-error *ngIf="clientDetailsFormSubmitted && clientDetailsFormValidators['Email'].errors && clientDetailsFormValidators['Email'].errors['pattern']
+                                                        ">Enter Valid Email </mat-error>
+                            </mat-form-field>
+                          </div>
+
+                          <div class="tagus-form-group without-icon mb-5 mandatory-field">
+                            <ng-select [tabIndex]="6" dropdownPosition="bottom" formControlName="regionControl"
+                              placeholder="Region" class="dropdown" bindLabel="RegionName" bindValue="RegionName"
+                              [items]="regionList" [appendTo]="'body'" [clearable]="false" #regionDropdown
+                              (window:scroll)="regionDropdown.close()"
+                              [ngClass]="regionDropdown.hasValue || regionDropdown.isOpen?'placeholder-padding':''">
+                            </ng-select>
+                            <mat-error class="ms-15 me-15"
+                              [ngStyle]="{visibility:(clientDetailsFormSubmitted && clientDetailsFormValidators['regionControl'].errors && clientDetailsFormValidators['regionControl'].errors['required'])?'visible':'hidden'}">Select
+                              Region </mat-error>
+                          </div>
+
+                          <div class="tagus-form-group without-icon mandatory-field">
+                            <ng-select [tabIndex]="9" dropdownPosition="bottom" formControlName="IndustryType"
+                              placeholder="Industry Type" class="dropdown" bindLabel="GeneralDescription" bindValue="Id"
+                              [items]="industryTypeList" [appendTo]="'body'" [clearable]="false" #IndustryDropdown
+                              (window:scroll)="IndustryDropdown.close()"
+                              [ngClass]="IndustryDropdown.hasValue || IndustryDropdown.isOpen?'placeholder-padding':''">
+                            </ng-select>
+                            <mat-error class="ms-15 me-15"
+                              [ngStyle]="{visibility:(clientDetailsFormSubmitted && clientDetailsFormValidators['IndustryType'].errors && clientDetailsFormValidators['IndustryType'].errors['required'])?'visible':'hidden'}">Select
+                              Industry Type </mat-error>
+                          </div>
+
+                          <div class="tagus-form-group without-icon mandatory-field">
+                            <ng-select [tabIndex]="12" dropdownPosition="bottom" formControlName="Strength"
+                              placeholder="Strength" class="dropdown" bindLabel="value" bindValue="value"
+                              [items]="strengthList" [appendTo]="'body'" [clearable]="false" #strengthDropdown
+                              (window:scroll)="strengthDropdown.close()"
+                              [ngClass]="strengthDropdown.hasValue || strengthDropdown.isOpen?'placeholder-padding':''">
+                            </ng-select>
+                            <mat-error class="ms-15 me-15"
+                              [ngStyle]="{visibility:(clientDetailsFormSubmitted && clientDetailsFormValidators['Strength'].errors && clientDetailsFormValidators['Strength'].errors['required'])?'visible':'hidden'}">Select
+                              Strength </mat-error>
+                          </div>
+
+                          <div class="tagus-form-group without-icon address-field">
+                            <mat-form-field appearance="fill">
+                              <mat-label>Address Line 2</mat-label>
+                              <textarea [tabIndex]="15" placeholder="Address Line 2" formControlName="Address2" matInput
+                                cols="35" rows="1"></textarea>
+                            </mat-form-field>
+                          </div>
+
+                          <div class="tagus-form-group without-icon ">
+                            <mat-form-field appearance="fill">
+                              <mat-label>PAN No</mat-label>
+                              <input [tabIndex]="18" formControlName="PanNo" matInput type="text" class="form-control"
+                                placeholder="Enter PAN">
+                              <mat-error *ngIf="clientDetailsFormSubmitted && clientDetailsFormValidators['PanNo'].errors && clientDetailsFormValidators['PanNo'].errors['pattern']
+                                                                ">Enter Valid PAN </mat-error>
+                            </mat-form-field>
+                          </div>
+
+                        </div>
+
+                      </div>
+                    </form>
+                  </div>
+
+                </mat-expansion-panel>
+              </mat-accordion>
+            </div>
+
+            <div class="mb-15  h-100">
+              <mat-accordion class="example-headers-align" multi class="form-expansion-panel">
+                <mat-expansion-panel class="box-shadow-none" [expanded]="true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Other Information
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+
+                  <div class="position-relative">
+                    <form [formGroup]="clientDetailsForm">
+                      <div class="row p-15 mt-10">
+                        <div class="col-4">
+                          <div class="tagus-form-group without-icon mb-20">
+                            <ng-select [tabIndex]="19" dropdownPosition="bottom" formControlName="ParentId"
+                              placeholder="Parent ID" class="dropdown" bindLabel="ClientName" bindValue="Id"
+                              [items]="parentList" [appendTo]="'body'" [clearable]="false" #parentIdDropdown
+                              (window:scroll)="parentIdDropdown.close()"
+                              [ngClass]="parentIdDropdown.hasValue || parentIdDropdown.isOpen?'placeholder-padding':''">
+                            </ng-select>
+                          </div>
+
+                          <div class="tagus-form-group without-icon ">
+                            <mat-form-field appearance="fill">
+                              <mat-label>Coordinator Email</mat-label>
+                              <input [tabIndex]="22" matInput type="text" class="form-control" placeholder="Enter Email"
+                                formControlName="CoordinatorEmail">
+                              <mat-error *ngIf="clientDetailsForm && clientDetailsFormValidators['CoordinatorEmail'].errors && clientDetailsFormValidators['CoordinatorEmail'].errors['pattern']
+                                                            ">Enter Valid Email </mat-error>
+                            </mat-form-field>
+                          </div>
+
+                          <div class="tagus-form-group without-icon mb-20">
+                            <ng-select [tabIndex]="25" dropdownPosition="bottom" formControlName="PartOfGroup"
+                              placeholder="Part Of Group" class="dropdown" bindLabel="GOCName" bindValue="Id"
+                              [items]="partOfGroup" [appendTo]="'body'" [clearable]="false" #PartOfGroupDropdown
+                              (window:scroll)="PartOfGroupDropdown.close()"
+                              [ngClass]="PartOfGroupDropdown.hasValue || PartOfGroupDropdown.isOpen?'placeholder-padding':''">
+                            </ng-select>
+                          </div>
+
+                          <div class="tagus-form-group without-icon mb-10">
+                            <ng-select [tabIndex]="28" dropdownPosition="bottom" formControlName="BdmRm"
+                              placeholder="BDM / RM" class="dropdown" bindLabel="UserName" bindValue="Id"
+                              [items]="bdmRoleUserList" [appendTo]="'body'" [clearable]="false" #BdmRmDropdown
+                              (window:scroll)="BdmRmDropdown.close()"
+                              [ngClass]="BdmRmDropdown.hasValue || BdmRmDropdown.isOpen?'placeholder-padding':''">
+                            </ng-select>
+                          </div>
+
+
+                          <div class="tagus-form-group without-icon">
+                            <p class="color-grey form-control m-0">Payment Due Date on:
+                            </p>
+                            <div class="d-flex align-items-center justify-content-space-between mb-15 pe-30 ps-30">
+                              <select [tabIndex]="31" class="form-control w-80 form-control dark-mode-bg bg-transparent"
+                                id="paymentDueDate" formControlName="PaymentDueDate">
+                                <option selected disabled>00</option>
+                                <option *ngFor="let option of paymentDueDate" [value]="option.value">{{ option.value
+                                  }}</option>
+                              </select>
+                              <p class="color-grey mb-0 form-control">/ After</p>
+                              <input [tabIndex]="32" class="form-control w-80" type="text" id="paymentAfter"
+                                formControlName="PaymentAfter" placeholder="00">
+                            </div>
+
+                          </div>
+
+                          <div class="d-flex justify-content-space-between  mb-20">
+                            <mat-label>Client PO No. Required </mat-label>
+                            <mat-slide-toggle [tabIndex]="37" formControlName="clientPONo"></mat-slide-toggle>
+                          </div>
+
+                          <div class="d-flex justify-content-space-between mb-20">
+                            <mat-label>Print Breakup in
+                              rental invoices</mat-label>
+                            <mat-slide-toggle [tabIndex]="40"
+                              formControlName="printBreakUpRentalInvoice"></mat-slide-toggle>
+                          </div>
+
+
+                        </div>
+
+                        <div class="col-4">
+                          <div class="tagus-form-group without-icon ">
+                            <mat-form-field appearance="fill">
+                              <mat-label>Contact Person 1</mat-label>
+                              <input [tabIndex]="20" matInput type="text" class="form-control"
+                                placeholder="Name of Person" formControlName="ContactPerson">
+                            </mat-form-field>
+                          </div>
+
+                          <div class="tagus-form-group without-icon ">
+                            <mat-form-field appearance="fill">
+                              <mat-label>Designation</mat-label>
+                              <input [tabIndex]="23" matInput type="text" class="form-control"
+                                placeholder="Enter Designation" formControlName="Designation">
+                            </mat-form-field>
+                          </div>
+
+                          <div class="tagus-form-group without-icon ">
+                            <mat-form-field appearance="fill">
+                              <mat-label>Oracle Client</mat-label>
+                              <input [tabIndex]="26" matInput type="text" class="form-control"
+                                placeholder="Enter Oracle Client" formControlName="OracleClient">
+                            </mat-form-field>
+                          </div>
+
+                          <div class="tagus-form-group without-icon ">
+                            <mat-form-field appearance="fill">
+                              <mat-label>Days of</mat-label>
+                              <input [tabIndex]="29" matInput id="paymentData" formControlName="PaymentData"
+                                placeholder="Days of">
+                            </mat-form-field>
+                          </div>
+
+                          <div class="d-flex justify-content-space-between  mb-20">
+                            <mat-label>SEZ</mat-label>
+                            <mat-slide-toggle [tabIndex]="33" formControlName="SEZ"></mat-slide-toggle>
+                          </div>
+
+                          <div class="d-flex justify-content-space-between  mb-20">
+                            <mat-label>Member Of
+                              Auto-Mobile
+                              Association</mat-label>
+                            <mat-slide-toggle [tabIndex]="35" formControlName="AutoMobileass"></mat-slide-toggle>
+                          </div>
+
+                          <div class="d-flex justify-content-space-between  mb-20">
+                            <mat-label>Suspend FMS</mat-label>
+                            <mat-slide-toggle [tabIndex]="38" formControlName="SuspendedFMS"></mat-slide-toggle>
+                          </div>
+
+                          <div class="d-flex justify-content-space-between  mb-20">
+                            <mat-label>NACH</mat-label>
+                            <mat-slide-toggle [tabIndex]="41" formControlName="NACH"></mat-slide-toggle>
+                          </div>
+
+                        </div>
+
+                        <div class="col-4">
+
+                          <div class="tagus-form-group without-icon ">
+                            <mat-form-field appearance="fill">
+                              <mat-label>Contact Person 2</mat-label>
+                              <input [tabIndex]="21" matInput type="text" class="form-control"
+                                placeholder="Name of Person" formControlName="ContactPerson2">
+                            </mat-form-field>
+                          </div>
+
+                          <div class="tagus-form-group without-icon mb-20">
+                            <ng-select [tabIndex]="24" dropdownPosition="bottom" formControlName="Category"
+                              placeholder="Category" class="dropdown" bindLabel="name" bindValue="name"
+                              [items]="category" [appendTo]="'body'" [clearable]="false" #CategoryDropdown
+                              (window:scroll)="CategoryDropdown.close()"
+                              [ngClass]="CategoryDropdown.hasValue || CategoryDropdown.isOpen?'placeholder-padding':''">
+                            </ng-select>
+                          </div>
+
+                          <div class="tagus-form-group without-icon mb-20">
+                            <ng-select [tabIndex]="27" dropdownPosition="bottom" formControlName="Ocean"
+                              placeholder="Ocean" class="dropdown" bindLabel="value" bindValue="id" [items]="oceanList"
+                              [appendTo]="'body'" [clearable]="false" #OceanDropdown
+                              (window:scroll)="OceanDropdown.close()"
+                              [ngClass]="OceanDropdown.hasValue || OceanDropdown.isOpen?'placeholder-padding':''">
+                            </ng-select>
+                          </div>
+
+                          <div class="tagus-form-group without-icon ">
+                            <mat-form-field appearance="fill">
+                              <mat-label>Description :</mat-label>
+                              <input [tabIndex]="30" matInput id="Description" formControlName="Description">
+                            </mat-form-field>
+                          </div>
+
+                          <div class="d-flex justify-content-space-between  mb-20">
+                            <mat-label>Related Party</mat-label>
+                            <mat-slide-toggle [tabIndex]="34" formControlName="RelatedParty"></mat-slide-toggle>
+                          </div>
+
+                          <div class="d-flex justify-content-space-between  mb-20">
+                            <mat-label>N2N CLIENT</mat-label>
+                            <mat-slide-toggle [tabIndex]="36" formControlName="N2NClient"></mat-slide-toggle>
+                          </div>
+
+                          <div class="d-flex justify-content-space-between  mb-20">
+                            <mat-label>Handling Charges</mat-label>
+                            <mat-slide-toggle [tabIndex]="39" formControlName="HandlingCharges"></mat-slide-toggle>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+
+                </mat-expansion-panel>
+              </mat-accordion>
+            </div>
+          </div>
+        </mat-tab>
+
+        <mat-tab>
+          <ng-template mat-tab-label class="shadow-md">
+            <b>Invoice Data</b>
+          </ng-template>
+          <div class="pt-30 pe-30 ps-30 pb-15 mat-tab-div">
+            <div class="mb-15  h-100">
+              <mat-accordion class="example-headers-align" multi class="form-expansion-panel">
+                <mat-expansion-panel class="box-shadow-none" [expanded]="true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Invoice Details
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div class="position-relative">
+                    <form [formGroup]="InvoiceDetailsForm">
+                      <div class="row p-15 mt-10">
+                        <div class="col-4">
+                          <div class="tagus-form-group without-icon">
+                            <ng-select dropdownPosition="bottom" formControlName="InvoicePattern"
+                              placeholder="Invoice Pattern" class="dropdown mb-15" bindLabel="value" bindValue="Id"
+                              [items]="invoicePatternList" [appendTo]="'body'" [clearable]="false" #InvoiceDropdown
+                              (window:scroll)="InvoiceDropdown.close()"
+                              [ngClass]="InvoiceDropdown.hasValue || InvoiceDropdown.isOpen?'placeholder-padding':''">
+                            </ng-select>
+                          </div>
+                        </div>
+
+                        <div class="col-4">
+                          <div class="col-8 d-flex justify-content-space-between mt-20">
+                            <mat-label>Annexure Billing Address</mat-label>
+                            <mat-slide-toggle formControlName="AnnBillAddress"></mat-slide-toggle>
+                          </div>
+                        </div>
+
+                        <div class="col-12">
+                          <mat-label class="title">Additional Information In Invoice</mat-label>
+                        </div>
+
+                        <div class="col-4">
+                          <div class="col-8 d-flex justify-content-space-between mt-20">
+                            <mat-label>Employee ID</mat-label>
+                            <mat-slide-toggle formControlName="EmployeeID"></mat-slide-toggle>
+                          </div>
+                        </div>
+
+                        <div class="col-4">
+                          <div class="col-8 d-flex justify-content-space-between mt-20">
+                            <mat-label>PO No</mat-label>
+                            <mat-slide-toggle formControlName="PoNo"></mat-slide-toggle>
+                          </div>
+                        </div>
+
+                        <div class="col-4">
+                          <div class="col-8 d-flex justify-content-space-between mt-20">
+                            <mat-label>SBU Unit</mat-label>
+                            <mat-slide-toggle formControlName="SbuUnit"></mat-slide-toggle>
+                          </div>
+                        </div>
+
+                        <div class="col-4">
+                          <div class="col-8 d-flex justify-content-space-between mt-20">
+                            <mat-label>Activation Date</mat-label>
+                            <mat-slide-toggle formControlName="ActivationDate"></mat-slide-toggle>
+                          </div>
+                        </div>
+
+                        <div class="col-4">
+                          <div class="col-8 d-flex justify-content-space-between mt-20">
+                            <mat-label>Invoice Date</mat-label>
+                            <mat-slide-toggle formControlName="InvoiceDate"></mat-slide-toggle>
+                          </div>
+                        </div>
+
+                        <div class="col-4">
+                          <div class="col-8 d-flex justify-content-space-between mt-20">
+                            <mat-label>TIN No</mat-label>
+                            <mat-slide-toggle formControlName="TinNO"></mat-slide-toggle>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+
+                </mat-expansion-panel>
+              </mat-accordion>
+            </div>
+
+            <div class="mb-15  h-100">
+              <mat-accordion class="example-headers-align" multi class="form-expansion-panel">
+                <mat-expansion-panel class="box-shadow-none" [expanded]="true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      VRL
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div class="position-relative">
+                    <form [formGroup]="InvoiceDetailsForm">
+                      <div class="row p-15 mt-10">
+                        <div class="col-4">
+                          <div class="col-8 d-flex justify-content-space-between mt-20">
+                            <mat-label>Show Disclaimer</mat-label>
+                            <mat-slide-toggle class="ms-12" formControlName="Disclaimer"></mat-slide-toggle>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+
+                </mat-expansion-panel>
+              </mat-accordion>
+            </div>
+          </div>
+        </mat-tab>
+
+      </mat-tab-group>
+    </mat-card-content>
+    <div *ngIf="!IsApproverView && !isView" class="d-flex justify-content-end align-items-center pb-30 pe-30">
+      <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg"
+        class="cursor-pointer me-15" (click)="resetForm()" matTooltip="Reset">
+        <g id="solar:refresh-bold">
+          <path *ngIf="!darkThemeMode" id="Vector"
+            d="M10.5692 1.96876C6.37444 1.96876 2.92694 5.17389 2.59094 9.26014H1.75007C1.61996 9.26007 1.49278 9.29869 1.38467 9.37107C1.27656 9.44344 1.1924 9.54632 1.14289 9.66664C1.09337 9.78695 1.08074 9.91926 1.10659 10.0468C1.13244 10.1743 1.19561 10.2912 1.28807 10.3828L2.75807 11.8405C2.88097 11.9623 3.04701 12.0307 3.22007 12.0307C3.39312 12.0307 3.55916 11.9623 3.68207 11.8405L5.15207 10.3828C5.24452 10.2912 5.30769 10.1743 5.33354 10.0468C5.35939 9.91926 5.34676 9.78695 5.29724 9.66664C5.24773 9.54632 5.16357 9.44344 5.05546 9.37107C4.94735 9.29869 4.82017 9.26007 4.69007 9.26014H3.90869C4.24119 5.90801 7.09194 3.28126 10.5692 3.28126C11.7157 3.27888 12.8436 3.5707 13.845 4.1288C14.8465 4.6869 15.688 5.49262 16.2891 6.46888C16.3331 6.54463 16.3918 6.61081 16.4617 6.66351C16.5317 6.71621 16.6115 6.75437 16.6965 6.77574C16.7814 6.79711 16.8698 6.80126 16.9563 6.78794C17.0429 6.77462 17.1259 6.7441 17.2005 6.69819C17.2751 6.65228 17.3398 6.59189 17.3907 6.5206C17.4416 6.44931 17.4777 6.36854 17.4969 6.28308C17.5161 6.19761 17.5179 6.10917 17.5024 6.02296C17.4869 5.93676 17.4542 5.85453 17.4064 5.78113C16.688 4.61413 15.6823 3.65088 14.4854 2.98342C13.2885 2.31597 11.9396 1.96662 10.5692 1.96876ZM18.2359 9.15864C18.1131 9.03734 17.9474 8.96932 17.7748 8.96932C17.6022 8.96932 17.4365 9.03734 17.3137 9.15864L15.8376 10.6164C15.7449 10.7078 15.6814 10.8248 15.6554 10.9523C15.6293 11.0799 15.6418 11.2124 15.6913 11.3328C15.7407 11.4533 15.8249 11.5563 15.933 11.6288C16.0412 11.7013 16.1685 11.7399 16.2987 11.7399H17.0853C16.7511 15.0911 13.8907 17.7188 10.3968 17.7188C9.24675 17.722 8.11501 17.4306 7.10946 16.8725C6.1039 16.3143 5.25803 15.508 4.65244 14.5303C4.60717 14.4569 4.54789 14.3932 4.47798 14.3427C4.40808 14.2922 4.32892 14.2561 4.24503 14.2362C4.16114 14.2163 4.07415 14.2132 3.98905 14.2269C3.90394 14.2407 3.82237 14.271 3.749 14.3163C3.60083 14.4078 3.49505 14.5543 3.45493 14.7237C3.4148 14.8932 3.44363 15.0716 3.53507 15.2198C4.25829 16.388 5.26859 17.3516 6.46973 18.0188C7.67086 18.686 9.02282 19.0346 10.3968 19.0313C14.6038 19.0313 18.0662 15.8288 18.4031 11.7399H19.2501C19.3803 11.7399 19.5076 11.7013 19.6157 11.6288C19.7239 11.5563 19.808 11.4533 19.8575 11.3328C19.9069 11.2124 19.9194 11.0799 19.8934 10.9523C19.8673 10.8248 19.8039 10.7078 19.7112 10.6164L18.2359 9.15864Z"
+            fill="black" />
+          <path *ngIf="darkThemeMode" id="Vector"
+            d="M10.5692 1.96876C6.37444 1.96876 2.92694 5.17389 2.59094 9.26014H1.75007C1.61996 9.26007 1.49278 9.29869 1.38467 9.37107C1.27656 9.44344 1.1924 9.54632 1.14289 9.66664C1.09337 9.78695 1.08074 9.91926 1.10659 10.0468C1.13244 10.1743 1.19561 10.2912 1.28807 10.3828L2.75807 11.8405C2.88097 11.9623 3.04701 12.0307 3.22007 12.0307C3.39312 12.0307 3.55916 11.9623 3.68207 11.8405L5.15207 10.3828C5.24452 10.2912 5.30769 10.1743 5.33354 10.0468C5.35939 9.91926 5.34676 9.78695 5.29724 9.66664C5.24773 9.54632 5.16357 9.44344 5.05546 9.37107C4.94735 9.29869 4.82017 9.26007 4.69007 9.26014H3.90869C4.24119 5.90801 7.09194 3.28126 10.5692 3.28126C11.7157 3.27888 12.8436 3.5707 13.845 4.1288C14.8465 4.6869 15.688 5.49262 16.2891 6.46888C16.3331 6.54463 16.3918 6.61081 16.4617 6.66351C16.5317 6.71621 16.6115 6.75437 16.6965 6.77574C16.7814 6.79711 16.8698 6.80126 16.9563 6.78794C17.0429 6.77462 17.1259 6.7441 17.2005 6.69819C17.2751 6.65228 17.3398 6.59189 17.3907 6.5206C17.4416 6.44931 17.4777 6.36854 17.4969 6.28308C17.5161 6.19761 17.5179 6.10917 17.5024 6.02296C17.4869 5.93676 17.4542 5.85453 17.4064 5.78113C16.688 4.61413 15.6823 3.65088 14.4854 2.98342C13.2885 2.31597 11.9396 1.96662 10.5692 1.96876ZM18.2359 9.15864C18.1131 9.03734 17.9474 8.96932 17.7748 8.96932C17.6022 8.96932 17.4365 9.03734 17.3137 9.15864L15.8376 10.6164C15.7449 10.7078 15.6814 10.8248 15.6554 10.9523C15.6293 11.0799 15.6418 11.2124 15.6913 11.3328C15.7407 11.4533 15.8249 11.5563 15.933 11.6288C16.0412 11.7013 16.1685 11.7399 16.2987 11.7399H17.0853C16.7511 15.0911 13.8907 17.7188 10.3968 17.7188C9.24675 17.722 8.11501 17.4306 7.10946 16.8725C6.1039 16.3143 5.25803 15.508 4.65244 14.5303C4.60717 14.4569 4.54789 14.3932 4.47798 14.3427C4.40808 14.2922 4.32892 14.2561 4.24503 14.2362C4.16114 14.2163 4.07415 14.2132 3.98905 14.2269C3.90394 14.2407 3.82237 14.271 3.749 14.3163C3.60083 14.4078 3.49505 14.5543 3.45493 14.7237C3.4148 14.8932 3.44363 15.0716 3.53507 15.2198C4.25829 16.388 5.26859 17.3516 6.46973 18.0188C7.67086 18.686 9.02282 19.0346 10.3968 19.0313C14.6038 19.0313 18.0662 15.8288 18.4031 11.7399H19.2501C19.3803 11.7399 19.5076 11.7013 19.6157 11.6288C19.7239 11.5563 19.808 11.4533 19.8575 11.3328C19.9069 11.2124 19.9194 11.0799 19.8934 10.9523C19.8673 10.8248 19.8039 10.7078 19.7112 10.6164L18.2359 9.15864Z"
+            fill="white" />
+        </g>
+      </svg>
+      <button (click)="location.back()" mat-flat-button class="gray me-15 white-color">
+        Cancel
+      </button>
+      <button *ngIf="selectedtab==0" mat-flat-button color="primary" class="bg-theme-color" [disabled]="!isAddAccess"
+        [ngClass]="[isAddAccess?'text-white':'']" (click)="moveToNextTab()">Save and Next
+      </button>
+      <button *ngIf="!editMode && selectedtab==1" mat-flat-button color="primary" class="bg-theme-color"
+        [disabled]="!isAddAccess" [ngClass]="[isAddAccess?'text-white':'']" (click)="addClient()">Save
+      </button>
+      <button *ngIf="editMode && selectedtab==1"  [disabled]="!isEditAccess" mat-flat-button
+                      color="primary" class="bg-theme-color" [ngClass]="[isEditAccess?'text-white':'']"
+        (click)="updateClient()">Update
+      </button>
+    </div>
+
+    <div *ngIf="IsApproverView" class="d-flex justify-content-end align-items-center pb-30 pe-30">
+
+      <button (click)="location.back()" mat-flat-button class="gray mt-10 me-15 white-color">
+        Cancel
+      </button>
+
+      <button mat-stroked-button [disabled]="!isApprovAccess" class="mt-10 me-15"
+        [ngClass]="[mainThemeClass!='' ? 'dialog-save-btn': 'text-bg-info',isApprovAccess?'text-white':'']"
+        (click)="approveRequest()">Approve
+      </button>
+
+      <button (click)="rejectRequest()" mat-stroked-button class="mt-10 me-15" [disabled]="!isApprovAccess"
+        [ngClass]="[isApprovAccess?'custom-gray-bg text-white ':'']">
+        Reject
+      </button>
+    </div>
+
+  </mat-card>
+</div>

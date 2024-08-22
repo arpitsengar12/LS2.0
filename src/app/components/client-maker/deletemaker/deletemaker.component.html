@@ -1,0 +1,21 @@
+<div [ngClass]="mainThemeClass">
+  <div class="create-dialog-box scrollable-dialog">
+    <div class="dialog-header d-flex align-items-center justify-content-space-between p-20 table-accept-color">
+      <h4 class="mb-0 text-white">Disable User</h4>
+      <!-- <button class="close-btn  border-none" (click)="close()"><i class="flaticon-close"></i></button> -->
+    </div>
+
+    <div class="d-flex p-30 justify-content-center">
+      <h5>Are you sure you want to disable client master record ?</h5>
+    </div>
+
+    <div class="cam-btn d-flex align-items-center justify-content-end mt-5">
+      <button mat-flat-button class="gray white-color" (click)="close()">Cancel
+      </button>
+      <button mat-stroked-button [ngClass]="mainThemeClass!='' ? 'dialog-save-btn': 'text-bg-info'" class="text-white"
+        (click)="dialogRef.close(true)">Disable
+      </button>
+    </div>
+
+  </div>
+</div>

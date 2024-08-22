@@ -1,0 +1,1101 @@
+<div [ngClass]="mainThemeClass">
+  <div class="pageName-headerDiv">
+    <mat-card class="tagus-card p-0 pb-25 dark-theme-bg">
+      <mat-card-header class="m-0">
+        <div>
+          <h5 class="mb-0" [ngClass]="mainThemeClass!='' ? 'theme-text-color': ''"> Add {{selectedFormType}}</h5>
+          <div class="d-flex">
+            <span class="material-symbols-outlined cursor-pointer" (click)="location.back()">
+              west
+            </span><app-breadcrumb class="ms-10 mt-3"></app-breadcrumb>
+          </div>
+        </div>
+
+        <div *ngIf="!IsApproverView && !isView" class="me-15 d-flex align-items-center">
+          <h5 class="mb-0 me-30 cursor-pointer custom-underline" (click)="versionPageredirect()"
+            [ngClass]="[mainThemeClass!='' ? 'theme-text-color': '',!editMode || !IsAuditTrail? 'd-none':'']">
+            Version History
+          </h5>
+
+          <div>
+            <b class="me-10">Select Form Type :</b>
+            <mat-button-toggle-group [(ngModel)]="selectedFormType" aria-label="Font Style"
+              class="action-Toggles custom-togglebBtnColor border-radius">
+              <!-- <mat-button-toggle [disabled]="true" class="disabled-black"> <b>Select Form Type :</b> </mat-button-toggle> -->
+              <mat-button-toggle value="Creditor" (click)="CreditorFormSelected(resetFormGroup=true)"> <b>Creditor</b>
+              </mat-button-toggle>
+              <mat-button-toggle value="Dealer" (click)="DealerFormSelected(resetFormGroup=true)"> <b>Dealer</b>
+              </mat-button-toggle>
+
+            </mat-button-toggle-group>
+          </div>
+        </div>
+
+        <div *ngIf="isView" class="d-flex justify-content-end align-items-center pe-30">
+          <h5 class="mb-0 me-30 cursor-pointer custom-underline" (click)="versionPageredirect()"
+            [ngClass]="[mainThemeClass!='' ? 'theme-text-color': '',!IsAuditTrail? 'd-none':'']">
+            Version History
+          </h5>
+          <button (click)="location.back()" mat-flat-button class="gray me-15 white-color">
+            Back
+          </button>
+        </div>
+
+      </mat-card-header>
+    </mat-card>
+  </div>
+
+  <div class="position-relative">
+    <mat-card class="mb-20 tagus-card p-0">
+      <mat-card-content>
+        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" (selectedTabChange)="tabClick($event)"
+          [selectedIndex]="selectedtab" class="tab-group-1">
+          <mat-tab label="Tab 1">
+            <ng-template mat-tab-label class="shadow-md">
+              <b>Creditor Details</b>
+            </ng-template>
+            <div class="pt-30 pe-30 ps-30 pb-15 mat-tab-div-first-tab">
+              <div class="mb-15  h-100">
+                <mat-accordion class="example-headers-align" multi class="form-expansion-panel">
+                  <mat-expansion-panel class="box-shadow-none" [expanded]="true">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Personal data
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <div class="position-relative">
+                      <form [formGroup]="CreditorDetailsForm">
+                        <div class="row p-15 mt-10">
+                          <div class="col-4" [ngClass]="IsDealerForm?'':'d-none'">
+                            <div class="tagus-form-group without-icon mandatory-field">
+                              <ng-select dropdownPosition="bottom" formControlName="parentCompany"
+                                placeholder="Parent Company" class="dropdown" bindLabel="CreditorName" bindValue="Id"
+                                [items]="pCompanyList" [appendTo]="'body'" [clearable]="false" #parentCompanyDropdown
+                                (window:scroll)="parentCompanyDropdown.close()"
+                                [ngClass]="parentCompanyDropdown.hasValue || parentCompanyDropdown.isOpen?'placeholder-padding':''">
+                              </ng-select>
+                              <mat-error class="ms-15 me-15" [ngStyle]="{visibility:(CreditorDetailsFormSubmitted && CreditorDetailsValidators['parentCompany'].errors && CreditorDetailsValidators['parentCompany'].errors['required'])?'visible':'hidden'}
+                                            ">Select Parent Company</mat-error>
+                            </div>
+                          </div>
+
+                          <div class="col-4" [ngClass]="IsDealerForm?'':'d-none'">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="dealerName">Dealer Name </mat-label>
+                                <input matInput type="text" class="form-control" placeholder="Dealer Name"
+                                  formControlName="dealerName">
+                                <mat-error *ngIf="CreditorDetailsFormSubmitted && CreditorDetailsValidators['dealerName'].errors && CreditorDetailsValidators['dealerName'].errors['required']
+                                      ">Enter Dealer Name </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4" *ngIf="!IsDealerForm">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="dealerName">Creditor Name </mat-label>
+                                <input matInput type="text" class="form-control" placeholder="Creditor Name"
+                                  formControlName="dealerName">
+                                <mat-error *ngIf="CreditorDetailsFormSubmitted && CreditorDetailsValidators['dealerName'].errors && CreditorDetailsValidators['dealerName'].errors['required']
+                                      ">Enter Creditor Name </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="accountName">Account Name </mat-label>
+                                <input matInput type="text" class="form-control" placeholder="Account Name"
+                                  formControlName="accountName">
+                                <mat-error *ngIf="CreditorDetailsFormSubmitted && CreditorDetailsValidators['accountName'].errors && CreditorDetailsValidators['accountName'].errors['required']
+                                      ">Enter Account Name </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <ng-select dropdownPosition="bottom" formControlName="accType" placeholder="Account Type"
+                                class="dropdown" bindLabel="AccountName" bindValue="Id" [items]="accTypeList"
+                                [appendTo]="'body'" [clearable]="false" #accTypeDropdown
+                                (window:scroll)="accTypeDropdown.close()"
+                                [ngClass]="accTypeDropdown.hasValue || accTypeDropdown.isOpen?'placeholder-padding':''">
+                              </ng-select>
+                              <mat-error class="ms-15 me-15" [ngStyle]="{visibility:(CreditorDetailsFormSubmitted && CreditorDetailsValidators['accType'].errors && CreditorDetailsValidators['accType'].errors['required'])?'visible':'hidden'}
+                                            ">Select Account Type</mat-error>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="vendorSiteName">Vendor Site Name </mat-label>
+                                <input matInput type="text" class="form-control" placeholder="Vendor Site Name"
+                                  formControlName="vendorSiteName">
+                                <mat-error *ngIf="CreditorDetailsFormSubmitted && CreditorDetailsValidators['vendorSiteName'].errors && CreditorDetailsValidators['vendorSiteName'].errors['required']
+                                      ">Enter Vendor Site Name </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon address-field">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="address1">Address Line 1 </mat-label>
+                                <textarea placeholder="Address Line 1" formControlName="address1" matInput cols="35"
+                                  rows="1" aria-setsize=""></textarea>
+                                <mat-error *ngIf="CreditorDetailsFormSubmitted && CreditorDetailsValidators['address1'].errors && CreditorDetailsValidators['address1'].errors['required']
+                                      ">Enter Address </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon address-field">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="address2">Address Line 2 </mat-label>
+                                <textarea placeholder="Address Line 2" formControlName="address2" matInput cols="35"
+                                  rows="1" aria-setsize=""></textarea>
+                                <mat-error *ngIf="CreditorDetailsFormSubmitted && CreditorDetailsValidators['address2'].errors && CreditorDetailsValidators['address2'].errors['required']
+                                      ">Enter Address </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon address-field">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="address3">Address Line 3 </mat-label>
+                                <textarea placeholder="Address Line 3" formControlName="address3" matInput cols="35"
+                                  rows="1" aria-setsize=""></textarea>
+                                <mat-error *ngIf="CreditorDetailsFormSubmitted && CreditorDetailsValidators['address3'].errors && CreditorDetailsValidators['address3'].errors['required']
+                                      ">Enter Address </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon mandatory-field">
+                              <ng-select dropdownPosition="bottom" formControlName="city" placeholder="City Name"
+                                class="dropdown" bindLabel="CityName" bindValue="CityID" [items]="cityList"
+                                [appendTo]="'body'" [clearable]="false" #cityDropdown
+                                (window:scroll)="cityDropdown.close()"
+                                [ngClass]="cityDropdown.hasValue || cityDropdown.isOpen?'placeholder-padding':''">
+                              </ng-select>
+                              <mat-error class="ms-15 me-15" [ngStyle]="{visibility:(CreditorDetailsFormSubmitted && CreditorDetailsValidators['city'].errors && CreditorDetailsValidators['city'].errors['required'])?'visible':'hidden'}
+                                            ">Select City</mat-error>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="pinCode">Pin Code </mat-label>
+                                <input maxlength="6" matInput type="text" class="form-control" placeholder="Pin Code"
+                                  formControlName="pinCode">
+                                <mat-error *ngIf="CreditorDetailsFormSubmitted && CreditorDetailsValidators['pinCode'].errors && CreditorDetailsValidators['pinCode'].errors['required']
+                                      ">Enter Pin Code </mat-error>
+                                <mat-error
+                                  *ngIf="CreditorDetailsFormSubmitted && CreditorDetailsValidators['pinCode'].errors && CreditorDetailsValidators['pinCode'].errors['pattern']">Enter
+                                  Valid Pin Code</mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                        </div>
+                      </form>
+                    </div>
+
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+              <div class="mb-15  h-100">
+                <mat-accordion class="example-headers-align" multi class="form-expansion-panel">
+                  <mat-expansion-panel class="box-shadow-none" [expanded]="true">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Related Information
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <div class="position-relative">
+                      <form [formGroup]="CreditorDetailsForm">
+                        <div class="row p-15 mt-10">
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon mandatory-field">
+                              <ng-select dropdownPosition="bottom" formControlName="relatedDept"
+                                placeholder="Related Department" class="dropdown" bindLabel="GeneralDescription"
+                                bindValue="Id" [items]="relatedDeptLit" [appendTo]="'body'" [clearable]="false"
+                                #relatedDeptDropdown (window:scroll)="relatedDeptDropdown.close()"
+                                [ngClass]="relatedDeptDropdown.hasValue || relatedDeptDropdown.isOpen?'placeholder-padding':''">
+                              </ng-select>
+                              <mat-error class="ms-15 me-15" [ngStyle]="{visibility:(CreditorDetailsFormSubmitted && CreditorDetailsValidators['relatedDept'].errors && CreditorDetailsValidators['relatedDept'].errors['required'])?'visible':'hidden'}
+                                            ">Select Related Department</mat-error>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="fromDate">From Date</mat-label>
+                                <input matInput [matDatepicker]="picker1" formControlName="fromDate"
+                                  (dateChange)="onFromDtChange($event);onDateChange($event,'fromDate')"
+                                  placeholder="DD/MM/YYYY">
+                                <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="toDate">To Date</mat-label>
+                                <input matInput [matDatepicker]="picker2" formControlName="toDate"
+                                  placeholder="DD/MM/YYYY" (dateChange)="onDateChange($event,'toDate')">
+                                <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                                <mat-datepicker #picker2></mat-datepicker>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="paymentDays">Payment Days </mat-label>
+                                <input matInput type="text" class="form-control" placeholder="Payment Days"
+                                  formControlName="paymentDays">
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <!-- <div class="col-4 d-flex justify-content-space-between mt-20">
+                            <div class="d-flex mb-20">
+                              <mat-label>Is Agreement</mat-label>
+                              <mat-slide-toggle formControlName="IsAgreement" class="ms-30"></mat-slide-toggle>
+                            </div>
+
+                            <div class="d-flex mb-20">
+                              <mat-label>MSME</mat-label>
+                              <mat-slide-toggle formControlName="MSME" class="ms-30"></mat-slide-toggle>
+                            </div>
+                          </div> -->
+
+                          <div class="col-4">
+                            <div class="d-flex justify-content-space-between pe-10 ps-10 pb-10">
+                              <mat-label>Is Agreement</mat-label>
+                              <mat-slide-toggle formControlName="IsAgreement"></mat-slide-toggle>
+                            </div>
+                            <div class="d-flex justify-content-space-between p-10 ">
+                              <mat-label>MSME</mat-label>
+                              <mat-slide-toggle formControlName="MSME"></mat-slide-toggle>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <ng-select dropdownPosition="bottom" formControlName="manufacturer"
+                                placeholder="Manufacturer" class="dropdown" bindLabel="ManufacturerName" bindValue="Id"
+                                [items]="manufacturersList" [appendTo]="'body'" [clearable]="false"
+                                #manufacturerDropdown (window:scroll)="manufacturerDropdown.close()"
+                                [ngClass]="manufacturerDropdown.hasValue || manufacturerDropdown.isOpen?'placeholder-padding':''">
+                              </ng-select>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="subLocation">Sub Location </mat-label>
+                                <input matInput type="text" class="form-control" placeholder="Sub Location"
+                                  formControlName="subLocation">
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <ng-select dropdownPosition="bottom" formControlName="instrumentType"
+                                placeholder="Instrument Type" class="dropdown" bindLabel="GeneralDescription"
+                                bindValue="Id" [items]="instrumentTypesList" [appendTo]="'body'" [clearable]="false"
+                                #instTypeDropdown (window:scroll)="instTypeDropdown.close()"
+                                [ngClass]="instTypeDropdown.hasValue || instTypeDropdown.isOpen?'placeholder-padding':''">
+                              </ng-select>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="securityDepositAmt">Security Deposit Amount </mat-label>
+                                <input matInput type="text" class="form-control" placeholder="Security Deposit Amount"
+                                  formControlName="securityDepositAmt">
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="securityDepositDate">Security Deposit Date</mat-label>
+                                <input matInput [matDatepicker]="picker3" formControlName="securityDepositDate"
+                                  placeholder="DD/MM/YYYY" (dateChange)="onDateChange($event,'securityDepositDate')">
+                                <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
+                                <mat-datepicker #picker3></mat-datepicker>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <ng-select dropdownPosition="bottom" formControlName="turnOver" placeholder="Turn Over"
+                                class="dropdown" bindLabel="type" bindValue="Id" [items]="turnOversList"
+                                [appendTo]="'body'" [clearable]="false" #turnOverDropdown
+                                (window:scroll)="turnOverDropdown.close()"
+                                [ngClass]="turnOverDropdown.hasValue || turnOverDropdown.isOpen?'placeholder-padding':''">
+                              </ng-select>
+                            </div>
+                          </div>
+
+                          <div class="col-4 mt-20">
+                            <div class="d-flex mb-20">
+                              <mat-label>EInvoice Opted</mat-label>
+                              <mat-slide-toggle formControlName="EInvoiceOpted" class="ms-30"></mat-slide-toggle>
+                            </div>
+                          </div>
+
+                        </div>
+                      </form>
+                    </div>
+
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </div>
+          </mat-tab>
+
+          <mat-tab>
+            <ng-template mat-tab-label class="shadow-md">
+              <b>Contact Details</b>
+            </ng-template>
+            <div class="pt-30 pe-30 ps-30 pb-15 mat-tab-div">
+              <div class="mb-15  h-100">
+                <mat-accordion class="example-headers-align" multi class="form-expansion-panel">
+                  <mat-expansion-panel class="box-shadow-none" [expanded]="true">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Personal Information
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="position-relative">
+                      <form [formGroup]="ContactDetailsForm">
+                        <div class="row p-15 mt-10">
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="ContactPerson1">Contact Person</mat-label>
+                                <input matInput type="text" class="form-control" placeholder="Contact Person 1"
+                                  formControlName="ContactPerson1">
+                                <mat-error *ngIf="ContactDetailsFormSubmitted && ContactDetailsValidators['ContactPerson1'].errors && ContactDetailsValidators['ContactPerson1'].errors['required']
+                                  ">Enter Contact Person </mat-error>
+                                <mat-error
+                                  *ngIf="ContactDetailsFormSubmitted && ContactDetailsValidators['ContactPerson1'].errors && ContactDetailsValidators['ContactPerson1'].errors['pattern']">Enter
+                                  Valid Contact Person</mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="mobile1">Mobile 1</mat-label>
+                                <input maxlength="10" matInput type="text" class="form-control" placeholder="Mobile 1"
+                                  formControlName="mobile1">
+                                <mat-error *ngIf="ContactDetailsFormSubmitted && ContactDetailsValidators['mobile1'].errors && ContactDetailsValidators['mobile1'].errors['required']
+                                  ">Enter Mobile </mat-error>
+                                <mat-error
+                                  *ngIf="ContactDetailsFormSubmitted && ContactDetailsValidators['mobile1'].errors && ContactDetailsValidators['mobile1'].errors['pattern']">Enter
+                                  Valid Mobile</mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="email1">Email Id 1 </mat-label>
+                                <input matInput placeholder="Email Id 1" type="text" class="form-control" id="email1"
+                                  formControlName="email1" autocomplete="off">
+                                <mat-error *ngIf="ContactDetailsFormSubmitted && ContactDetailsValidators['email1'].errors && ContactDetailsValidators['email1'].errors['required']
+                                    ">Enter Email </mat-error>
+
+                                <mat-error *ngIf="ContactDetailsFormSubmitted && ContactDetailsValidators['email1'].errors && ContactDetailsValidators['email1'].errors['pattern']
+                                ">Enter Valid Email </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="ContactPerson2">Contact Person 2</mat-label>
+                                <input matInput type="text" class="form-control" placeholder="Contact Person 2"
+                                  formControlName="ContactPerson2">
+                                <mat-error
+                                  *ngIf="ContactDetailsFormSubmitted && ContactDetailsValidators['ContactPerson2'].errors && ContactDetailsValidators['ContactPerson2'].errors['required']">Enter
+                                  Contact Person </mat-error>
+                                <mat-error
+                                  *ngIf="ContactDetailsFormSubmitted && ContactDetailsValidators['ContactPerson2'].errors && ContactDetailsValidators['ContactPerson2'].errors['pattern']">Enter
+                                  Valid Contact Person</mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="mobile2">Mobile 2</mat-label>
+                                <input maxlength="10" matInput type="text" class="form-control" placeholder="Mobile 2"
+                                  formControlName="mobile2">
+                                <mat-error *ngIf="ContactDetailsFormSubmitted && ContactDetailsValidators['mobile2'].errors && ContactDetailsValidators['mobile2'].errors['required']
+                                  ">Enter Mobile </mat-error>
+                                <mat-error
+                                  *ngIf="ContactDetailsFormSubmitted && ContactDetailsValidators['mobile2'].errors && ContactDetailsValidators['mobile2'].errors['pattern']">Enter
+                                  Valid Mobile</mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="email2">Email Id 2 </mat-label>
+                                <input matInput placeholder="Email Id 2" type="text" class="form-control" id="email2"
+                                  formControlName="email2" autocomplete="off">
+                                <mat-error *ngIf="ContactDetailsFormSubmitted && ContactDetailsValidators['email2'].errors && ContactDetailsValidators['email2'].errors['pattern']
+                                ">Enter Valid Email </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="landLine">Land Line </mat-label>
+                                <input matInput placeholder="Land Line" type="text" class="form-control" id="landLine"
+                                  formControlName="landLine" autocomplete="off">
+                                <mat-error *ngIf="ContactDetailsFormSubmitted && ContactDetailsValidators['landLine'].errors && ContactDetailsValidators['landLine'].errors['pattern']
+                                ">Enter Valid Landline </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="faxNumber">Fax </mat-label>
+                                <input matInput placeholder="Fax" type="text" class="form-control" id="faxNumber"
+                                  formControlName="faxNumber" autocomplete="off">
+                                <mat-error *ngIf="ContactDetailsFormSubmitted && ContactDetailsValidators['faxNumber'].errors && ContactDetailsValidators['faxNumber'].errors['pattern']
+                                ">Enter Fax Number </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+
+                        </div>
+                      </form>
+                    </div>
+
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+
+              <div class="mb-15  h-100">
+                <mat-accordion class="example-headers-align" multi class="form-expansion-panel">
+                  <mat-expansion-panel class="box-shadow-none" [expanded]="true">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Service
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="position-relative">
+                      <form [formGroup]="ContactDetailsForm">
+                        <div class="row p-15 mt-10">
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="ServiceContactPerson">Contact Person</mat-label>
+                                <input matInput type="text" class="form-control" placeholder="Contact Person 1"
+                                  formControlName="ServiceContactPerson">
+                                <mat-error *ngIf="ContactDetailsFormSubmitted && ContactDetailsValidators['ServiceContactPerson'].errors && ContactDetailsValidators['ServiceContactPerson'].errors['required']
+                                  ">Enter Contact Person </mat-error>
+                                <mat-error
+                                  *ngIf="ContactDetailsFormSubmitted && ContactDetailsValidators['ServiceContactPerson'].errors && ContactDetailsValidators['ServiceContactPerson'].errors['pattern']">Enter
+                                  Valid Contact Person</mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="Servicemobile1">Mobile 1</mat-label>
+                                <input maxlength="10" matInput type="text" class="form-control" placeholder="Mobile 1"
+                                  formControlName="Servicemobile1">
+                                <mat-error *ngIf="ContactDetailsFormSubmitted && ContactDetailsValidators['Servicemobile1'].errors && ContactDetailsValidators['Servicemobile1'].errors['required']
+                                  ">Enter Mobile </mat-error>
+                                <mat-error
+                                  *ngIf="ContactDetailsFormSubmitted && ContactDetailsValidators['Servicemobile1'].errors && ContactDetailsValidators['Servicemobile1'].errors['pattern']">Enter
+                                  Valid Mobile</mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="Serviceemail1">Email Id 1 </mat-label>
+                                <input matInput placeholder="Email Id 1" type="text" class="form-control"
+                                  id="Serviceemail1" formControlName="Serviceemail1" autocomplete="off">
+                                <mat-error *ngIf="ContactDetailsFormSubmitted && ContactDetailsValidators['Serviceemail1'].errors && ContactDetailsValidators['Serviceemail1'].errors['required']
+                                    ">Enter Email </mat-error>
+
+                                <mat-error *ngIf="ContactDetailsFormSubmitted && ContactDetailsValidators['Serviceemail1'].errors && ContactDetailsValidators['Serviceemail1'].errors['pattern']
+                                ">Enter Valid Email </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+
+              <div class="mb-15  h-100">
+                <mat-accordion class="example-headers-align" multi class="form-expansion-panel">
+                  <mat-expansion-panel class="box-shadow-none" [expanded]="true">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Sales
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="position-relative">
+                      <form [formGroup]="ContactDetailsForm">
+                        <div class="row p-15 mt-10">
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="SalesContactPerson">Contact Person</mat-label>
+                                <input matInput type="text" class="form-control" placeholder="Contact Person 1"
+                                  formControlName="SalesContactPerson">
+                                <mat-error *ngIf="ContactDetailsFormSubmitted && ContactDetailsValidators['SalesContactPerson'].errors && ContactDetailsValidators['SalesContactPerson'].errors['required']
+                                  ">Enter Contact Person </mat-error>
+                                <mat-error
+                                  *ngIf="ContactDetailsFormSubmitted && ContactDetailsValidators['SalesContactPerson'].errors && ContactDetailsValidators['SalesContactPerson'].errors['pattern']">Enter
+                                  Valid Contact Person</mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="Salesmobile1">Mobile 1</mat-label>
+                                <input maxlength="10" matInput type="text" class="form-control" placeholder="Mobile 1"
+                                  formControlName="Salesmobile1">
+                                <mat-error *ngIf="ContactDetailsFormSubmitted && ContactDetailsValidators['Salesmobile1'].errors && ContactDetailsValidators['Salesmobile1'].errors['required']
+                                  ">Enter Mobile </mat-error>
+                                <mat-error
+                                  *ngIf="ContactDetailsFormSubmitted && ContactDetailsValidators['Salesmobile1'].errors && ContactDetailsValidators['Salesmobile1'].errors['pattern']">Enter
+                                  Valid Mobile</mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="Salesemail1">Email Id 1 </mat-label>
+                                <input matInput placeholder="Email Id 1" type="text" class="form-control"
+                                  id="Salesemail1" formControlName="Salesemail1" autocomplete="off">
+                                <mat-error *ngIf="ContactDetailsFormSubmitted && ContactDetailsValidators['Salesemail1'].errors && ContactDetailsValidators['Salesemail1'].errors['required']
+                                    ">Enter Email </mat-error>
+
+                                <mat-error *ngIf="ContactDetailsFormSubmitted && ContactDetailsValidators['Salesemail1'].errors && ContactDetailsValidators['Salesemail1'].errors['pattern']
+                                ">Enter Valid Email </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </div>
+          </mat-tab>
+
+          <mat-tab>
+            <ng-template mat-tab-label class="shadow-md">
+              <b>Account Details</b>
+            </ng-template>
+            <div class="pt-30 pe-30 ps-30 pb-15 mat-tab-div">
+              <div class="mb-15  h-100">
+                <mat-accordion class="example-headers-align" multi class="form-expansion-panel">
+                  <mat-expansion-panel class="box-shadow-none" [expanded]="true">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Account Details
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="position-relative">
+                      <form [formGroup]="AccountDetailsForm">
+                        <div class="row p-15 mt-10">
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="bankName">Bank Name</mat-label>
+                                <input matInput type="text" class="form-control" placeholder="Bank Name"
+                                  formControlName="bankName">
+                                <mat-error *ngIf="AccountDetailsFormSubmitted && AccountDetailsValidators['bankName'].errors && AccountDetailsValidators['bankName'].errors['required']
+                                  ">Enter Bank Name </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="bankBranchName">Bank Branch Name</mat-label>
+                                <input matInput type="text" class="form-control" placeholder="Bank Branch Name"
+                                  formControlName="bankBranchName">
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="bankAccNo">Bank Account No. </mat-label>
+                                <input matInput placeholder="Bank Account No." type="text" class="form-control"
+                                  id="bankAccNo" formControlName="bankAccNo" autocomplete="off">
+                                <mat-error *ngIf="AccountDetailsFormSubmitted && AccountDetailsValidators['bankAccNo'].errors && AccountDetailsValidators['bankAccNo'].errors['required']
+                                    ">Enter Bank Account No. </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="IFSCCode">IFSC Code</mat-label>
+                                <input matInput type="text" class="form-control" placeholder="IFSC Code : SBIN0005943"
+                                  formControlName="IFSCCode">
+                                <mat-error *ngIf="AccountDetailsFormSubmitted && AccountDetailsValidators['IFSCCode'].errors && AccountDetailsValidators['IFSCCode'].errors['required']
+                                  ">Enter IFSC Code </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="MICRCode">MICR Code</mat-label>
+                                <input matInput type="text" class="form-control" placeholder="MICR Code"
+                                  formControlName="MICRCode">
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="panNo">PAN No. </mat-label>
+                                <input matInput placeholder="PAN No. : AAGCB8614A" type="text" class="form-control"
+                                  id="panNo" formControlName="panNo" autocomplete="off">
+                                <mat-error *ngIf="AccountDetailsFormSubmitted && AccountDetailsValidators['panNo'].errors && AccountDetailsValidators['panNo'].errors['required']
+                                    ">Enter PAN No. </mat-error>
+                                <mat-error *ngIf="AccountDetailsFormSubmitted && AccountDetailsValidators['panNo'].errors && AccountDetailsValidators['panNo'].errors['pattern']
+                                      ">Enter Valid PAN No. </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="GSTNumber">GST No </mat-label>
+                                <input matInput type="text" class="form-control" placeholder="GST No : 27AAGCB8614A1ZZ"
+                                  formControlName="GSTNumber">
+                                <mat-error *ngIf="AccountDetailsFormSubmitted && AccountDetailsValidators['GSTNumber'].errors && AccountDetailsValidators['GSTNumber'].errors['required']
+                                  ">Enter GST No </mat-error>
+                                <mat-error
+                                  *ngIf="AccountDetailsFormSubmitted && AccountDetailsValidators['GSTNumber'].errors && AccountDetailsValidators['GSTNumber'].errors['pattern']">Enter
+                                  Valid GST No</mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <!-- <div class="col-4 d-flex justify-content-space-between mt-20">
+                            <div class="d-flex mb-20">
+                              <mat-label>If Permanent</mat-label>
+                              <mat-slide-toggle formControlName="ifPermanent" class="ms-30"></mat-slide-toggle>
+                            </div>
+
+                            <div class="d-flex mb-20">
+                              <mat-label>Acknowledged</mat-label>
+                              <mat-slide-toggle formControlName="acknowledged" class="ms-30"></mat-slide-toggle>
+                            </div>
+                          </div> -->
+
+                          <div class="col-4">
+                            <div class="d-flex justify-content-space-between pe-10 ps-10 pb-10">
+                              <mat-label>If Permanent</mat-label>
+                              <mat-slide-toggle formControlName="ifPermanent"></mat-slide-toggle>
+                            </div>
+                            <div class="d-flex justify-content-space-between p-10 ">
+                              <mat-label>Acknowledged</mat-label>
+                              <mat-slide-toggle formControlName="acknowledged"></mat-slide-toggle>
+                            </div>
+                          </div>
+
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="GSTRegistrationDate">GST Registration Date</mat-label>
+                                <input matInput [matDatepicker]="picker4" formControlName="GSTRegistrationDate"
+                                  placeholder="DD/MM/YYYY" (dateChange)="onDateChange($event,'GSTRegistrationDate')">
+                                <mat-datepicker-toggle matIconSuffix [for]="picker4"></mat-datepicker-toggle>
+                                <mat-datepicker #picker4></mat-datepicker>
+                                <mat-error *ngIf="AccountDetailsFormSubmitted && AccountDetailsValidators['GSTRegistrationDate'].errors && AccountDetailsValidators['GSTRegistrationDate'].errors['required']
+                                  ">Select GST Registration Date </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="tinNo">TIN No. </mat-label>
+                                <input matInput placeholder="TIN No." type="text" class="form-control" id="tinNo"
+                                  formControlName="tinNo" autocomplete="off">
+                                <mat-error *ngIf="AccountDetailsFormSubmitted && AccountDetailsValidators['tinNo'].errors && AccountDetailsValidators['tinNo'].errors['required']
+                                    ">Enter TIN No. </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="serviceTaxNo">Service Tax No. </mat-label>
+                                <input matInput placeholder="Service Tax No." type="text" class="form-control"
+                                  id="serviceTaxNo" formControlName="serviceTaxNo" autocomplete="off">
+                                <mat-error *ngIf="AccountDetailsFormSubmitted && AccountDetailsValidators['serviceTaxNo'].errors && AccountDetailsValidators['serviceTaxNo'].errors['required']
+                                    ">Enter Service Tax No. </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon address-field">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="remark">Remark </mat-label>
+                                <textarea placeholder="Remark" formControlName="remark" matInput cols="35" rows="1"
+                                  aria-setsize=""></textarea>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </div>
+          </mat-tab>
+
+          <mat-tab *ngIf="IsDealerForm">
+            <ng-template mat-tab-label class="shadow-md">
+              <b>Dealer & Document Details</b>
+            </ng-template>
+            <div class="pt-30 pe-30 ps-30 pb-15 mat-tab-div">
+              <div class="mb-15  h-100">
+                <mat-accordion class="example-headers-align" multi class="form-expansion-panel">
+                  <mat-expansion-panel class="box-shadow-none" [expanded]="true">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Dealer Details
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="position-relative">
+                      <form [formGroup]="DealerAndDocDetailsForm">
+                        <div class="row p-15 mt-10">
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="freeService">Free Service</mat-label>
+                                <input matInput type="text" class="form-control" placeholder="Free Service"
+                                  formControlName="freeService">
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="discountOnParts">Discount On Parts %</mat-label>
+                                <input matInput type="text" class="form-control" placeholder="Discount On Parts %"
+                                  formControlName="discountOnParts">
+                                <mat-error
+                                  *ngIf="DealerAndDocDetailsFormSubmitted && DealerAndDocDetailsValidators['discountOnParts'].errors && DealerAndDocDetailsValidators['discountOnParts'].errors['pattern']">
+                                  Enter decimal value </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="discountOnLabour">Discount On Labour %</mat-label>
+                                <input matInput type="text" class="form-control" placeholder="Discount On Labour %"
+                                  formControlName="discountOnLabour">
+                                <mat-error
+                                  *ngIf="DealerAndDocDetailsFormSubmitted && DealerAndDocDetailsValidators['discountOnLabour'].errors && DealerAndDocDetailsValidators['discountOnLabour'].errors['pattern']">
+                                  Enter decimal value </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="generalDiscount">General Discount</mat-label>
+                                <input matInput type="text" class="form-control" placeholder="General Discount"
+                                  formControlName="generalDiscount">
+                                <mat-error
+                                  *ngIf="DealerAndDocDetailsFormSubmitted && DealerAndDocDetailsValidators['generalDiscount'].errors && DealerAndDocDetailsValidators['generalDiscount'].errors['pattern']">
+                                  Enter decimal value </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <ng-select dropdownPosition="bottom" formControlName="dealerType"
+                                placeholder="Dealer Type" class="dropdown" bindLabel="type" bindValue="Id"
+                                [items]="dealerTypeList" [appendTo]="'body'" [clearable]="false" #dealerTypeDropdown
+                                (window:scroll)="dealerTypeDropdown.close()"
+                                [ngClass]="dealerTypeDropdown.hasValue || dealerTypeDropdown.isOpen?'placeholder-padding':''">
+                              </ng-select>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <mat-form-field appearance="fill">
+                                <mat-label for="genDiscntRemark">General Discount Remarks</mat-label>
+                                <input matInput type="text" class="form-control" placeholder="General Discount Remarks"
+                                  formControlName="genDiscntRemark">
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                          <div class="tagus-form-group without-icon d-flex align-items-center">
+                            <label id="example-radio-group-label" class="me-15">Off Days : </label>
+                            <mat-radio-group aria-labelledby="example-radio-group-label"
+                              class="example-radio-group d-flex" (change)="onDayChange($event)"
+                              formControlName="offDays" [value]="selectedDay">
+                              <div class="d-flex">
+                                <div *ngFor="let day of days" class="me-15 custom-radioBtn">
+                                  <mat-radio-button class="example-radio-button"
+                                    [value]="day">{{day}}</mat-radio-button>
+                                </div>
+                              </div>
+                            </mat-radio-group>
+                          </div>
+
+                        </div>
+                      </form>
+                    </div>
+
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+
+              <div class="mb-15  h-100">
+                <mat-accordion class="example-headers-align" multi class="form-expansion-panel">
+                  <mat-expansion-panel class="box-shadow-none" [expanded]="true">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Document Details
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="position-relative">
+                      <form [formGroup]="DealerAndDocDetailsForm">
+                        <div class="row p-15 mt-10">
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <ng-select dropdownPosition="bottom" formControlName="docType" placeholder="Document Type"
+                                class="dropdown" bindLabel="Name" bindValue="Id" [items]="docTypeList"
+                                [appendTo]="'body'" [clearable]="false" #docTypeDropdown
+                                (window:scroll)="docTypeDropdown.close()"
+                                [ngClass]="docTypeDropdown.hasValue || docTypeDropdown.isOpen?'placeholder-padding':''">
+                              </ng-select>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div>
+                              <div class="tagus-form-group without-icon">
+                                <ngx-dropzone class="w-100 h-55" (change)="onSelect($event)" #modelImage>
+                                  <ngx-dropzone-label class="fw-semibold d-flex align-items-center m-0 ms-15">
+                                    <span class="material-symbols-outlined me-30">
+                                      upload
+                                    </span>
+                                    Drop files here or click to
+                                    upload.</ngx-dropzone-label>
+                                  <ngx-dropzone-label *ngIf="(url && imageUploaded) ||(url && pdfUploaded)"
+                                    class="m-0 ms-15">{{
+                                    fileName}}
+                                  </ngx-dropzone-label>
+                                  <span *ngIf="(url && imageUploaded) ||(url && pdfUploaded)"
+                                    (click)="$event.stopPropagation();files=[];url='';fileName='';fileType=''"
+                                    class="material-symbols-outlined cursor-pointer me-10">
+                                    delete
+                                  </span>
+                                </ngx-dropzone>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+
+
+                      </form>
+                    </div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </div>
+          </mat-tab>
+
+          <mat-tab *ngIf="!IsDealerForm">
+            <ng-template mat-tab-label class="shadow-md">
+              <b>Document Details</b>
+            </ng-template>
+            <div class="pt-30 pe-30 ps-30 pb-15 mat-tab-div">
+              <div class="mb-15  h-100">
+                <mat-accordion class="example-headers-align" multi class="form-expansion-panel">
+                  <mat-expansion-panel class="box-shadow-none" [expanded]="true">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Document Details
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="position-relative">
+                      <form [formGroup]="DealerAndDocDetailsForm">
+                        <div class="row p-15 mt-10">
+                          <div class="col-4">
+                            <div class="tagus-form-group without-icon">
+                              <ng-select dropdownPosition="bottom" formControlName="docType" placeholder="Document Type"
+                                class="dropdown" bindLabel="Name" bindValue="Id" [items]="docTypeList"
+                                [appendTo]="'body'" [clearable]="false" #docTypeDropdown
+                                (window:scroll)="docTypeDropdown.close()"
+                                [ngClass]="docTypeDropdown.hasValue || docTypeDropdown.isOpen?'placeholder-padding':''">
+                              </ng-select>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div>
+                              <div class="tagus-form-group without-icon">
+                                <ngx-dropzone class="w-100 h-55" (change)="onSelect($event)" #modelImage>
+                                  <ngx-dropzone-label class="fw-semibold d-flex align-items-center m-0 ms-15">
+                                    <span class="material-symbols-outlined me-30">
+                                      upload
+                                    </span>
+                                    Drop files here or click to
+                                    upload.</ngx-dropzone-label>
+                                  <ngx-dropzone-label *ngIf="(url && imageUploaded) ||(url && pdfUploaded)"
+                                    class="m-0 ms-15">{{
+                                    fileName}}
+                                  </ngx-dropzone-label>
+                                  <span *ngIf="(url && imageUploaded) ||(url && pdfUploaded)"
+                                    (click)="$event.stopPropagation();files=[];url='';fileName='';fileType=''"
+                                    class="material-symbols-outlined cursor-pointer me-10">
+                                    delete
+                                  </span>
+                                </ngx-dropzone>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+
+
+                      </form>
+                    </div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card-content>
+      <div *ngIf="!IsApproverView && !isView" class="d-flex justify-content-end align-items-center pb-30 pe-30">
+        <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg"
+          class="cursor-pointer me-15" (click)="resetForm()" matTooltip="Reset">
+          <g id="solar:refresh-bold">
+            <path *ngIf="!darkThemeMode" id="Vector"
+              d="M10.5692 1.96876C6.37444 1.96876 2.92694 5.17389 2.59094 9.26014H1.75007C1.61996 9.26007 1.49278 9.29869 1.38467 9.37107C1.27656 9.44344 1.1924 9.54632 1.14289 9.66664C1.09337 9.78695 1.08074 9.91926 1.10659 10.0468C1.13244 10.1743 1.19561 10.2912 1.28807 10.3828L2.75807 11.8405C2.88097 11.9623 3.04701 12.0307 3.22007 12.0307C3.39312 12.0307 3.55916 11.9623 3.68207 11.8405L5.15207 10.3828C5.24452 10.2912 5.30769 10.1743 5.33354 10.0468C5.35939 9.91926 5.34676 9.78695 5.29724 9.66664C5.24773 9.54632 5.16357 9.44344 5.05546 9.37107C4.94735 9.29869 4.82017 9.26007 4.69007 9.26014H3.90869C4.24119 5.90801 7.09194 3.28126 10.5692 3.28126C11.7157 3.27888 12.8436 3.5707 13.845 4.1288C14.8465 4.6869 15.688 5.49262 16.2891 6.46888C16.3331 6.54463 16.3918 6.61081 16.4617 6.66351C16.5317 6.71621 16.6115 6.75437 16.6965 6.77574C16.7814 6.79711 16.8698 6.80126 16.9563 6.78794C17.0429 6.77462 17.1259 6.7441 17.2005 6.69819C17.2751 6.65228 17.3398 6.59189 17.3907 6.5206C17.4416 6.44931 17.4777 6.36854 17.4969 6.28308C17.5161 6.19761 17.5179 6.10917 17.5024 6.02296C17.4869 5.93676 17.4542 5.85453 17.4064 5.78113C16.688 4.61413 15.6823 3.65088 14.4854 2.98342C13.2885 2.31597 11.9396 1.96662 10.5692 1.96876ZM18.2359 9.15864C18.1131 9.03734 17.9474 8.96932 17.7748 8.96932C17.6022 8.96932 17.4365 9.03734 17.3137 9.15864L15.8376 10.6164C15.7449 10.7078 15.6814 10.8248 15.6554 10.9523C15.6293 11.0799 15.6418 11.2124 15.6913 11.3328C15.7407 11.4533 15.8249 11.5563 15.933 11.6288C16.0412 11.7013 16.1685 11.7399 16.2987 11.7399H17.0853C16.7511 15.0911 13.8907 17.7188 10.3968 17.7188C9.24675 17.722 8.11501 17.4306 7.10946 16.8725C6.1039 16.3143 5.25803 15.508 4.65244 14.5303C4.60717 14.4569 4.54789 14.3932 4.47798 14.3427C4.40808 14.2922 4.32892 14.2561 4.24503 14.2362C4.16114 14.2163 4.07415 14.2132 3.98905 14.2269C3.90394 14.2407 3.82237 14.271 3.749 14.3163C3.60083 14.4078 3.49505 14.5543 3.45493 14.7237C3.4148 14.8932 3.44363 15.0716 3.53507 15.2198C4.25829 16.388 5.26859 17.3516 6.46973 18.0188C7.67086 18.686 9.02282 19.0346 10.3968 19.0313C14.6038 19.0313 18.0662 15.8288 18.4031 11.7399H19.2501C19.3803 11.7399 19.5076 11.7013 19.6157 11.6288C19.7239 11.5563 19.808 11.4533 19.8575 11.3328C19.9069 11.2124 19.9194 11.0799 19.8934 10.9523C19.8673 10.8248 19.8039 10.7078 19.7112 10.6164L18.2359 9.15864Z"
+              fill="black" />
+            <path *ngIf="darkThemeMode" id="Vector"
+              d="M10.5692 1.96876C6.37444 1.96876 2.92694 5.17389 2.59094 9.26014H1.75007C1.61996 9.26007 1.49278 9.29869 1.38467 9.37107C1.27656 9.44344 1.1924 9.54632 1.14289 9.66664C1.09337 9.78695 1.08074 9.91926 1.10659 10.0468C1.13244 10.1743 1.19561 10.2912 1.28807 10.3828L2.75807 11.8405C2.88097 11.9623 3.04701 12.0307 3.22007 12.0307C3.39312 12.0307 3.55916 11.9623 3.68207 11.8405L5.15207 10.3828C5.24452 10.2912 5.30769 10.1743 5.33354 10.0468C5.35939 9.91926 5.34676 9.78695 5.29724 9.66664C5.24773 9.54632 5.16357 9.44344 5.05546 9.37107C4.94735 9.29869 4.82017 9.26007 4.69007 9.26014H3.90869C4.24119 5.90801 7.09194 3.28126 10.5692 3.28126C11.7157 3.27888 12.8436 3.5707 13.845 4.1288C14.8465 4.6869 15.688 5.49262 16.2891 6.46888C16.3331 6.54463 16.3918 6.61081 16.4617 6.66351C16.5317 6.71621 16.6115 6.75437 16.6965 6.77574C16.7814 6.79711 16.8698 6.80126 16.9563 6.78794C17.0429 6.77462 17.1259 6.7441 17.2005 6.69819C17.2751 6.65228 17.3398 6.59189 17.3907 6.5206C17.4416 6.44931 17.4777 6.36854 17.4969 6.28308C17.5161 6.19761 17.5179 6.10917 17.5024 6.02296C17.4869 5.93676 17.4542 5.85453 17.4064 5.78113C16.688 4.61413 15.6823 3.65088 14.4854 2.98342C13.2885 2.31597 11.9396 1.96662 10.5692 1.96876ZM18.2359 9.15864C18.1131 9.03734 17.9474 8.96932 17.7748 8.96932C17.6022 8.96932 17.4365 9.03734 17.3137 9.15864L15.8376 10.6164C15.7449 10.7078 15.6814 10.8248 15.6554 10.9523C15.6293 11.0799 15.6418 11.2124 15.6913 11.3328C15.7407 11.4533 15.8249 11.5563 15.933 11.6288C16.0412 11.7013 16.1685 11.7399 16.2987 11.7399H17.0853C16.7511 15.0911 13.8907 17.7188 10.3968 17.7188C9.24675 17.722 8.11501 17.4306 7.10946 16.8725C6.1039 16.3143 5.25803 15.508 4.65244 14.5303C4.60717 14.4569 4.54789 14.3932 4.47798 14.3427C4.40808 14.2922 4.32892 14.2561 4.24503 14.2362C4.16114 14.2163 4.07415 14.2132 3.98905 14.2269C3.90394 14.2407 3.82237 14.271 3.749 14.3163C3.60083 14.4078 3.49505 14.5543 3.45493 14.7237C3.4148 14.8932 3.44363 15.0716 3.53507 15.2198C4.25829 16.388 5.26859 17.3516 6.46973 18.0188C7.67086 18.686 9.02282 19.0346 10.3968 19.0313C14.6038 19.0313 18.0662 15.8288 18.4031 11.7399H19.2501C19.3803 11.7399 19.5076 11.7013 19.6157 11.6288C19.7239 11.5563 19.808 11.4533 19.8575 11.3328C19.9069 11.2124 19.9194 11.0799 19.8934 10.9523C19.8673 10.8248 19.8039 10.7078 19.7112 10.6164L18.2359 9.15864Z"
+              fill="white" />
+          </g>
+        </svg>
+        <button (click)="location.back()" mat-flat-button class="gray me-15 white-color">
+          Cancel
+        </button>
+        <button *ngIf="selectedtab!=3" [disabled]="!isAddAccess" mat-flat-button color="primary" class="bg-theme-color"
+          [ngClass]="[isAddAccess?'text-white':'']" (click)="moveToNextTab()">Save and Next
+        </button>
+        <button *ngIf="!editMode && selectedtab==3" [disabled]="!isAddAccess" mat-flat-button color="primary"
+          class="bg-theme-color" [ngClass]="[isAddAccess?'text-white':'']" (click)="addDealer()">Save
+        </button>
+        <button *ngIf="editMode && selectedtab==3" [disabled]="!isEditAccess" mat-flat-button color="primary"
+          class="bg-theme-color" [ngClass]="[isEditAccess?'text-white':'']" (click)="updateDealer()">Update
+        </button>
+      </div>
+
+      <div *ngIf="IsApproverView" class="d-flex justify-content-end align-items-center pb-30 pe-30">
+
+        <button (click)="location.back()" mat-flat-button class="gray mt-10 me-15 white-color">
+          Cancel
+        </button>
+
+        <button mat-stroked-button [disabled]="!isApprovAccess" class="mt-10 me-15"
+          [ngClass]="[mainThemeClass!='' ? 'dialog-save-btn': 'text-bg-info',isApprovAccess?'text-white':'']"
+          (click)="approveRequest()">Approve
+        </button>
+
+        <button (click)="rejectRequest()" mat-stroked-button class="mt-10 me-15" [disabled]="!isApprovAccess"
+          [ngClass]="[isApprovAccess?'custom-gray-bg text-white ':'']">
+          Reject
+        </button>
+      </div>
+    </mat-card>
+  </div>
+</div>

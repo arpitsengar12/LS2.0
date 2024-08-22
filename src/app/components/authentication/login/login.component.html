@@ -1,0 +1,125 @@
+<div class="overflow-hidden">
+  <img src="assets/images/login-bg.png" class="img-fluid position-absolute login-bg" alt="">
+  <div class="title">
+    <div class="mb-10">
+      <img src="assets/images/authLogo.png" alt="logo-icon">
+    </div>
+    <p><span class="fw-bold">SMAS</span> is a globally preferred brand for acquiring an automobile on lease.</p>
+  </div>
+  <div class="row login-form">
+    <div class="col-xxl-8 col-xl-8 col-lg-7 col-md-7 col-sm-12"></div>
+    <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-5 col-sm-12">
+      <!-- user form -->
+      <form class="me-md-3" [formGroup]="loginForm" *ngIf="!showOTPScreen">
+        <mat-card class="single-stats-box tagus-card mb-25">
+          <div>
+            <h5 class="mb-10">LeaseSoft Application</h5>
+            <div class="tagus-form-group">
+              <mat-form-field appearance="fill">
+                <i class="ri-user-3-fill"></i>
+                <mat-label>Username</mat-label>
+                <input formControlName="userName" matInput class="caret-blue">
+                <mat-error
+                  *ngIf="submitted && validators['userName'].errors && validators['userName'].errors['required']">
+                  Enter Username
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="tagus-form-group">
+              <mat-form-field appearance="fill">
+                <i class="ri-lock-fill"></i>
+                <mat-label>Password</mat-label>
+                <input formControlName="password" matInput [type]="hide ? 'password' : 'text'"
+                  (keydown.enter)="$event.preventDefault();loginWithPass()" class="caret-blue">
+                <mat-error
+                  *ngIf="submitted && validators['password'].errors && validators['password'].errors['required']">
+                  Enter Password
+                </mat-error>
+                <mat-error
+                  *ngIf="submitted && validators['password'].errors && validators['password'].errors['pattern']">
+                  Enter Valid Password
+                </mat-error>
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+            <div class="login-with-socials">
+              <button mat-flat-button class="tagus d-block fw-semibold mb-10 login-btn" (click)="loginWithPass()">
+                Log In</button>
+              <div class="d-flex info align-items-center justify-content-space-between mb-10 ">
+                <mat-checkbox (click)="remeberMeClicked($event)" class="gray-color">Remember me</mat-checkbox>
+                <a routerLink="/authentication/forgot-password" class="d-inline-block fw-medium">Reset Password?</a>
+              </div>
+              <button mat-stroked-button class="fw-semibold d-block mb-10" (click)="OTPScreen('show')">
+                Login with OTP
+              </button>
+              <button (click)="loginWithGoogle()" mat-stroked-button class="fw-semibold d-block">
+                <img src="assets/img/icon/google.png" class="google-icon" alt="google">
+                Login with Google
+              </button>
+            </div>
+          </div>
+        </mat-card>
+      </form>
+      <!-- user form -->
+
+      <!-- OTP form -->
+      <form class="me-md-3" [formGroup]="otpForm" *ngIf="showOTPScreen">
+        <mat-card class="single-stats-box tagus-card mb-25">
+          <div>
+            <h5 class="mb-20">LeaseSoft Application</h5>
+            <div class="tagus-form-group">
+              <mat-form-field appearance="fill">
+                <i class="ri-user-3-fill"></i>
+                <mat-label>Username</mat-label>
+                <input formControlName="UserName" matInput class="caret-blue">
+                <mat-error
+                  *ngIf="submitted && OTPformvalidators['UserName'].errors && OTPformvalidators['UserName'].errors['required']">
+                  Enter Username
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div *ngIf="!otpRequested" class="d-flex justify-content-end mb-10">
+              <!-- <a (click)="sendOTP()" class="cursor-pointer fw-semibold">Send OTP </a> -->
+              <!-- <button (click)="sendOTP()" class="cursor-pointer fw-semibold bg-transparent border-none">
+                <a class="fw-semibold"> Send OTP</a></button> -->
+            </div>
+
+            <ng-otp-input #ngOtpInput *ngIf="otpRequested" (onInputChange)="onOtpChange($event)"
+              [config]="{length:6, allowNumbersOnly:true}"></ng-otp-input>
+            <mat-error class="mt-5" *ngIf="otpNotRequested">Please request for OTP before Login</mat-error>
+            <mat-error class="mt-5" *ngIf="otpRequested && otpRequired">Enter OTP Received on Mobile No.</mat-error>
+            <mat-error class="mt-5" *ngIf="otpRequested && otpInvalid">Enter valid OTP</mat-error>
+            <span *ngIf="otpRequested" class="otp-timer">{{ timeLeft !== "00:00" ? timeLeft : "" }}</span>
+
+            <!-- <div *ngIf="otpRequested" class="d-flex justify-content-space-between align-items-center mb-10 mt-10">
+              <p class="m-0">In case If you do not get OTP then click here :</p>
+              <a (click)="sendOTP()" class="cursor-pointer fw-semibold">Resend OTP </a>
+            </div> -->
+            <div class="login-with-socials mt-10">
+
+              <!-- <button mat-flat-button class="tagus d-block fw-semibold mb-15 login-btn" (click)="loginwithOTP()">Log
+                In</button> -->
+              <button *ngIf="!otpRequested" mat-flat-button class="tagus d-block fw-semibold mb-15 login-btn"
+                (click)="sendOTP()">Send OTP
+              </button>
+              <button *ngIf="otpRequested" mat-flat-button class="tagus d-block fw-semibold mb-15"
+                [ngClass]="resentOtpEnable?'login-btn':''" (click)="sendOTP()" [disabled]="!resentOtpEnable">Resend OTP
+              </button>
+              <button mat-stroked-button class="fw-semibold d-block mb-20" (click)="OTPScreen('hide')">
+                Login as User
+              </button>
+              <button (click)="loginWithGoogle()" mat-stroked-button class="fw-semibold d-block">
+                <img src="assets/img/icon/google.png" class="google-icon" alt="google">
+                Login with Google
+              </button>
+            </div>
+          </div>
+        </mat-card>
+      </form>
+      <!-- OTP form -->
+    </div>
+  </div>
+</div>
