@@ -68,6 +68,7 @@ import { ApproverScreenComponent } from './components/Admin/approver-screen/appr
 import { ServiceBookingComponent } from './components/service-booking/service-booking.component';
 import { ReimbursementComponent } from './components/reimbursement/reimbursement.component';
 import { ExpenseClaimComponent } from './components/expense-claim/expense-claim.component';
+import { GstoverheadinvoiceComponent } from './components/gstoverheadinvoice/gstoverheadinvoice.component';
 
 const routes: Routes = [
   {
@@ -142,6 +143,7 @@ const routes: Routes = [
       {path: 'service-booking', component: ServiceBookingComponent, data:{breadcrumb:'Service Booking'} },
       {path: 'reimbursement', component: ReimbursementComponent, data:{breadcrumb:'reimbursement'} },
       {path: 'expenseclaimss', component: ExpenseClaimComponent, data:{breadcrumb:'expense-claim'} },
+      {path: 'gstoverheadinvoice', component: GstoverheadinvoiceComponent, data:{breadcrumb:'gst-overhead-invoice'} },
       
     ],
   },

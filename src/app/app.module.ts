@@ -154,6 +154,7 @@ import { ApproverScreenComponent } from './components/Admin/approver-screen/appr
 import { ServiceBookingComponent } from './components/service-booking/service-booking.component';
 import { ReimbursementComponent } from './components/reimbursement/reimbursement.component';
 import { ExpenseClaimComponent } from './components/expense-claim/expense-claim.component';
+import { GstoverheadinvoiceComponent } from './components/gstoverheadinvoice/gstoverheadinvoice.component';
 
 @NgModule({
   declarations: [
@@ -239,6 +240,7 @@ import { ExpenseClaimComponent } from './components/expense-claim/expense-claim.
     ServiceBookingComponent,
     ReimbursementComponent,
     ExpenseClaimComponent,
+    GstoverheadinvoiceComponent,
 
   ],
   imports: [
