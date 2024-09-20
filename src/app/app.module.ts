@@ -155,6 +155,11 @@ import { ServiceBookingComponent } from './components/service-booking/service-bo
 import { ReimbursementComponent } from './components/reimbursement/reimbursement.component';
 import { ExpenseClaimComponent } from './components/expense-claim/expense-claim.component';
 import { GstoverheadinvoiceComponent } from './components/gstoverheadinvoice/gstoverheadinvoice.component';
+import { QuotationComponent } from './components/quotation/quotation.component';
+import { FinanceleaseComponent } from './components/financelease/financelease.component';
+import { OperationleaseComponent } from './components/operationlease/operationlease.component';
+import { ManagmentonlyComponent } from './components/managmentonly/managmentonly.component';
+import { FlsalesandleasebackComponent } from './components/flsalesandleaseback/flsalesandleaseback.component';
 
 @NgModule({
   declarations: [
@@ -241,6 +246,11 @@ import { GstoverheadinvoiceComponent } from './components/gstoverheadinvoice/gst
     ReimbursementComponent,
     ExpenseClaimComponent,
     GstoverheadinvoiceComponent,
+    QuotationComponent,
+    FinanceleaseComponent,
+    OperationleaseComponent,
+    ManagmentonlyComponent,
+    FlsalesandleasebackComponent,
 
   ],
   imports: [

@@ -1,0 +1,15 @@
+.landing-container {
+    .mat-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  
+    .button-group {
+        margin-left: auto; // Pushes the button group to the far right
+        display: flex;
+        gap: 10px; // Optional: adds space between the buttons
+        margin-bottom: 20px;
+      }
+  }
+  

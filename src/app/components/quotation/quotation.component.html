@@ -1,0 +1,111 @@
+<!-- Header and Card Section -->
+<div class="pageName-headerDiv"></div>
+<mat-card class="p-0 dark-theme-bg tagus-card">
+  <mat-card-header class="m-0 d-flex">
+    <div class="">
+      <h5 class="mb-2 headingcolor">Quotation</h5>
+      <div class="d-flex">
+        <app-breadcrumb class="ms-10 mt-3"></app-breadcrumb>
+      </div>
+      <span class="material-symbols-outlined cursor-pointer">west</span>
+    </div>
+  </mat-card-header>
+</mat-card>
+
+<!-- Radio Button Section -->
+<div class="landing-container mt-5">
+    <mat-card>
+      <mat-card-header class="d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+          <mat-radio-group [(ngModel)]="selectedComponent">
+            <mat-radio-button value="financelease">Finance Lease</mat-radio-button>
+            <mat-radio-button value="operationLease">Operation Lease</mat-radio-button>
+            <mat-radio-button value="flSalesLeaseback">FL Sales and Leaseback</mat-radio-button>
+            <mat-radio-button value="managementOnly">Management Only</mat-radio-button>
+          </mat-radio-group>
+        </div>
+  
+        <div class="button-group">
+          <button mat-raised-button  >Add New</button>
+          <button mat-raised-button  >Action</button>
+        </div>
+      </mat-card-header>
+    </mat-card>
+  </div>
+  
+
+<!-- Dynamic Component Display Section -->
+<div *ngIf="selectedComponent === 'financelease'">
+  <app-financelease></app-financelease>
+</div>
+<div *ngIf="selectedComponent === 'operationLease'">
+   <app-operationlease></app-operationlease>
+</div>
+<div *ngIf="selectedComponent === 'flSalesLeaseback'">
+ <app-flsalesandleaseback></app-flsalesandleaseback> 
+</div>
+<div *ngIf="selectedComponent === 'managementOnly'">
+  <app-managmentonly></app-managmentonly>
+</div>
+
+<!-- Form Section -->
+<mat-card class="mb-25 tagus-card mt-5">
+  <mat-card-header>
+    <div class="row col-md-12">
+      <div class="col-md-2">
+        <div class="tagus-form-group without-icon">
+          <mat-form-field appearance="fill">
+            <mat-label>ClientName.:</mat-label>
+            <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="ClientName" formControlName="cityName">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="tagus-form-group without-icon">
+          <mat-form-field appearance="fill">
+            <mat-label>Q No.:</mat-label>
+            <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="Quoteno" formControlName="cityName">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="tagus-form-group without-icon">
+          <mat-form-field appearance="fill">
+            <mat-label>Asset No.:</mat-label>
+            <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="Asset" formControlName="cityName">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="tagus-form-group without-icon">
+          <mat-form-field appearance="fill">
+            <mat-label>Status.:</mat-label>
+            <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="Status" formControlName="cityName">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="tagus-form-group without-icon">
+          <mat-form-field appearance="fill">
+            <mat-label>From Date</mat-label>
+            <input matInput [matDatepicker]="picker" [tabIndex]="4" formControlName="fromDate" placeholder="From Date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="tagus-form-group without-icon">
+          <mat-form-field appearance="fill">
+            <mat-label>To Date</mat-label>
+            <input matInput [matDatepicker]="picker" [tabIndex]="4" formControlName="toDate" placeholder="To Date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </mat-card-header>
+</mat-card>
