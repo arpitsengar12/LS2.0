@@ -69,7 +69,11 @@ import { ServiceBookingComponent } from './components/service-booking/service-bo
 import { ReimbursementComponent } from './components/reimbursement/reimbursement.component';
 import { ExpenseClaimComponent } from './components/expense-claim/expense-claim.component';
 import { GstoverheadinvoiceComponent } from './components/gstoverheadinvoice/gstoverheadinvoice.component';
-
+import { QuotationComponent } from './components/quotation/quotation.component';
+import { FinanceleaseComponent } from './components/financelease/financelease.component';
+import { OperationleaseComponent } from './components/operationlease/operationlease.component';
+import { FlsalesandleasebackComponent } from './components/flsalesandleaseback/flsalesandleaseback.component';
+import { ManagmentonlyComponent } from './components/managmentonly/managmentonly.component';
 const routes: Routes = [
   {
     path: '',
@@ -144,7 +148,12 @@ const routes: Routes = [
       {path: 'reimbursement', component: ReimbursementComponent, data:{breadcrumb:'reimbursement'} },
       {path: 'expenseclaimss', component: ExpenseClaimComponent, data:{breadcrumb:'expense-claim'} },
       {path: 'gstoverheadinvoice', component: GstoverheadinvoiceComponent, data:{breadcrumb:'gst-overhead-invoice'} },
-      
+      {path:'quotationinvoice', component:QuotationComponent,data:{breadcrumb:'quotationinvoice'}},
+      {path:'financelease', component:FinanceleaseComponent,data:{breadcrumb:'financelease'}},
+      {path:'operationlease', component:OperationleaseComponent,data:{breadcrumb:'operationlease'}},
+      {path:'flsalesandleaseback', component:FlsalesandleasebackComponent,data:{breadcrumb:'flsalesandleaseback'}},
+      {path:'managementonly', component:ManagmentonlyComponent,data:{breadcrumb:'managementonly'}},
+       
     ],
   },
   { path: 'authentication/forgot-password', component: ForgotPasswordComponent },
