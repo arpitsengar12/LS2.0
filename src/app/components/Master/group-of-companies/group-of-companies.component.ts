@@ -70,6 +70,7 @@ export class GroupOfCompaniesComponent {
     public dialog: MatDialog,
   ) {
 
+    
     this.commonService.updateTheme.subscribe(res => {
       if (res) {
         this.mainThemeClass = res;

@@ -1,0 +1,42 @@
+.button-group {
+    display: flex;
+    align-items: center;
+    white-space: nowrap; /* Prevent wrapping of the buttons */
+  }
+  
+  .button {
+    margin-left: 15px; /* Adjust as needed for spacing */
+    background-color: cornflowerblue;
+    color: white;
+  }
+  
+  /* Optional: Ensure the card has no border or shadow */
+  .tagus-card {
+    border: none !important;
+    box-shadow: none !important;
+  }
+  
+  .dark-theme-bg {
+    background-color: #333; /* Example background color */
+  }
+  
+  .theme-text-color {
+    color: #fff; /* Example text color */
+  }
+  
+
+//   style="background-color: cornflowerblue;color: white;margin-right: 5px;"
+
+  .btncss{
+    background-color:cornflowerblue;
+    color: white;
+    margin-right: 5px;
+  }
+//style="background-color:red ;color: white;" color="warn"
+
+
+.btncss1{
+    background-color: red;
+    color: white;
+    
+}

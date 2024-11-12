@@ -1,0 +1,154 @@
+<div class="pageName-headerDiv"></div>
+<mat-card class="p-0 dark-theme-bg tagus-card">
+  <mat-card-header class="m-0 d-flex align-items-center justify-content-between p-5"> 
+    <div class="d-flex align-items-center">
+      <span class="material-symbols-outlined cursor-pointer me-3">west</span>
+      <h5 class="mb-2 headingcolor"> &nbsp;Add New Quotation </h5>
+    </div>
+    <div class="d-flex">
+      <app-breadcrumb class="ms-10 mt-3"></app-breadcrumb>
+    </div>
+  </mat-card-header>
+</mat-card>
+
+<div class="stepper-control iconWithLabel mt-4">
+</div>
+
+<mat-card class="mt-5 tagus-card p-4">
+    <mat-horizontal-stepper [linear]="true" class="custom-stepper">
+      <mat-step>
+        <form>
+            <ng-template matStepLabel>Input</ng-template>
+            <div class="form-group row mt-3">
+              <mat-form-field appearance="fill" class="col-md-3 ">
+                <mat-label>Client Name</mat-label>
+                <input matInput placeholder="Enter client name" formControlName="clientName">
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="col-md-3 ">
+                <mat-label>Client Name</mat-label>
+                <input matInput placeholder="Enter client name" formControlName="clientName">
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="col-md-3 ">
+                <mat-label>Client Name</mat-label>
+                <input matInput placeholder="Enter client name" formControlName="clientName">
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="col-md-3 ">
+                <mat-label>Client Name</mat-label>
+                <input matInput placeholder="Enter client name" formControlName="clientName">
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="col-md-3 ">
+                <mat-label>Client Name</mat-label>
+                <input matInput placeholder="Enter client name" formControlName="clientName">
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="col-md-3 ">
+                <mat-label>Client Name</mat-label>
+                <input matInput placeholder="Enter client name" formControlName="clientName">
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="col-md-3 ">
+                <mat-label>Client Name</mat-label>
+                <input matInput placeholder="Enter client name" formControlName="clientName">
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="col-md-3 ">
+                <mat-label>Client Name</mat-label>
+                <input matInput placeholder="Enter client name" formControlName="clientName">
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="col-md-3 ">
+                <mat-label>Client Name</mat-label>
+                <input matInput placeholder="Enter client name" formControlName="clientName">
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="col-md-3 ">
+                <mat-label>Client Name</mat-label>
+                <input matInput placeholder="Enter client name" formControlName="clientName">
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="col-md-3 ">
+                <mat-label>Client Name</mat-label>
+                <input matInput placeholder="Enter client name" formControlName="clientName">
+              </mat-form-field>
+
+            </div>       
+            <div class="button-group mt-5">
+              <button mat-button matStepperNext class="btn">Next</button>
+            </div>
+        </form>        
+      </mat-step>
+      <mat-step>
+        <form>
+          <ng-template matStepLabel>Inputs Contd.</ng-template>
+          <div class="form-group">
+            <mat-form-field appearance="fill">
+              <mat-label>Quotation No.</mat-label>
+              <input matInput placeholder="Enter quotation number" formControlName="quotationNo">
+            </mat-form-field>
+          </div>
+          <div class="button-group mt-3">
+            <button mat-button matStepperPrevious class="btn">Back</button>
+            <button mat-button matStepperNext class="btn">Next</button>
+          </div>
+        </form>
+      </mat-step>
+  
+      <mat-step>
+        <ng-template matStepLabel>Service/Accessories</ng-template>
+        <div class="review-section">
+          <p>Review all details before submission.</p>       
+        </div>
+        <div class="button-group mt-3">
+          <button mat-button matStepperPrevious class="btn">Back</button>
+          <button mat-button class="btn">Submit</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Insurance/Road Tax Details</ng-template>
+        <div class="review-section">
+          <p>Review all details before submission.</p>         
+        </div>
+        <div class="button-group mt-3">
+          <button mat-button matStepperPrevious class="btn">Back</button>
+          <button mat-button class="btn">Submit</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel style="text-wrap: nowrap;">Rental & its breakup</ng-template>
+        <div class="review-section">
+          <p>Review all details before submission.</p>         
+        </div>
+        <div class="button-group mt-3">
+          <button mat-button matStepperPrevious class="btn">Back</button>
+          <button mat-button class="btn">Submit</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>EMI</ng-template>
+        <div class="review-section">
+          <p>Review all details before submission.</p>         
+        </div>
+        <div class="button-group mt-3">
+          <button mat-button matStepperPrevious class="btn">Back</button>
+          <button mat-button class="btn">Submit</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Profit and loss</ng-template>
+        <div class="review-section">
+          <p>Review all details before submission.</p>         
+        </div>
+        <div class="button-group mt-3">
+          <button mat-button matStepperPrevious class="btn">Back</button>
+          <button mat-button class="btn">Submit</button>
+        </div>
+      </mat-step>
+       <mat-step>
+        <ng-template matStepLabel>Remarks & Quote Print</ng-template>
+        <div class="review-section"> 
+          <p>Review all details before submission.</p>        
+        </div>
+        <div class="button-group mt-3">
+          <button mat-button matStepperPrevious class="btn">Back</button>
+          <button mat-button class="btn">Submit</button>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </mat-card>
+
+
+  

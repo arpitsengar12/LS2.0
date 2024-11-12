@@ -53,6 +53,7 @@ export class ServiceBookingComponent implements OnInit {
     'ReplacementRequired', 'WorkshopName', 'BookingStatus', 'JobDetails'
   ];
   
+  selectedComponent: string = '';
   dataSource = new MatTableDataSource<ServiceBooking>([]);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

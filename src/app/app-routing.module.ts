@@ -74,6 +74,9 @@ import { FinanceleaseComponent } from './components/financelease/financelease.co
 import { OperationleaseComponent } from './components/operationlease/operationlease.component';
 import { FlsalesandleasebackComponent } from './components/flsalesandleaseback/flsalesandleaseback.component';
 import { ManagmentonlyComponent } from './components/managmentonly/managmentonly.component';
+import { QuotationAddnewComponent } from './components/quotation-addnew/quotation-addnew.component';
+import { ServicetypebookingComponent } from './components/servicetypebooking/servicetypebooking.component';
+import { AddnewrecordsgstComponent } from './addnewrecordsgst/addnewrecordsgst.component';
 const routes: Routes = [
   {
     path: '',
@@ -83,6 +86,11 @@ const routes: Routes = [
       { path: '', component: LoginComponent, data: { breadcrumb: 'Login' } },
       { path: 'authentication/forgot-password', component: ForgotPasswordComponent, data: { breadcrumb: 'Forgot Password' } },
       { path: 'authentication/reset-password', component: ResetPasswordComponent, data: { breadcrumb: 'Reset Password' } },
+      // { path: 'gstaddnewrecord', component: AddnewrecordsgstComponent, data: { breadcrumb: '' }}, 
+
+
+
+
     ]
   },
 
@@ -153,6 +161,9 @@ const routes: Routes = [
       {path:'operationlease', component:OperationleaseComponent,data:{breadcrumb:'operationlease'}},
       {path:'flsalesandleaseback', component:FlsalesandleasebackComponent,data:{breadcrumb:'flsalesandleaseback'}},
       {path:'managementonly', component:ManagmentonlyComponent,data:{breadcrumb:'managementonly'}},
+      {path:'quotationaddnew', component:QuotationAddnewComponent,data:{breadcrumb:'quotationaddnew'}},
+      {path:'commonservicetype', component:ServicetypebookingComponent,data:{breadcrumb:'servicetype'}},
+      {path:'gstaddnewrecord', component:AddnewrecordsgstComponent,data:{breadcrumb:'gstadd'}},
        
     ],
   },

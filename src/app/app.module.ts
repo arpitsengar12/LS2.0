@@ -160,6 +160,9 @@ import { FinanceleaseComponent } from './components/financelease/financelease.co
 import { OperationleaseComponent } from './components/operationlease/operationlease.component';
 import { ManagmentonlyComponent } from './components/managmentonly/managmentonly.component';
 import { FlsalesandleasebackComponent } from './components/flsalesandleaseback/flsalesandleaseback.component';
+import { QuotationAddnewComponent } from './components/quotation-addnew/quotation-addnew.component';
+import { ServicetypebookingComponent } from './components/servicetypebooking/servicetypebooking.component';
+import { AddnewrecordsgstComponent } from './addnewrecordsgst/addnewrecordsgst.component';
 
 @NgModule({
   declarations: [
@@ -251,6 +254,9 @@ import { FlsalesandleasebackComponent } from './components/flsalesandleaseback/f
     OperationleaseComponent,
     ManagmentonlyComponent,
     FlsalesandleasebackComponent,
+    QuotationAddnewComponent,
+    ServicetypebookingComponent,
+    AddnewrecordsgstComponent,
 
   ],
   imports: [
