@@ -1,0 +1,1109 @@
+<div [ngClass]="">
+  <div class="pageName-headerDiv">
+    <mat-card class="p-0 dark-theme-bg tagus-card">
+      <mat-card-header class="m-0 d-flex">
+        <div>
+          <h5 class="mb-0">Common Service Booking</h5>
+          <div class="d-flex">
+            <span class="material-symbols-outlined cursor-pointer">
+              west
+            </span>
+            <app-breadcrumb class="ms-10 mt-3"></app-breadcrumb>
+          </div>
+        </div>
+      </mat-card-header>
+    </mat-card>
+  </div>
+
+
+  <mat-card class="p-0 dark-theme-bg tagus-card mb-25">
+    <mat-card-header class="m-0 d-flex align-items-center justify-content-between p-5">
+      <div class="d-flex align-items-center">
+        <!-- <span class="material-symbols-outlined cursor-pointer me-3">west</span> -->
+        <h5 class="mb-2 headingcolor"> &nbsp;Add New Service </h5>
+      </div>
+      <div>
+        <button mat-raised-button class="me-2 btnn">Add New</button>
+        <button mat-raised-button class="me-2 btnn">Action</button>
+        <button mat-raised-button class="btnn">Action</button>
+      </div>
+    </mat-card-header>
+  </mat-card>
+
+  <mat-card class="mb-25 tagus-card">
+    <mat-card-header class="">
+
+      <div class="row col-md-12">
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Asset No.:</mat-label>
+              <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="Asset No."
+                formControlName="cityName">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Contracted Km:</mat-label>
+              <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="ContractedKm"
+                formControlName="cityName">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Client:</mat-label>
+              <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="Client"
+                formControlName="cityName">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Reg No:</mat-label>
+              <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="RegNo"
+                formControlName="cityName">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Last km reading:</mat-label>
+              <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="Lastkmreading"
+                formControlName="cityName">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>City:</mat-label>
+              <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="City"
+                formControlName="cityName">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Service Date:</mat-label>
+              <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="servicedate"
+                formControlName="cityName">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Current Km Reading:</mat-label>
+              <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="Current km Reading"
+                formControlName="cityName">
+            </mat-form-field>
+          </div>
+        </div>                                 
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Contract Ends On:</mat-label>
+              <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="Contract Ends On"
+                formControlName="cityName">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Model:</mat-label>
+              <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="Model"
+                formControlName="cityName">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Contract Start Date:</mat-label>
+              <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="Contract Start Date"
+                formControlName="cityName">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Chasis:</mat-label>
+              <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="Chasis"
+                formControlName="cityName">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Variant:</mat-label>
+              <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="Variant"
+                formControlName="cityName">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>RVTYPE:</mat-label>
+              <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="RVTYPE"
+                formControlName="cityName">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Engine:</mat-label>
+              <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="Engine"
+                formControlName="cityName">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Tyre:</mat-label>
+              <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="Tyre"
+                formControlName="cityName">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-card-header>
+  </mat-card>
+
+  <mat-card class="mb-25 tagus-card">
+    <mat-card-header>
+      <div class="row col-md-12">
+        <div class="d-flex align-items-center">
+          <!-- <span class="material-symbols-outlined cursor-pointer me-3">west</span> -->
+          <h5 class="mb-2 headingcolor"> &nbsp;User Info </h5>
+        </div>
+      </div>
+
+    </mat-card-header>
+  </mat-card>
+  <mat-card class="mb-25 tagus-card">
+    <mat-card-header class="">
+
+      <div class="row col-md-12">
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>User:</mat-label>
+              <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="User"
+                formControlName="cityName">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Mobile No:</mat-label>
+              <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="Mobile No"
+                formControlName="cityName">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Email:</mat-label>
+              <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="Email"
+                formControlName="cityName">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Mobile Status:</mat-label>
+              <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="Mobile Status"
+                formControlName="cityName">
+            </mat-form-field>
+          </div>
+        </div>
+
+      </div>
+    </mat-card-header>
+  </mat-card>
+
+  <mat-card class="mb-25 tagus-card">
+    <mat-card-header>
+      <div class="row col-md-12">
+        <div class="d-flex align-items-center">
+          <!-- <span class="material-symbols-outlined cursor-pointer me-3">west</span> -->
+          <h5 class="mb-2 headingcolor"> &nbsp;Service Info </h5>
+        </div>
+      </div>
+
+    </mat-card-header>
+  </mat-card>
+  <mat-card class="mb-25 tagus-card">
+    <mat-card-header class="">
+
+      <div class="row col-md-12">
+        <div class="col-md-8">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Workshop:</mat-label>
+              <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="Workshop"
+                formControlName="cityName">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Pending No.:</mat-label>
+              <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="Pending No"
+                formControlName="cityName">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Booking Status:</mat-label>
+              <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="Booking Status"
+                formControlName="cityName">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Amount Debit to Client:</mat-label>
+              <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="Amount Debit to Client"
+                formControlName="cityName">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Approval No.:</mat-label>
+              <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="Approval No."
+                formControlName="cityName">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Booking Type.:</mat-label>
+              <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="Booking Type"
+                formControlName="cityName">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Amount Deduction Paid By Client/User:</mat-label>
+              <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="Amount Deduction"
+                formControlName="cityName">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Veh. Rep.Time.:</mat-label>
+              <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="Veh.Rep.Time"
+                formControlName="cityName">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-checkbox formControlName="tyreBattery" [tabIndex]="2">
+              Tyre Battery
+            </mat-checkbox>
+          </div>
+
+        </div>
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-checkbox formControlName="reimburse" [tabIndex]="2">
+              Reimburse
+            </mat-checkbox>
+          </div>
+
+        </div>
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-checkbox formControlName="managementApproval" [tabIndex]="2">
+              Management Approval
+            </mat-checkbox>
+          </div>
+
+        </div>
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Remarks:</mat-label>
+              <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="Remarks"
+                formControlName="cityName">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Booking Handling Person</mat-label>
+              <mat-select formControlName="bookingHandlingPerson" [tabIndex]="2">
+                <mat-option *ngFor="let person of bookingPersons" [value]="person">
+                  {{ person }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+        </div>
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-checkbox formControlName="shiftToAccidental" [tabIndex]="2">
+              Shift to Accidental
+            </mat-checkbox>
+          </div>
+
+        </div>
+        <div class="col-md-4">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>DIW Status:</mat-label>
+              <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="DIW Status"
+                formControlName="cityName">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-card-header>
+  </mat-card>
+  <mat-card class="col-md-12 tagus-card ">
+    <mat-tab-group class="custom-tab-header">
+      <!-- First Tab -->
+      <mat-tab label="Pickup Dropdetails">
+        <form class="mt-4">
+          <div class="container">
+            <h5>Pickup Drop</h5>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Pickup Required Y/N:</mat-label>
+                    <mat-select formControlName="pickupRequired">
+                      <mat-option value="yes">Yes</mat-option>
+                      <mat-option value="no">No</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Pickup Date:</mat-label>
+                    <input [tabIndex]="1" matInput [matDatepicker]="pickupDatePicker" formControlName="pickupDate" />
+                    <mat-datepicker-toggle matSuffix [for]="pickupDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #pickupDatePicker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                  <mat-form-field appearance="fill">
+                    <input [tabIndex]="2" matInput readonly [ngxMatTimepicker]="picker" formControlName="Pickuptime"
+                      placeholder="Pickuptime" />
+                    <ngx-mat-timepicker #picker></ngx-mat-timepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Pickup By:</mat-label>
+                    <input [tabIndex]="3" matInput formControlName="pickupBy" />
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                  <mat-form-field appearance="fill">
+                    <mat-label>SMAS (Pickup Agency):</mat-label>
+                    <input [tabIndex]="4" matInput formControlName="pickupAgency" />
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Drop By:</mat-label>
+                    <input [tabIndex]="5" matInput formControlName="dropBy" />
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                  <mat-form-field appearance="fill">
+                    <mat-label>SMAS (Drop Agency):</mat-label>
+                    <mat-select formControlName="dropAgency">
+                      <mat-option value="select">--Select--</mat-option>
+                      <mat-option value="agency1">Agency 1</mat-option>
+                      <mat-option value="agency2">Agency 2</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Pickup Address:</mat-label>
+                    <input [tabIndex]="6" matInput formControlName="pickupAddress" />
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Pickup Agency:</mat-label>
+                    <mat-select formControlName="pickupAgencyName">
+                      <mat-option value="select">--Select--</mat-option>
+                      <mat-option value="agency1">Agency 1</mat-option>
+                      <mat-option value="agency2">Agency 2</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Drop Agency Name:</mat-label>
+                    <input [tabIndex]="7" matInput formControlName="dropAgencyName" />
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Drop Address:</mat-label>
+                    <input [tabIndex]="8" matInput formControlName="dropAddress" />
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </form>
+        <form>
+          <div class="container">
+            <h5>Replacement Car Form</h5>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Required Y/N:</mat-label>
+                    <mat-select formControlName="required">
+                      <mat-option value="yes">Yes</mat-option>
+                      <mat-option value="no">No</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Dropping Date: *</mat-label>
+                    <input [tabIndex]="1" matInput [matDatepicker]="droppingDatePicker"
+                      formControlName="droppingDate" />
+                    <mat-datepicker-toggle matSuffix [for]="droppingDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #droppingDatePicker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                  <mat-form-field appearance="fill">
+                    <input [tabIndex]="2" matInput readonly [ngxMatTimepicker]="picker" formControlName="droppingTime"
+                      placeholder="Dropping Time" />
+                    <ngx-mat-timepicker #picker></ngx-mat-timepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Dropping Address:</mat-label>
+                    <input [tabIndex]="3" matInput formControlName="droppingAddress" />
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Update Replacement Agent:</mat-label>
+                    <mat-select formControlName="replacementAgent">
+                      <mat-option value="select">--Select--</mat-option>
+                      <mat-option value="agent1">Agent 1</mat-option>
+                      <mat-option value="agent2">Agent 2</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Car Category: *</mat-label>
+                    <mat-select formControlName="carCategory">
+                      <mat-option value="category1">Category 1</mat-option>
+                      <mat-option value="category2">Category 2</mat-option>
+                      <mat-option value="category3">Category 3</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Pickup Date:</mat-label>
+                    <input [tabIndex]="4" matInput [matDatepicker]="pickupDatePicker" formControlName="pickupDate" />
+                    <mat-datepicker-toggle matSuffix [for]="pickupDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #pickupDatePicker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                  <mat-form-field appearance="fill">
+                    <input [tabIndex]="2" matInput [ngxMatTimepicker]="picker" formControlName="pickuptime"
+                      placeholder="Pickup Time" />
+                    <ngx-mat-timepicker #pickuppicker></ngx-mat-timepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Pickup Address:</mat-label>
+                    <input [tabIndex]="6" matInput formControlName="pickupAddress" />
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Replacement Agent: *</mat-label>
+                    <mat-select formControlName="replacementAgentSelect">
+                      <mat-option value="select">--Select--</mat-option>
+                      <mat-option value="agent1">Agent 1</mat-option>
+                      <mat-option value="agent2">Agent 2</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Booking Ref. No:</mat-label>
+                    <input [tabIndex]="7" matInput formControlName="bookingRefNo" />
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Per Day Cost: *</mat-label>
+                    <input [tabIndex]="8" matInput type="number" formControlName="perDayCost" />
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Replacement Car Shift To Accidental Date:</mat-label>
+                    <input [tabIndex]="9" matInput [matDatepicker]="accidentalDatePicker"
+                      formControlName="replacementCarShiftDate" />
+                    <mat-datepicker-toggle matSuffix [for]="accidentalDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #accidentalDatePicker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+
+            <button mat-raised-button color="primary" type="submit" class="mb-4">Submit</button>
+          </div>
+        </form>
+
+
+      </mat-tab>
+      <!-- Second Tab -->
+      <mat-tab label="Job Description">
+        <div class="row col-md-12" style="border:1px solid lightgray">
+          <div class="container" style="max-height:450px; overflow-y:auto;">
+            <table mat-table [dataSource]="tableData" class="mat-elevation-z8">
+              <!-- Field 1 Column -->
+              <ng-container matColumnDef="voiceOfCustomers">
+                <th mat-header-cell *matHeaderCellDef>Voice of Customers </th>
+                <td mat-cell *matCellDef="let element">
+                  <mat-form-field appearance="outline">
+                    <input matInput [(ngModel)]="element.voiceOfCustomers" />
+                  </mat-form-field>
+                </td>
+              </ng-container>
+
+              <!-- Field 2 Column -->
+              <ng-container matColumnDef="jobDescription">
+                <th mat-header-cell *matHeaderCellDef> Job Description</th>
+                <td mat-cell *matCellDef="let element">
+                  <mat-form-field appearance="outline">
+                    <input matInput [(ngModel)]="element.jobDescription" />
+                  </mat-form-field>
+                </td>
+              </ng-container>
+
+              <!-- Dropdown Column -->
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef> Status </th>
+                <td mat-cell *matCellDef="let element">
+                  <mat-form-field appearance="outline">
+                    <mat-select [(ngModel)]="element.status">
+                      <mat-option *ngFor="let option of dropdownOptions" [value]="option">
+                        {{ option }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+              </ng-container>
+
+              <!-- Field 4 Column -->
+              <ng-container matColumnDef="estimate">
+                <th mat-header-cell *matHeaderCellDef> Estimate </th>
+                <td mat-cell *matCellDef="let element">
+                  <mat-form-field appearance="outline">
+                    <input matInput [(ngModel)]="element.estimate" />
+                  </mat-form-field>
+                </td>
+              </ng-container>
+
+              <!-- Header and Row Definitions -->
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+          </div>
+
+        </div>
+        <div>
+          <div class="row" style="margin-top: 20px; padding: 10px;">
+            <h3>Confirmation</h3>
+            <div class="col-md-4">
+              <div class="tagus-form-group without-icon">
+                <mat-form-field appearance="fill">
+                  <mat-label>Estimate Delivery Date:</mat-label>
+                  <input [tabIndex]="1" matInput [matDatepicker]="estimateDeliveryDatePicker"
+                    formControlName="estimateDeliveryDate" />
+                  <mat-datepicker-toggle matSuffix [for]="estimateDeliveryDatePicker"></mat-datepicker-toggle>
+                  <mat-datepicker #estimateDeliveryDatePicker></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="tagus-form-group without-icon">
+                <mat-form-field appearance="fill">
+                  <mat-label>Follow Up Date:</mat-label>
+                  <input [tabIndex]="2" matInput [matDatepicker]="followUpDatePicker" formControlName="followUpDate" />
+                  <mat-datepicker-toggle matSuffix [for]="followUpDatePicker"></mat-datepicker-toggle>
+                  <mat-datepicker #followUpDatePicker></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="tagus-form-group without-icon">
+                <mat-form-field appearance="fill">
+                  <mat-label>Job Completion Date:</mat-label>
+                  <input [tabIndex]="3" matInput [matDatepicker]="jobCompletionDatePicker"
+                    formControlName="jobCompletionDate" />
+                  <mat-datepicker-toggle matSuffix [for]="jobCompletionDatePicker"></mat-datepicker-toggle>
+                  <mat-datepicker #jobCompletionDatePicker></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="tagus-form-group without-icon">
+                <mat-form-field appearance="fill">
+                  <mat-label>Actual Delivery Date:</mat-label>
+                  <input [tabIndex]="4" matInput [matDatepicker]="actualDeliveryDatePicker"
+                    formControlName="actualDeliveryDate" />
+                  <mat-datepicker-toggle matSuffix [for]="actualDeliveryDatePicker"></mat-datepicker-toggle>
+                  <mat-datepicker #actualDeliveryDatePicker></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="tagus-form-group without-icon">
+                <mat-form-field appearance="fill">
+                  <mat-label>Phone:</mat-label>
+                  <input [tabIndex]="5" matInput formControlName="phone" />
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="tagus-form-group without-icon">
+                <mat-form-field appearance="fill">
+                  <mat-label>Estimate Time:</mat-label>
+                  <input [tabIndex]="6" matInput formControlName="estimateTime" />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="tagus-form-group without-icon">
+                <mat-form-field appearance="fill">
+                  <mat-label>Follow Up Time:</mat-label>
+                  <input [tabIndex]="7" matInput formControlName="followUpTime" />
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="tagus-form-group without-icon">
+                <mat-checkbox formControlName="serviceDone" [tabIndex]="8">
+                  Service Done
+                </mat-checkbox>
+              </div>
+
+            </div>
+
+            <div class="col-md-4">
+              <div class="tagus-form-group without-icon">
+                <mat-form-field appearance="fill">
+                  <mat-label>Actual Delivery Time:</mat-label>
+                  <input [tabIndex]="9" matInput formControlName="actualDeliveryTime" />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="tagus-form-group without-icon">
+                <mat-form-field appearance="fill">
+                  <mat-label>Total Estimate:</mat-label>
+                  <input type="number" [tabIndex]="10" matInput formControlName="totalEstimate" />
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="tagus-form-group without-icon">
+                <mat-form-field appearance="fill">
+                  <mat-label>Approved Amount:</mat-label>
+                  <input type="number" [tabIndex]="11" matInput formControlName="approvedAmount" />
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="tagus-form-group without-icon">
+                <mat-form-field appearance="fill">
+                  <mat-label>Approved By:</mat-label>
+                  <input [tabIndex]="12" matInput formControlName="approvedBy" />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="tagus-form-group without-icon">
+                <mat-form-field appearance="fill">
+                  <mat-label>Approved On:</mat-label>
+                  <input [tabIndex]="13" matInput [matDatepicker]="approvedOnPicker" formControlName="approvedOn" />
+                  <mat-datepicker-toggle matSuffix [for]="approvedOnPicker"></mat-datepicker-toggle>
+                  <mat-datepicker #approvedOnPicker></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="tagus-form-group without-icon">
+                <mat-checkbox formControlName="serviceDone" [tabIndex]="8">
+                  Send Mail
+                </mat-checkbox>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="tagus-form-group without-icon">
+                <mat-checkbox formControlName="disapproved" [tabIndex]="8">
+                  Disapproved bookings
+                </mat-checkbox>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="tagus-form-group without-icon">
+                <mat-form-field appearance="fill">
+                  <mat-label>Income:</mat-label>
+                  <input type="number" [tabIndex]="15" matInput formControlName="income" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="tagus-form-group without-icon">
+                <mat-form-field appearance="fill">
+                  <mat-label>Supervisor:</mat-label>
+                  <input [tabIndex]="5" matInput formControlName="supervisor" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="tagus-form-group without-icon">
+                <mat-checkbox formControlName="cancelbookings" [tabIndex]="8">
+                  Cancel Bookings
+                </mat-checkbox>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button mat-raised-button color="primary" type="submit" class="mb-4">Update Repl. Agent</button>
+
+      </mat-tab>
+      <!--Third-->
+      <mat-tab label="Accidental details">
+        <form class="mt-4">
+          <div class="container">
+            <h5>Accident Details</h5>
+            <div class="row col-md-12">
+              <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Accident Date:</mat-label>
+                    <input [tabIndex]="1" matInput [matDatepicker]="accidentDate" formControlName="AccidentDate" />
+                    <mat-datepicker-toggle matSuffix [for]="accidentDate"></mat-datepicker-toggle>
+                    <mat-datepicker #accidentDate></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Driver Name:</mat-label>
+                    <input matInput formControlName="driverName" />
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="tagus-form-group without-icon">
+                  <mat-form-field appearance="fill">
+                    <mat-label>DL No:</mat-label>
+                    <input matInput formControlName="dlNo" />
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="tagus-form-group without-icon">
+                    <mat-form-field appearance="fill">
+                      <input matInput [ngxMatTimepicker]="picker" ngxMatTimepickerTrigger formControlName="accidentTime"
+                        placeholder="Accident Time" />
+                      <ngx-mat-timepicker #picker></ngx-mat-timepicker>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="tagus-form-group without-icon">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Issue Date:</mat-label>
+                      <input [tabIndex]="1" matInput [matDatepicker]="issueDate" formControlName="issueDate" />
+                      <mat-datepicker-toggle matSuffix [for]="issueDate"></mat-datepicker-toggle>
+                      <mat-datepicker #issueDate></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="tagus-form-group without-icon">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Issued By:</mat-label>
+                      <input matInput formControlName="issuedBy" />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="tagus-form-group without-icon">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Accident Location:</mat-label>
+                      <input matInput formControlName="accidentLocation" />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="tagus-form-group without-icon">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Expiry Date:</mat-label>
+                      <input [tabIndex]="1" matInput [matDatepicker]="expiryDatePicker"
+                        formControlName="expiryDatePicker" />
+                      <mat-datepicker-toggle matSuffix [for]="expiryDatePicker"></mat-datepicker-toggle>
+                      <mat-datepicker #expiryDatePicker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="tagus-form-group without-icon">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Class Of Vehicle:</mat-label>
+                      <mat-select formControlName="classOfVehicle">
+                        <mat-option value="lmv-nt">LMV-NT</mat-option>
+                        <mat-option value="other">Other</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="tagus-form-group without-icon">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Accident Cause:</mat-label>
+                      <input matInput formControlName="accidentCause" />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="tagus-form-group without-icon">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Speed Of Vehicle:</mat-label>
+                      <input matInput type="number" formControlName="speedOfVehicle" />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="tagus-form-group without-icon">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Company:</mat-label>
+                      <input matInput formControlName="company" />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="tagus-form-group without-icon">
+                    <mat-form-field appearance="fill">
+                      <mat-label>TP Claim</mat-label>
+                      <input [tabIndex]="1" matInput [matDatepicker]="tpclaim" formControlName="estimateDeliveryDate" />
+                      <mat-datepicker-toggle matSuffix [for]="tpclaim"></mat-datepicker-toggle>
+                      <mat-datepicker #tpclaim></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="tagus-form-group without-icon">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Policy No:</mat-label>
+                      <input matInput formControlName="policyNo" />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="tagus-form-group without-icon">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Claim No:</mat-label>
+                      <input matInput formControlName="claimNo" />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="tagus-form-group without-icon">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Claim Date:</mat-label>
+                      <input [tabIndex]="1" matInput [matDatepicker]="claimDate"
+                        formControlName="estimateDeliveryDate" />
+                      <mat-datepicker-toggle matSuffix [for]="claimDate"></mat-datepicker-toggle>
+                      <mat-datepicker #claimDate></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="tagus-form-group without-icon">
+                    <input class="file-upload" type="file" />
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </form>
+
+      </mat-tab>
+    </mat-tab-group>
+
+
+  </mat-card>
+
+
+
+</div>

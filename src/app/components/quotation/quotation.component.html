@@ -11,7 +11,6 @@
     </div>
   </mat-card-header>
 </mat-card>
-
 <!-- Radio Button Section -->
 <div class="landing-container mt-5">
     <mat-card>
@@ -23,17 +22,15 @@
             <mat-radio-button value="flSalesLeaseback">FL Sales and Leaseback</mat-radio-button>
             <mat-radio-button value="managementOnly">Management Only</mat-radio-button>
           </mat-radio-group>
-        </div>
-  
+        </div> 
         <div class="button-group">
-          <button mat-raised-button  >Add New</button>
-          <button mat-raised-button  >Action</button>
+          <button mat-raised-button class="btn"  >Add New</button>
+          <button mat-raised-button  class="btn" >Action</button>
+          <button mat-raised-button  class="btn" >Action</button>
         </div>
       </mat-card-header>
     </mat-card>
   </div>
-  
-
 <!-- Dynamic Component Display Section -->
 <div *ngIf="selectedComponent === 'financelease'">
   <app-financelease></app-financelease>
@@ -47,17 +44,16 @@
 <div *ngIf="selectedComponent === 'managementOnly'">
   <app-managmentonly></app-managmentonly>
 </div>
-
 <!-- Form Section -->
 <mat-card class="mb-25 tagus-card mt-5">
   <mat-card-header>
     <div class="row col-md-12">
-      <div class="col-md-2">
+      <div class="col-md-2">           
         <div class="tagus-form-group without-icon">
           <mat-form-field appearance="fill">
             <mat-label>ClientName.:</mat-label>
             <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="ClientName" formControlName="cityName">
-          </mat-form-field>
+          </mat-form-field>             
         </div>
       </div>
       <div class="col-md-2">
@@ -67,7 +63,7 @@
             <input [tabIndex]="2" matInput type="text" class="form-control" placeholder="Quoteno" formControlName="cityName">
           </mat-form-field>
         </div>
-      </div>
+      </div>                              
       <div class="col-md-2">
         <div class="tagus-form-group without-icon">
           <mat-form-field appearance="fill">
@@ -76,7 +72,6 @@
           </mat-form-field>
         </div>
       </div>
-
       <div class="col-md-2">
         <div class="tagus-form-group without-icon">
           <mat-form-field appearance="fill">
@@ -85,7 +80,6 @@
           </mat-form-field>
         </div>
       </div>
-
       <div class="col-md-2">
         <div class="tagus-form-group without-icon">
           <mat-form-field appearance="fill">

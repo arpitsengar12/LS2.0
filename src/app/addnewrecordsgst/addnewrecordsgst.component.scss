@@ -1,0 +1,51 @@
+.form-card {
+    padding: 20px;
+    margin: 20px;
+  }
+  
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  
+  .grid-item {
+    width: 100%;
+  }
+  
+  .button-container {
+    margin-top: 20px;
+    text-align: right;
+  }
+  
+
+  /* Hide the actual file input */
+.file-upload-input {
+    display: none;
+  }
+  
+  /* Custom label that looks like a button */
+  .custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #007bff; /* Button background color */
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+    text-align: center;
+    width: 100%; /* Make it responsive within the col-md-3 */
+  }
+  
+  /* Hover effect for button */
+  .custom-file-upload:hover {
+    background-color: #0056b3;
+  }
+
+  .btncss{
+    background-color: cornflowerblue;
+    color:white;
+  }
+  
+ 

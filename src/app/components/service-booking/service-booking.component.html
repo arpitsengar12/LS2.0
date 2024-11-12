@@ -18,9 +18,15 @@
     <mat-card-header class="overflow-auto">
       <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-4 button-group">
         <h5 class="mb-0">Service Booking List</h5>
-        <button mat-button class="button" >Add Service Booking</button>
-        <!-- <button mat-button class="button">Add Service Booking</button> -->
-        <button mat-button class="button">Add Accidental Booking</button>
+        <mat-radio-group [(ngModel)]="selectedComponent">
+          <mat-radio-button value="financelease">Add service Booking</mat-radio-button>
+          <mat-radio-button value="operationLease">Accidental Booking</mat-radio-button>
+        </mat-radio-group>
+        <!-- <mat-radio-button [routerLink]="['/commonservicetype']" value="service-booking">Add Service Booking</mat-radio-button> -->
+
+        <button mat-raised-button color="primary" [routerLink]="['/commonservicetype']" type="submit" style="margin-left: 10px;" >Add</button>
+        <button mat-raised-button color="primary" type="submit" style="margin-left: 10px;" >Modify</button>
+        <button mat-raised-button color="primary" type="submit" style="margin-left: 10px;" >Action</button>
       </div>
       <div class="text-end d-flex justify-content-end">
         <div class="d-flex border-radius searchBox-border">

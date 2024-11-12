@@ -1,0 +1,47 @@
+
+
+  .btnn{
+    background-color: cornflowerblue;           
+    color: white ;
+    margin-left: 5px;
+   
+  }
+
+
+  .custom-tab-group .mat-mdc-tab {
+    flex-grow: 0; /* Prevent tabs from growing */
+}
+
+table {
+  width: 100%;
+  border-spacing: 0; /* Remove spacing between table cells */
+
+  /* Remove margin and padding between rows */
+  .mat-row, .mat-header-row {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Remove padding inside cells */
+  .mat-cell, .mat-header-cell {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+
+
+.custom-tab-header .mat-tab-label {
+  background-color: #4CAF50; /* Custom background color for tabs */
+  color: white; /* Text color */
+}
+
+.custom-tab-header .mat-tab-label.mat-tab-label-active {
+  background-color: #388E3C; /* Active tab background color */
+  color: white; /* Active tab text color */
+}
+
+/* Optional: Change hover color */
+.custom-tab-header .mat-tab-label:hover {
+  background-color: #45a049; /* Hover color */
+}

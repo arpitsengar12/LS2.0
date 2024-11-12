@@ -113,7 +113,10 @@ export class AssignMenuRoleComponent {
     private breadcrumbService: BreadcrumbService,
     public location: Location,
     private router: Router,
-  ) {
+  
+  ) 
+  {
+
 
     if (history.state.level) {
       this.AccessLevel = history.state.level;

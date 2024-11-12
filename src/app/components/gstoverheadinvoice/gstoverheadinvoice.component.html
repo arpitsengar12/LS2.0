@@ -1,1 +1,164 @@
-<p>gstoverheadinvoice works!</p>
+<div [ngClass]="mainThemeClass">
+    <div class="pageName-headerDiv">
+      <mat-card class="p-0 dark-theme-bg tagus-card">
+        <mat-card-header class="m-0 d-flex">
+          <div>
+            <h5 class="mb-0" [ngClass]="mainThemeClass != '' ? 'theme-text-color': 'blue'">GST Overhead Invoice</h5>
+            <div class="d-flex">
+              <span class="material-symbols-outlined cursor-pointer"> west </span>
+              <app-breadcrumb class="ms-10 mt-3"></app-breadcrumb>
+            </div>
+          </div>
+        </mat-card-header>
+      </mat-card>
+    </div>
+    <mat-card class="mb-25 tagus-card">
+      <mat-card-header>
+        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-4 button-group">
+          <h5 class="mb-0">Overhead Invoice</h5>
+          <div>
+            <button mat-raised-button color="primary" type="submit" style="margin-left: 10px;" [routerLink]="['/gstaddnewrecord']">Add New Records</button>
+          <button mat-raised-button color="primary" type="submit" style="margin-left: 10px;" >Send for Approval</button>
+          <button mat-raised-button color="primary" type="submit" style="margin-left: 10px;" >Allot</button>
+          </div>
+        </div>
+      </mat-card-header>
+      <div class="mat-elevation-z8 tagus-mat-table overflow-auto mt-20">
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+            <ng-container matColumnDef="Actions" class="d-flex">
+                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                <td mat-cell *matCellDef="let element" class="d-flex">
+                  <button mat-button value="addnewrecordsgst" [ngClass]="[mainThemeClass!='blue' ? 'dialog-save-btn': 'text-bg-info']" class="mt-10 me-15 text-white bg-danger">Modify</button>
+                  <button mat-button  [ngClass]="[mainThemeClass!='red' ? 'dialog-save-btn': 'text-bg-info']" class="mt-10 me-15 text-white">Reject</button>
+                </td>
+            </ng-container>
+          <!-- SNo Column -->
+          <ng-container matColumnDef="SNo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>S.No.</th>
+            <td mat-cell *matCellDef="let element">{{element.SNo}}</td>
+          </ng-container>
+  
+          <!-- VNo Column -->
+          <ng-container matColumnDef="VNo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>VNo</th>
+            <td mat-cell *matCellDef="let element">{{element.VNo}}</td>
+          </ng-container>
+  
+          <!-- Entry Date Column -->
+          <ng-container matColumnDef="EntryDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Entry Date</th>
+            <td mat-cell *matCellDef="let element">{{element.EntryDate | date}}</td>
+          </ng-container>
+  
+          <!-- Invoice Type Column -->
+          <ng-container matColumnDef="InvoiceType">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Invoice Type</th>
+            <td mat-cell *matCellDef="let element">{{element.InvoiceType}}</td>
+          </ng-container>
+  
+          <!-- Invoice No. Column -->
+          <ng-container matColumnDef="InvoiceNo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Invoice No.</th>
+            <td mat-cell *matCellDef="let element">{{element.InvoiceNo}}</td>
+          </ng-container>
+  
+          <!-- Invoice Date Column -->
+          <ng-container matColumnDef="InvoiceDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Invoice Date</th>
+            <td mat-cell *matCellDef="let element">{{element.InvoiceDate | date}}</td>
+          </ng-container>
+  
+          <!-- Dealer Column -->
+          <ng-container matColumnDef="Dealer">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Dealer</th>
+            <td mat-cell *matCellDef="let element">{{element.Dealer}}</td>
+          </ng-container>
+  
+          <!-- Amount Column -->
+          <ng-container matColumnDef="Amount">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Amount</th>
+            <td mat-cell *matCellDef="let element">{{element.Amount}}</td>
+          </ng-container>
+  
+          <!-- Net Amount Column -->
+          <ng-container matColumnDef="NetAmount">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Net Amount</th>
+            <td mat-cell *matCellDef="let element">{{element.NetAmount}}</td>
+          </ng-container>
+  
+          <!-- Deduction Column -->
+          <ng-container matColumnDef="Deduction">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Deduction</th>
+            <td mat-cell *matCellDef="let element">{{element.Deduction}}</td>
+          </ng-container>
+  
+          <!-- Net Payable Column -->
+          <ng-container matColumnDef="NetPayable">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Net Payable</th>
+            <td mat-cell *matCellDef="let element">{{element.NetPayable}}</td>
+          </ng-container>
+  
+          <!-- Batch No. Column -->
+          <ng-container matColumnDef="BatchNo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Batch No.</th>
+            <td mat-cell *matCellDef="let element">{{element.BatchNo}}</td>
+          </ng-container>
+  
+          <!-- Batch Date Column -->
+          <ng-container matColumnDef="BatchDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Batch Date</th>
+            <td mat-cell *matCellDef="let element">{{element.BatchDate | date}}</td>
+          </ng-container>
+  
+          <!-- Cheque No. Column -->
+          <ng-container matColumnDef="ChequeNo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Cheque No.</th>
+            <td mat-cell *matCellDef="let element">{{element.ChequeNo}}</td>
+          </ng-container>
+  
+          <!-- Cheque Date Column -->
+          <ng-container matColumnDef="ChequeDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Cheque Date</th>
+            <td mat-cell *matCellDef="let element">{{element.ChequeDate | date}}</td>
+          </ng-container>
+  
+          <!-- Cheque Amount Column -->
+          <ng-container matColumnDef="ChequeAmount">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Cheque Amount</th>
+            <td mat-cell *matCellDef="let element">{{element.ChequeAmount}}</td>
+          </ng-container>
+  
+          <!-- Cheque Remarks Column -->
+          <ng-container matColumnDef="ChequeRemarks">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Cheque Remarks</th>
+            <td mat-cell *matCellDef="let element">{{element.ChequeRemarks}}</td>
+          </ng-container>
+  
+          <!-- TDS Amount Column -->
+          <ng-container matColumnDef="TDSAmount">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>TDS Amount</th>
+            <td mat-cell *matCellDef="let element">{{element.TDSAmount}}</td>
+          </ng-container>
+  
+          <!-- TDS Percentage Column -->
+          <ng-container matColumnDef="TDSPer">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>TDS Per</th>
+            <td mat-cell *matCellDef="let element">{{element.TDSPer}}%</td>
+          </ng-container>
+  
+          <!-- Created By Column -->
+          <ng-container matColumnDef="CreatedBy">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Created By</th>
+            <td mat-cell *matCellDef="let element">{{element.CreatedBy}}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+  
+        <!-- Paginator -->
+        <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+      </div>
+    </mat-card>
+  </div>
+  

@@ -1,0 +1,507 @@
+<div class="pageName-headerDiv">
+    <mat-card class="p-0 dark-theme-bg tagus-card">
+      <mat-card-header class="m-0 d-flex">
+        <div>
+          <h5 class="mb-0" [ngClass]="mainThemeClass != '' ? 'theme-text-color': 'blue'">New Record</h5>
+          <div class="d-flex">
+            <span class="material-symbols-outlined cursor-pointer" (click)="location.back()"> west </span>
+            <app-breadcrumb class="ms-10 mt-3"></app-breadcrumb>
+          </div>
+        </div>
+      </mat-card-header>
+    </mat-card>
+  </div>
+<mat-card class="form-card">
+    <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <!-- Row 1 -->
+
+        <div class="col-md-3">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>VNo.</mat-label>
+              <input matInput formControlName="vNo" placeholder="VNo.">
+            </mat-form-field>
+          </div>
+        </div>                                
+  
+        <div class="col-md-3">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Entry Date</mat-label>
+              <input matInput [matDatepicker]="entryDatePicker" formControlName="entryDate" placeholder="Entry Date">
+              <mat-datepicker-toggle matSuffix [for]="entryDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker #entryDatePicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+  
+        <div class="col-md-3">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Type</mat-label>
+              <mat-select formControlName="type" placeholder="Type">
+                <mat-option value="">Select</mat-option>
+                <mat-option value="normal">Normal</mat-option>
+                <mat-option value="reimbursed">Reimbursed</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+  
+        <div class="col-md-3">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Dealer/Workshop</mat-label>
+              <mat-select formControlName="dealer" placeholder="Dealer/Workshop">
+                <mat-option value="">Select</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+  
+        <!-- Row 2 -->
+        <div class="col-md-3">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>SMAS State</mat-label>
+              <mat-select formControlName="smasState" placeholder="SMAS State">
+                <mat-option value="">Select</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+  
+        <div class="col-md-3">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Invoice No.</mat-label>
+              <input matInput formControlName="invoiceNo" placeholder="Invoice No.">
+            </mat-form-field>
+          </div>
+        </div>
+  
+        <div class="col-md-3">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Invoice Date</mat-label>
+              <input matInput [matDatepicker]="invoiceDatePicker" formControlName="invoiceDate" placeholder="Invoice Date">
+              <mat-datepicker-toggle matSuffix [for]="invoiceDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker #invoiceDatePicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+  
+        <div class="col-md-3">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Transaction Type</mat-label>
+              <mat-select formControlName="transactionType" placeholder="Transaction Type">
+                <mat-option value="invoice">INVOICE</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+  
+        <!-- Row 3 -->
+        <div class="col-md-3">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Payment Type</mat-label>
+              <mat-select formControlName="paymentType" placeholder="Payment Type">
+                <mat-option value="normal">Normal</mat-option>
+                <mat-option value="advance">Advance Payment</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+  
+        <div class="col-md-3">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>HSN Code</mat-label>
+              <input matInput formControlName="hsnCode" placeholder="HSN Code">
+            </mat-form-field>
+          </div>
+        </div>
+  
+        <div class="col-md-3">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Invoice Amount</mat-label>
+              <input matInput formControlName="invoiceAmount" type="number" placeholder="Invoice Amount">
+            </mat-form-field>
+          </div>
+        </div>
+  
+        <div class="col-md-3">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>CGST</mat-label>
+              <input matInput formControlName="cgst" type="number" placeholder="CGST">
+            </mat-form-field>
+          </div>
+        </div>
+  
+        <!-- Row 4 -->
+        <div class="col-md-3">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>SGST</mat-label>
+              <input matInput formControlName="sgst" type="number" placeholder="SGST">
+            </mat-form-field>
+          </div>
+        </div>
+  
+        <div class="col-md-3">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>IGST</mat-label>
+              <input matInput formControlName="igst" type="number" placeholder="IGST">
+            </mat-form-field>
+          </div>
+        </div>
+  
+        <div class="col-md-3">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Department Name</mat-label>
+              <mat-select formControlName="department" placeholder="Department Name">
+                <mat-option value="">Select</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+  
+        <div class="col-md-3">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Incharge Name</mat-label>
+              <mat-select formControlName="incharge" placeholder="Incharge Name">
+                <mat-option value="">Select</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+  
+        <!-- Row 5 -->
+        <div class="col-md-3">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Invoice Received Date</mat-label>
+              <input matInput [matDatepicker]="receivedDatePicker" formControlName="receivedDate" placeholder="Invoice Received Date">
+              <mat-datepicker-toggle matSuffix [for]="receivedDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker #receivedDatePicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-3">
+            <div class="tagus-form-group without-icon">
+                <mat-form-field appearance="fill">
+                  <mat-label>Approved By</mat-label>
+                  <mat-select formControlName="department" placeholder="Department Name">
+                    <mat-option value="">Select</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+        </div>
+        <div class="col-md-3">
+          <div class="tagus-form-group without-icon">
+            <mat-form-field appearance="fill">
+              <mat-label>Payment Required Date</mat-label>
+              <input matInput [matDatepicker]="paymentRequiredDatePicker" formControlName="paymentRequiredDate" placeholder="Payment Required Date">
+              <mat-datepicker-toggle matSuffix [for]="paymentRequiredDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker #paymentRequiredDatePicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="tagus-form-group without-icon">
+              <mat-form-field appearance="fill">
+                <mat-label>Net Amount</mat-label>
+                <input matInput formControlName="netAmount" type="number" placeholder="Net Amount" value="0">
+              </mat-form-field>
+            </div>
+          </div>
+    
+          <div class="col-md-3">
+            <div class="tagus-form-group without-icon">
+              <mat-form-field appearance="fill">
+                <mat-label>Deduction</mat-label>
+                <input matInput formControlName="deduction" type="number" placeholder="Deduction" value="0">
+              </mat-form-field>
+            </div>
+          </div>
+    
+          <div class="col-md-3">
+            <div class="tagus-form-group without-icon">
+              <mat-form-field appearance="fill">
+                <mat-label>Other Charges</mat-label>
+                <input matInput formControlName="otherCharges" type="number" placeholder="Other Charges" value="0">
+              </mat-form-field>
+            </div>
+          </div>
+    
+          <div class="col-md-3">
+            <div class="tagus-form-group without-icon">
+              <mat-form-field appearance="fill">
+                <mat-label>Net Payable</mat-label>
+                <input matInput formControlName="netPayable" type="number" placeholder="Net Payable" value="0">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="tagus-form-group without-icon">
+              <mat-form-field appearance="fill">
+                <mat-label>Turn Over</mat-label>
+                <input matInput formControlName="turnover" type="number" placeholder="Turnover" value="0">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="tagus-form-group without-icon">
+              <mat-form-field appearance="fill">
+                <mat-label>E Invoice Opt:</mat-label>
+                <input matInput formControlName="einvoice" type="number" placeholder="E-Invoice" value="0">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="tagus-form-group without-icon">
+              <!-- <label for="file-upload" class="form-label">Upload Invoice</label> -->
+              <input id="file-upload" class="form-control file-upload" type="file">
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="tagus-form-group without-icon">
+              <!-- <label for="file-upload" class="form-label">Upload Invoice</label> -->
+              <button mat-raised-button color="primary"  style="margin-left: 10px;" >Upload Documents</button>
+            </div>
+          </div>        
+        </div>
+        <div class="row">
+            <div style="background-color: lightgray;padding: 10px;margin-bottom:15px; border-radius: 5px;">
+            <h4>Calculate Details</h4></div>
+            <div class="col-md-3">
+              <div class="tagus-form-group without-icon">
+                <mat-form-field appearance="fill">
+                  <mat-label>Total Amount</mat-label>
+                  <input matInput formControlName="totalAmount" type="number" placeholder="Total Amount" value="0">
+                </mat-form-field>
+              </div>
+            </div>
+          
+            <div class="col-md-3">
+              <div class="tagus-form-group without-icon">
+                <mat-form-field appearance="fill">
+                  <mat-label>Total CGST</mat-label>
+                  <input matInput formControlName="totalCGST" type="number" placeholder="Total CGST" value="0">
+                </mat-form-field>
+              </div>
+            </div>
+          
+            <div class="col-md-3">
+              <div class="tagus-form-group without-icon">
+                <mat-form-field appearance="fill">
+                  <mat-label>Total SGST</mat-label>
+                  <input matInput formControlName="totalSGST" type="number" placeholder="Total SGST" value="0">
+                </mat-form-field>
+              </div>
+            </div>
+          
+            <div class="col-md-3">
+              <div class="tagus-form-group without-icon">
+                <mat-form-field appearance="fill">
+                  <mat-label>Total IGST</mat-label>
+                  <input matInput formControlName="totalIGST" type="number" placeholder="Total IGST" value="0">
+                </mat-form-field>
+              </div>
+            </div>
+          
+            <div class="col-md-3">
+              <div class="tagus-form-group without-icon">
+                <mat-form-field appearance="fill">
+                  <mat-label>Total UTGST</mat-label>
+                  <input matInput formControlName="totalUTGST" type="number" placeholder="Total UTGST" value="0">
+                </mat-form-field>
+              </div>
+            </div>
+          
+            <div class="col-md-3">
+              <div class="tagus-form-group without-icon">
+                <mat-form-field appearance="fill">
+                  <mat-label>Total CESS</mat-label>
+                  <input matInput formControlName="totalCESS" type="number" placeholder="Total CESS" value="0">
+                </mat-form-field>
+              </div>
+            </div>
+          
+            <div class="col-md-3">
+              <div class="tagus-form-group without-icon">
+                <mat-form-field appearance="fill">
+                  <mat-label>Net Amount</mat-label>
+                  <input matInput formControlName="netAmount" type="number" placeholder="Net Amount" value="0">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          
+          <!-- [disabled]="!invoiceForm.valid" -->
+
+    </form>
+
+    <div class="mat-elevation-z8 tagus-mat-table overflow-auto mt-20">
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        
+        <ng-container matColumnDef="check">
+          <th mat-header-cell *matHeaderCellDef>Check</th>
+          <td mat-cell *matCellDef="let element">
+            <mat-checkbox [(ngModel)]="element.checked"></mat-checkbox>
+          </td>
+        </ng-container>
+        
+
+        <!-- SNo Column -->
+        <ng-container matColumnDef="sno">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> SNo </th>
+          <td mat-cell *matCellDef="let element"> {{element.sno}} </td>
+        </ng-container>
+    
+        <!-- Invoice Type Column -->
+        <ng-container matColumnDef="invoiceType">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Invoice Type </th>
+          <td mat-cell *matCellDef="let element">
+            <mat-form-field>
+              <mat-select [(ngModel)]="element.invoiceType">
+                <mat-option *ngFor="let type of invoiceTypes" [value]="type">{{ type }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </ng-container>
+        
+    
+        <!-- VNo Column -->
+        <ng-container matColumnDef="vNo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> VNo </th>
+          <td mat-cell *matCellDef="let element"> {{element.vNo}} </td>
+        </ng-container>
+    
+        <!-- Description Column -->
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+          <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+        </ng-container>
+    
+        <!-- From Column -->
+        <ng-container matColumnDef="from">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>From</th>
+          <td mat-cell *matCellDef="let element">
+            <mat-form-field>
+              <input matInput [(ngModel)]="element.from" [matDatepicker]="fromPicker">
+              <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+              <mat-datepicker #fromPicker></mat-datepicker>
+            </mat-form-field>
+          </td>
+        </ng-container>
+    
+        <!-- To Column -->
+        <ng-container matColumnDef="to">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>To</th>
+          <td mat-cell *matCellDef="let element">
+            <mat-form-field>
+              <input matInput [(ngModel)]="element.to" [matDatepicker]="toPicker">
+              <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+              <mat-datepicker #toPicker></mat-datepicker>
+            </mat-form-field>
+          </td>
+        </ng-container>
+    
+        <!-- Days Column -->
+        <ng-container matColumnDef="days">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Days </th>
+          <td mat-cell *matCellDef="let element"> {{element.days}} </td>
+        </ng-container>
+    
+        <!-- Amount Column -->
+        <ng-container matColumnDef="amount">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Amount </th>
+          <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+        </ng-container>
+    
+        <!-- CGST Column -->
+        <ng-container matColumnDef="cgst">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> CGST </th>
+          <td mat-cell *matCellDef="let element"> {{element.cgst}} </td>
+        </ng-container>
+    
+        <!-- SGST Column -->
+        <ng-container matColumnDef="sgst">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> SGST </th>
+          <td mat-cell *matCellDef="let element"> {{element.sgst}} </td>
+        </ng-container>
+    
+        <!-- IGST Column -->
+        <ng-container matColumnDef="igst">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> IGST </th>
+          <td mat-cell *matCellDef="let element"> {{element.igst}} </td>
+        </ng-container>
+    
+        <!-- UTGST Column -->
+        <ng-container matColumnDef="utgst">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> UTGST </th>
+          <td mat-cell *matCellDef="let element"> {{element.utgst}} </td>
+        </ng-container>
+    
+        <!-- CESS Column -->
+        <ng-container matColumnDef="cess">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> CESS </th>
+          <td mat-cell *matCellDef="let element"> {{element.cess}} </td>
+        </ng-container>
+    
+        <!-- Net Amount Column -->
+        <ng-container matColumnDef="netAmount">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Net Amount </th>
+          <td mat-cell *matCellDef="let element"> {{element.netAmount}} </td>
+        </ng-container>
+    
+        <!-- Remarks Column -->
+        <ng-container matColumnDef="remarks">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Remarks </th>
+          <td mat-cell *matCellDef="let element"> {{element.remarks}} </td>
+        </ng-container>
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef>Action</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-button class="btncss" (click)="deleteRecord(element)">Delete</button>
+          </td>
+        </ng-container>
+        
+    
+        <!-- Table Row -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+    
+      <!-- Paginator -->
+      <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+
+    </div>
+    <div class="row justify-content-end">
+      <div class="button-container">
+        <button mat-raised-button color="primary" type="submit" >Save All</button>
+      </div> 
+    </div>
+    
+    
+    
+
+  </mat-card>
+
+
+
+  
+  
